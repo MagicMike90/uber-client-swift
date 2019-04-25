@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina5_5" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,39 +15,39 @@
             <objects>
                 <viewController storyboardIdentifier="HomeVC" id="BYZ-38-t0r" customClass="HomeVC" customModule="uber_clone" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fFE-OZ-Ktg">
-                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="61l-yY-Sbb" customClass="GradientView" customModule="uber_clone" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="414" height="130"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="130"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="130" id="2PJ-dX-O09"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="68" translatesAutoresizingMaskIntoConstraints="NO" id="HN7-iM-ooW">
-                                <rect key="frame" x="15" y="40" width="384" height="35"/>
+                                <rect key="frame" x="15" y="40" width="345" height="35"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mI4-50-3v8">
-                                        <rect key="frame" x="0.0" y="5.6666666666666643" width="30" height="24"/>
+                                        <rect key="frame" x="0.0" y="5.5" width="30" height="24"/>
                                         <state key="normal" image="menuSliderBtn"/>
                                         <connections>
                                             <action selector="menuBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="M1Q-qO-O9A"/>
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m2k-Du-mIL">
-                                        <rect key="frame" x="127.33333333333336" y="0.6666666666666643" width="129.66666666666663" height="33.666666666666664"/>
+                                        <rect key="frame" x="107.5" y="0.5" width="130" height="34"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HTCH" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ap3-B6-kNx">
-                                                <rect key="frame" x="0.0" y="0.0" width="71.333333333333329" height="33.666666666666664"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="71.5" height="34"/>
                                                 <fontDescription key="fontDescription" name="OriyaSangamMN-Bold" family="Oriya Sangam MN" pointSize="22"/>
                                                 <color key="textColor" red="1" green="0.34814128995979143" blue="0.17618715541565466" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HKR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0dk-BZ-82b">
-                                                <rect key="frame" x="71.333333333333314" y="0.0" width="58.333333333333343" height="33.666666666666664"/>
+                                                <rect key="frame" x="71.5" y="0.0" width="58.5" height="34"/>
                                                 <fontDescription key="fontDescription" name="OriyaSangamMN-Bold" family="Oriya Sangam MN" pointSize="24"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -55,7 +55,7 @@
                                         </subviews>
                                     </stackView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sample-photo" translatesAutoresizingMaskIntoConstraints="NO" id="6Q3-Aq-O1a" customClass="RoundImageView" customModule="uber_clone" customModuleProvider="target">
-                                        <rect key="frame" x="354" y="2.6666666666666643" width="30" height="30"/>
+                                        <rect key="frame" x="315" y="2.5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="3Rh-7e-vmU"/>
                                             <constraint firstAttribute="width" constant="30" id="5OX-iH-mo8"/>
@@ -67,7 +67,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pyx-Zb-ewc">
-                                <rect key="frame" x="354" y="564" width="60" height="60"/>
+                                <rect key="frame" x="315" y="495" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="2Sx-hv-Sb3"/>
                                     <constraint firstAttribute="width" constant="60" id="eDE-X3-u5F"/>
@@ -75,16 +75,16 @@
                                 <state key="normal" image="centerMapBtn"/>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6B8-Om-725" customClass="RoundedShadowView" customModule="uber_clone" customModuleProvider="target">
-                                <rect key="frame" x="15" y="90" width="384" height="120"/>
+                                <rect key="frame" x="15" y="90" width="345" height="120"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="g0m-96-xTt">
-                                        <rect key="frame" x="15" y="15" width="354" height="90"/>
+                                        <rect key="frame" x="15" y="15" width="315" height="90"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="SzS-wV-xOw">
-                                                <rect key="frame" x="0.0" y="0.0" width="354" height="35"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="315" height="35"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Llo-nU-xC8" customClass="CircleView" customModule="uber_clone" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="12.666666666666671" width="10" height="10"/>
+                                                        <rect key="frame" x="0.0" y="12.5" width="10" height="10"/>
                                                         <color key="backgroundColor" red="0.30291647915972253" green="1" blue="0.43608474301814482" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="10" id="Oav-NB-URm"/>
@@ -97,7 +97,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="My location" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="vHt-xV-nms">
-                                                        <rect key="frame" x="20" y="0.0" width="334" height="35"/>
+                                                        <rect key="frame" x="20" y="0.0" width="295" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="7fZ-oA-wHk"/>
                                                         </constraints>
@@ -108,17 +108,17 @@
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R4f-5R-y6i" userLabel="Divider">
-                                                <rect key="frame" x="0.0" y="44.666666666666657" width="354" height="1"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="315" height="1"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="SKp-Vh-2O3"/>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Xs0-sh-Y6T">
-                                                <rect key="frame" x="0.0" y="55" width="354" height="35"/>
+                                                <rect key="frame" x="0.0" y="55" width="315" height="35"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ii-dz-Wt5" customClass="CircleView" customModule="uber_clone" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="12.666666666666657" width="10" height="10"/>
+                                                        <rect key="frame" x="0.0" y="12.5" width="10" height="10"/>
                                                         <color key="backgroundColor" red="0.81202776166441526" green="0.81202776166441526" blue="0.81202776166441526" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="10" id="iuu-02-Byo"/>
@@ -131,7 +131,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Where are you going?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5w3-Yl-je0">
-                                                        <rect key="frame" x="20" y="0.0" width="334" height="35"/>
+                                                        <rect key="frame" x="20" y="0.0" width="295" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="iRX-EP-WZh"/>
                                                         </constraints>
@@ -157,10 +157,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2e8-Ao-Snk" userLabel="Button Button View">
-                                <rect key="frame" x="0.0" y="646" width="414" height="60"/>
+                                <rect key="frame" x="0.0" y="577" width="375" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EDn-vy-ZJm" customClass="RoundedShadowButton" customModule="uber_clone" customModuleProvider="target">
-                                        <rect key="frame" x="15" y="0.0" width="384" height="60"/>
+                                        <rect key="frame" x="15" y="0.0" width="345" height="60"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="22"/>
                                         <state key="normal" title="CONFIRM REQUEST">
@@ -216,14 +216,14 @@
             <objects>
                 <viewController storyboardIdentifier="LeftSidePanelVC" id="MYM-fO-q8B" customClass="LeftSidePanelVC" customModule="uber_clone" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gVe-iv-SQD">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GJh-6d-lOo">
-                                <rect key="frame" x="0.0" y="20" width="414" height="60"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="60"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tOd-FY-KTU">
-                                        <rect key="frame" x="15" y="15" width="399" height="30"/>
+                                        <rect key="frame" x="15" y="15" width="360" height="30"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="25"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -271,7 +271,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5Z-Be-fUP">
-                                <rect key="frame" x="15" y="673" width="399" height="33"/>
+                                <rect key="frame" x="15" y="604" width="360" height="33"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                 <state key="normal" title="Sign Up/Login">
                                     <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -304,42 +304,42 @@
             <objects>
                 <viewController storyboardIdentifier="LoginVC" id="PVr-dx-jdk" customClass="LoginVC" customModule="uber_clone" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zuR-VU-ICM">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="windingRoad" translatesAutoresizingMaskIntoConstraints="NO" id="8Hq-MU-C7w">
-                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
+                                <rect key="frame" x="0.0" y="20" width="375.00000000000045" height="647"/>
                             </imageView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mK8-lx-1qM">
-                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="OJp-Tj-Ecb">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2OJ-kK-vua" userLabel="InnerContainer" customClass="RoundedShadowButton" customModule="uber_clone" customModuleProvider="target">
-                                            <rect key="frame" x="15" y="15" width="384" height="686"/>
+                                            <rect key="frame" x="15" y="15" width="345" height="617"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OuV-kP-0Eu">
-                                                    <rect key="frame" x="0.0" y="0.0" width="16" height="22"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="32" height="31"/>
                                                     <state key="normal" image="cancelBtn"/>
                                                     <connections>
                                                         <action selector="cancelBtnPressed:" destination="PVr-dx-jdk" eventType="touchUpInside" id="YJY-fb-h6o"/>
                                                     </connections>
                                                 </button>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Bhh-gZ-YNM">
-                                                    <rect key="frame" x="0.0" y="72" width="384" height="160"/>
+                                                    <rect key="frame" x="0.0" y="81" width="345" height="160"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="BYc-KT-7B4">
-                                                            <rect key="frame" x="0.0" y="0.0" width="384" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="345" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HTCH" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CgQ-Wc-5oC">
-                                                                    <rect key="frame" x="0.0" y="4.6666666666666714" width="192" height="31"/>
+                                                                    <rect key="frame" x="0.0" y="4.5" width="172.5" height="31"/>
                                                                     <fontDescription key="fontDescription" name="OriyaSangamMN-Bold" family="Oriya Sangam MN" pointSize="22"/>
                                                                     <color key="textColor" red="1" green="0.34814128999999999" blue="0.17618715539999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="HKR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JkY-sn-4b6">
-                                                                    <rect key="frame" x="192" y="3.3333333333333286" width="192" height="33.666666666666664"/>
+                                                                    <rect key="frame" x="172.5" y="3" width="172.5" height="34"/>
                                                                     <fontDescription key="fontDescription" name="OriyaSangamMN-Bold" family="Oriya Sangam MN" pointSize="24"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -347,13 +347,13 @@
                                                             </subviews>
                                                         </stackView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up or login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WAs-rJ-Ez6">
-                                                            <rect key="frame" x="0.0" y="60" width="384" height="40"/>
+                                                            <rect key="frame" x="0.0" y="60" width="345" height="40"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="CVd-fg-nWn">
-                                                            <rect key="frame" x="0.0" y="120" width="384" height="41"/>
+                                                            <rect key="frame" x="0.0" y="120" width="345" height="41"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="ndc-hP-g1S"/>
@@ -367,10 +367,10 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="qvi-Pq-3tM">
-                                                    <rect key="frame" x="0.0" y="282" width="384" height="105"/>
+                                                    <rect key="frame" x="0.0" y="291" width="345" height="105"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fuw-f8-EGA" customClass="RoundedConnerTextField" customModule="uber_clone" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="384" height="50"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="345" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="bXz-Y8-vqd"/>
                                                             </constraints>
@@ -379,7 +379,7 @@
                                                             <textInputTraits key="textInputTraits"/>
                                                         </textField>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GVc-h6-RZa" customClass="RoundedConnerTextField" customModule="uber_clone" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="55" width="384" height="50"/>
+                                                            <rect key="frame" x="0.0" y="55" width="345" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="yXy-B5-Oxk"/>
                                                             </constraints>
@@ -390,10 +390,10 @@
                                                     </subviews>
                                                 </stackView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="75H-oR-Klx" userLabel="Button Button View">
-                                                    <rect key="frame" x="0.0" y="611" width="384" height="60"/>
+                                                    <rect key="frame" x="0.0" y="542" width="345" height="60"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eEX-rX-bAs" customClass="RoundedShadowButton" customModule="uber_clone" customModuleProvider="target">
-                                                            <rect key="frame" x="15" y="0.0" width="354" height="60"/>
+                                                            <rect key="frame" x="15" y="0.0" width="315" height="60"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="22"/>
                                                             <state key="normal" title="SIGN UP / LOGIN">
