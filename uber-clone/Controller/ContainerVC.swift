@@ -27,7 +27,13 @@ class ContainerVC: UIViewController {
     var centerController: UIViewController!
     var tag: UITapGestureRecognizer!
     
-    var currentState: SlideOutState = .collapsed
+    var currentState: SlideOutState = .collapsed {
+        didSet {
+            let shouldShowShadow = currentState != .collapsed
+            
+            shouldShowShadowForCenterVC(shouldShowShadow)
+        }
+    }
     
     var isHidden: Bool = false
     let centerPanelExpanedOffset: CGFloat = 160
@@ -118,9 +124,8 @@ extension ContainerVC : CenterVCDelegate {
         whiteCoverView.tag = 25
         
         self.centerController.view.addSubview(whiteCoverView)
-        UIView.animate(withDuration: 0.3) {
-            whiteCoverView.alpha = 0.75
-        }
+        whiteCoverView.fadeTo(alphaValue: 0.75, withDuration: 0.2)
+
         
         // for gesture
         tag = UITapGestureRecognizer(target: self, action: #selector(animateLeftPanel(shouldexpand:)))
@@ -139,6 +144,14 @@ extension ContainerVC : CenterVCDelegate {
                     subview.removeFromSuperview()
                 }
             }
+        }
+    }
+    
+    func shouldShowShadowForCenterVC(_ status: Bool) {
+        if status == true {
+            centerController.view.layer.shadowOpacity = 0.6
+        } else {
+            centerController.view.layer.shadowOpacity = 0.0
         }
     }
     
