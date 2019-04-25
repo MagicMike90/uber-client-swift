@@ -7,14 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		342D9BB7227136DE00C901A0 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BB6227136DE00C901A0 /* GradientView.swift */; };
+		342D9BB922713AF000C901A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34B54B9C2270807E00E6C1A0 /* Assets.xcassets */; };
+		342D9BBD22713C1D00C901A0 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BBC22713C1D00C901A0 /* RoundImageView.swift */; };
+		342D9BBF22713D6C00C901A0 /* RoundedShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BBE22713D6C00C901A0 /* RoundedShadowView.swift */; };
+		342D9BC122713E6B00C901A0 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BC022713E6B00C901A0 /* CircleView.swift */; };
+		342D9BC32271437500C901A0 /* RoundedShadowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BC22271437500C901A0 /* RoundedShadowButton.swift */; };
 		34B54B962270807D00E6C1A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B54B952270807D00E6C1A0 /* AppDelegate.swift */; };
 		34B54B982270807D00E6C1A0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B54B972270807D00E6C1A0 /* ViewController.swift */; };
 		34B54B9B2270807D00E6C1A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34B54B992270807D00E6C1A0 /* Main.storyboard */; };
-		34B54B9D2270807E00E6C1A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34B54B9C2270807E00E6C1A0 /* Assets.xcassets */; };
 		34B54BA02270807E00E6C1A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34B54B9E2270807E00E6C1A0 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		342D9BB6227136DE00C901A0 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		342D9BBC22713C1D00C901A0 /* RoundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
+		342D9BBE22713D6C00C901A0 /* RoundedShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShadowView.swift; sourceTree = "<group>"; };
+		342D9BC022713E6B00C901A0 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
+		342D9BC22271437500C901A0 /* RoundedShadowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShadowButton.swift; sourceTree = "<group>"; };
 		34B54B922270807D00E6C1A0 /* uber-clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "uber-clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		34B54B952270807D00E6C1A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		34B54B972270807D00E6C1A0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,6 +45,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		342D9BB32271360300C901A0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		342D9BB42271364500C901A0 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		342D9BB5227136AC00C901A0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				342D9BB6227136DE00C901A0 /* GradientView.swift */,
+				342D9BBC22713C1D00C901A0 /* RoundImageView.swift */,
+				342D9BBE22713D6C00C901A0 /* RoundedShadowView.swift */,
+				342D9BC022713E6B00C901A0 /* CircleView.swift */,
+				342D9BC22271437500C901A0 /* RoundedShadowButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		34B54B892270807D00E6C1A0 = {
 			isa = PBXGroup;
 			children = (
@@ -54,6 +90,9 @@
 		34B54B942270807D00E6C1A0 /* uber-clone */ = {
 			isa = PBXGroup;
 			children = (
+				342D9BB5227136AC00C901A0 /* View */,
+				342D9BB42271364500C901A0 /* Controller */,
+				342D9BB32271360300C901A0 /* Model */,
 				34B54B952270807D00E6C1A0 /* AppDelegate.swift */,
 				34B54B972270807D00E6C1A0 /* ViewController.swift */,
 				34B54B992270807D00E6C1A0 /* Main.storyboard */,
@@ -123,7 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				34B54BA02270807E00E6C1A0 /* LaunchScreen.storyboard in Resources */,
-				34B54B9D2270807E00E6C1A0 /* Assets.xcassets in Resources */,
+				342D9BB922713AF000C901A0 /* Assets.xcassets in Resources */,
 				34B54B9B2270807D00E6C1A0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -135,8 +174,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				342D9BC32271437500C901A0 /* RoundedShadowButton.swift in Sources */,
+				342D9BC122713E6B00C901A0 /* CircleView.swift in Sources */,
 				34B54B982270807D00E6C1A0 /* ViewController.swift in Sources */,
+				342D9BBD22713C1D00C901A0 /* RoundImageView.swift in Sources */,
+				342D9BBF22713D6C00C901A0 /* RoundedShadowView.swift in Sources */,
 				34B54B962270807D00E6C1A0 /* AppDelegate.swift in Sources */,
+				342D9BB7227136DE00C901A0 /* GradientView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,7 +327,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F2G74YVFQN;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "uber-clone/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -292,7 +336,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.magicmike.uber-clone";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -301,7 +345,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F2G74YVFQN;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "uber-clone/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -310,7 +354,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.magicmike.uber-clone";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

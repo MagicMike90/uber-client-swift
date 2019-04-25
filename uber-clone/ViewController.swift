@@ -10,11 +10,16 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var actionBtn: RoundedShadowButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
 
-
+    @IBAction func actionButtonWasPressed(_ sender: Any) {
+        actionBtn.animateButton(shouldLoad: true, withMessage: nil)
+    }
+    
 }
 
