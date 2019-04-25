@@ -17,14 +17,10 @@ class LeftSidePanelVC: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func SignUpBtnPressed(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let loginVC =  storyboard.instantiateViewController(withIdentifier: "LoginVC") as? LoginVC
+        
+        present(loginVC!,animated: true, completion: nil)
     }
-    */
-
 }
