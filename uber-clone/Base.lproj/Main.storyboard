@@ -84,11 +84,11 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="315" height="35"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Llo-nU-xC8" customClass="CircleView" customModule="uber_clone" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="10" width="15" height="15"/>
+                                                        <rect key="frame" x="0.0" y="12.666666666666671" width="10" height="10"/>
                                                         <color key="backgroundColor" red="0.30291647915972253" green="1" blue="0.43608474301814482" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="15" id="Oav-NB-URm"/>
-                                                            <constraint firstAttribute="height" constant="15" id="oNf-1h-3pm"/>
+                                                            <constraint firstAttribute="width" constant="10" id="Oav-NB-URm"/>
+                                                            <constraint firstAttribute="height" constant="10" id="oNf-1h-3pm"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
@@ -97,7 +97,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="My location" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="vHt-xV-nms">
-                                                        <rect key="frame" x="25" y="0.0" width="290" height="35"/>
+                                                        <rect key="frame" x="20" y="0.0" width="295" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="7fZ-oA-wHk"/>
                                                         </constraints>
@@ -118,11 +118,11 @@
                                                 <rect key="frame" x="0.0" y="46" width="315" height="35"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ii-dz-Wt5" customClass="CircleView" customModule="uber_clone" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="10" width="15" height="15"/>
+                                                        <rect key="frame" x="0.0" y="12.666666666666657" width="10" height="10"/>
                                                         <color key="backgroundColor" red="0.81202776166441526" green="0.81202776166441526" blue="0.81202776166441526" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="15" id="iuu-02-Byo"/>
-                                                            <constraint firstAttribute="height" constant="15" id="zgc-YU-Cwn"/>
+                                                            <constraint firstAttribute="width" constant="10" id="iuu-02-Byo"/>
+                                                            <constraint firstAttribute="height" constant="10" id="zgc-YU-Cwn"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
@@ -131,7 +131,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Where are you going?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5w3-Yl-je0">
-                                                        <rect key="frame" x="25" y="0.0" width="290" height="35"/>
+                                                        <rect key="frame" x="20" y="0.0" width="295" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="iRX-EP-WZh"/>
                                                         </constraints>
