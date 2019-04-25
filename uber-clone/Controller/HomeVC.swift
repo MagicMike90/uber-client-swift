@@ -8,9 +8,11 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class HomeVC: UIViewController {
 
     @IBOutlet weak var actionBtn: RoundedShadowButton!
+    
+    var delegate: CenterVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,5 +23,8 @@ class ViewController: UIViewController {
         actionBtn.animateButton(shouldLoad: true, withMessage: nil)
     }
     
+    @IBAction func menuBtnPressed(_ sender: Any) {
+        delegate?.toggleLeftPanel()
+    }
 }
 

@@ -13,8 +13,11 @@
 		342D9BBF22713D6C00C901A0 /* RoundedShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BBE22713D6C00C901A0 /* RoundedShadowView.swift */; };
 		342D9BC122713E6B00C901A0 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BC022713E6B00C901A0 /* CircleView.swift */; };
 		342D9BC32271437500C901A0 /* RoundedShadowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BC22271437500C901A0 /* RoundedShadowButton.swift */; };
+		342D9BC5227185C100C901A0 /* LeftSidePanelVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BC4227185C100C901A0 /* LeftSidePanelVC.swift */; };
+		342D9BC72271868300C901A0 /* ContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BC62271868300C901A0 /* ContainerVC.swift */; };
+		342D9BCA2271890F00C901A0 /* CenterVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BC92271890F00C901A0 /* CenterVCDelegate.swift */; };
 		34B54B962270807D00E6C1A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B54B952270807D00E6C1A0 /* AppDelegate.swift */; };
-		34B54B982270807D00E6C1A0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B54B972270807D00E6C1A0 /* ViewController.swift */; };
+		34B54B982270807D00E6C1A0 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B54B972270807D00E6C1A0 /* HomeVC.swift */; };
 		34B54B9B2270807D00E6C1A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34B54B992270807D00E6C1A0 /* Main.storyboard */; };
 		34B54BA02270807E00E6C1A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34B54B9E2270807E00E6C1A0 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -25,9 +28,12 @@
 		342D9BBE22713D6C00C901A0 /* RoundedShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShadowView.swift; sourceTree = "<group>"; };
 		342D9BC022713E6B00C901A0 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		342D9BC22271437500C901A0 /* RoundedShadowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShadowButton.swift; sourceTree = "<group>"; };
+		342D9BC4227185C100C901A0 /* LeftSidePanelVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftSidePanelVC.swift; sourceTree = "<group>"; };
+		342D9BC62271868300C901A0 /* ContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerVC.swift; sourceTree = "<group>"; };
+		342D9BC92271890F00C901A0 /* CenterVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterVCDelegate.swift; sourceTree = "<group>"; };
 		34B54B922270807D00E6C1A0 /* uber-clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "uber-clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		34B54B952270807D00E6C1A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		34B54B972270807D00E6C1A0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		34B54B972270807D00E6C1A0 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		34B54B9A2270807D00E6C1A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		34B54B9C2270807E00E6C1A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		34B54B9F2270807E00E6C1A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -55,6 +61,9 @@
 		342D9BB42271364500C901A0 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				34B54B972270807D00E6C1A0 /* HomeVC.swift */,
+				342D9BC4227185C100C901A0 /* LeftSidePanelVC.swift */,
+				342D9BC62271868300C901A0 /* ContainerVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -69,6 +78,14 @@
 				342D9BC22271437500C901A0 /* RoundedShadowButton.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		342D9BC8227188EB00C901A0 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				342D9BC92271890F00C901A0 /* CenterVCDelegate.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		34B54B892270807D00E6C1A0 = {
@@ -90,11 +107,11 @@
 		34B54B942270807D00E6C1A0 /* uber-clone */ = {
 			isa = PBXGroup;
 			children = (
+				342D9BC8227188EB00C901A0 /* Protocols */,
 				342D9BB5227136AC00C901A0 /* View */,
 				342D9BB42271364500C901A0 /* Controller */,
 				342D9BB32271360300C901A0 /* Model */,
 				34B54B952270807D00E6C1A0 /* AppDelegate.swift */,
-				34B54B972270807D00E6C1A0 /* ViewController.swift */,
 				34B54B992270807D00E6C1A0 /* Main.storyboard */,
 				34B54B9C2270807E00E6C1A0 /* Assets.xcassets */,
 				34B54B9E2270807E00E6C1A0 /* LaunchScreen.storyboard */,
@@ -174,12 +191,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				342D9BCA2271890F00C901A0 /* CenterVCDelegate.swift in Sources */,
 				342D9BC32271437500C901A0 /* RoundedShadowButton.swift in Sources */,
 				342D9BC122713E6B00C901A0 /* CircleView.swift in Sources */,
-				34B54B982270807D00E6C1A0 /* ViewController.swift in Sources */,
+				34B54B982270807D00E6C1A0 /* HomeVC.swift in Sources */,
+				342D9BC72271868300C901A0 /* ContainerVC.swift in Sources */,
 				342D9BBD22713C1D00C901A0 /* RoundImageView.swift in Sources */,
 				342D9BBF22713D6C00C901A0 /* RoundedShadowView.swift in Sources */,
 				34B54B962270807D00E6C1A0 /* AppDelegate.swift in Sources */,
+				342D9BC5227185C100C901A0 /* LeftSidePanelVC.swift in Sources */,
 				342D9BB7227136DE00C901A0 /* GradientView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
