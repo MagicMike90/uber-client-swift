@@ -10,21 +10,37 @@ import UIKit
 
 class GradientView: UIView {
     
-    let gradient =  CAGradientLayer()
+    //    let gradient =  CAGradientLayer()
+    //
+    //    // setup anycode when the interface change
+    //    override func awakeFromNib() {
+    //        setupGradientView()
+    //    }
+    //
+    //
+    //    func setupGradientView() {
+    //        gradient.frame = self.bounds
+    //        gradient.colors = [UIColor.white.cgColor, UIColor.init(white:1.0, alpha: 0.0).cgColor]
+    //        gradient.startPoint = CGPoint.zero
+    //        gradient.endPoint = CGPoint(x: 0, y: 1)
+    //        gradient.locations = [0.8, 1.0]
+    //        self.layer.addSublayer(gradient)
+    //    }
     
-    // setup anycode when the interface change
+    override public class var layerClass: Swift.AnyClass {
+        return CAGradientLayer.self
+    }
+    
     override func awakeFromNib() {
-        print("awakeFromNib")
-        setupGradientView()
+        super.awakeFromNib()
+        
+        guard let gradientLayer = self.layer as? CAGradientLayer else { return }
+        
+        gradientLayer.colors = [
+            UIColor.white.cgColor, UIColor.init(white:1.0, alpha: 0.0).cgColor
+        ]
+        gradientLayer.locations = [0.8, 1.0]
+        gradientLayer.startPoint = CGPoint.zero
+        gradientLayer.endPoint = CGPoint(x: 0, y: 1)
     }
-    
-    func setupGradientView() {
-        gradient.frame = self.bounds
-        gradient.colors = [UIColor.white.cgColor, UIColor.init(white:1.0, alpha: 0.0).cgColor]
-        gradient.startPoint = CGPoint.zero
-        gradient.endPoint = CGPoint(x: 0, y: 1)
-        gradient.locations = [0.8, 1.0]
-        self.layer.addSublayer(gradient)
-    }
-    
 }

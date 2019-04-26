@@ -54,7 +54,7 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sample-photo" translatesAutoresizingMaskIntoConstraints="NO" id="6Q3-Aq-O1a" customClass="RoundImageView" customModule="uber_clone" customModuleProvider="target">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="michael" translatesAutoresizingMaskIntoConstraints="NO" id="6Q3-Aq-O1a" customClass="RoundImageView" customModule="uber_clone" customModuleProvider="target">
                                         <rect key="frame" x="315" y="2.5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="3Rh-7e-vmU"/>
@@ -199,7 +199,7 @@
                             <constraint firstItem="2e8-Ao-Snk" firstAttribute="top" secondItem="pyx-Zb-ewc" secondAttribute="bottom" constant="22" id="svG-NN-6WE"/>
                             <constraint firstAttribute="bottom" secondItem="fFE-OZ-Ktg" secondAttribute="bottom" id="uD4-vd-P2Y"/>
                             <constraint firstItem="fFE-OZ-Ktg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="uLC-3x-TWo"/>
-                            <constraint firstItem="61l-yY-Sbb" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="w6g-no-t6u"/>
+                            <constraint firstItem="61l-yY-Sbb" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="w6g-no-t6u"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -461,7 +461,7 @@
         <image name="cancelBtn" width="32" height="31"/>
         <image name="centerMapBtn" width="62" height="62"/>
         <image name="menuSliderBtn" width="30" height="24"/>
-        <image name="sample-photo" width="320" height="320"/>
+        <image name="michael" width="230" height="266"/>
         <image name="windingRoad" width="2992" height="2000"/>
     </resources>
 </document>

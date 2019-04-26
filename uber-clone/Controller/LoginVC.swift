@@ -14,6 +14,7 @@ class LoginVC: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        hideKeyboardWhenTappedAround()
     }
     
     @IBAction func cancelBtnPressed(_ sender: Any) {
@@ -26,7 +27,6 @@ class LoginVC: UIViewController {
 extension UIViewController {
     
     @objc func handleScreenTap(send: UITapGestureRecognizer) -> Void {
-        print("handleScreenTap")
         self.view.endEditing(true)
     }
 }

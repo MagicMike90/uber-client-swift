@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = containerVC
         window?.makeKeyAndVisible()
         
-        IQKeyboardManager.shared.enable = true
+//        IQKeyboardManager.shared.enable = true
         
         return true
     }
