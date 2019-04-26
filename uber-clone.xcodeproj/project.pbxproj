@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		056D0184D76CC881EDB7D2C7 /* Pods_uber_clone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBAFF085AAC7D13BE7D5E37 /* Pods_uber_clone.framework */; };
 		342D9BB7227136DE00C901A0 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BB6227136DE00C901A0 /* GradientView.swift */; };
 		342D9BB922713AF000C901A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34B54B9C2270807E00E6C1A0 /* Assets.xcassets */; };
 		342D9BBD22713C1D00C901A0 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BBC22713C1D00C901A0 /* RoundImageView.swift */; };
@@ -41,6 +42,7 @@
 		342D9BD22271C89200C901A0 /* RoundedConnerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedConnerTextField.swift; sourceTree = "<group>"; };
 		342D9BD4227276FE00C901A0 /* UIViewControllerExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExt.swift; sourceTree = "<group>"; };
 		342D9BD622727A0100C901A0 /* CommonExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonExt.swift; sourceTree = "<group>"; };
+		3483C1BA8FB8E7FE8DCA793D /* Pods-uber-clone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uber-clone.release.xcconfig"; path = "Target Support Files/Pods-uber-clone/Pods-uber-clone.release.xcconfig"; sourceTree = "<group>"; };
 		34B54B922270807D00E6C1A0 /* uber-clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "uber-clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		34B54B952270807D00E6C1A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		34B54B972270807D00E6C1A0 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -48,6 +50,8 @@
 		34B54B9C2270807E00E6C1A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		34B54B9F2270807E00E6C1A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		34B54BA12270807F00E6C1A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4BBAFF085AAC7D13BE7D5E37 /* Pods_uber_clone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_uber_clone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6686D27002177E126634D28A /* Pods-uber-clone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uber-clone.debug.xcconfig"; path = "Target Support Files/Pods-uber-clone/Pods-uber-clone.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				056D0184D76CC881EDB7D2C7 /* Pods_uber_clone.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +120,8 @@
 			children = (
 				34B54B942270807D00E6C1A0 /* uber-clone */,
 				34B54B932270807D00E6C1A0 /* Products */,
+				7B5ED61D27344798A91B6E0F /* Pods */,
+				6DEFC6B8D87366B34ECAB010 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -143,6 +150,24 @@
 			path = "uber-clone";
 			sourceTree = "<group>";
 		};
+		6DEFC6B8D87366B34ECAB010 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4BBAFF085AAC7D13BE7D5E37 /* Pods_uber_clone.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7B5ED61D27344798A91B6E0F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6686D27002177E126634D28A /* Pods-uber-clone.debug.xcconfig */,
+				3483C1BA8FB8E7FE8DCA793D /* Pods-uber-clone.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -150,9 +175,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 34B54BA42270807F00E6C1A0 /* Build configuration list for PBXNativeTarget "uber-clone" */;
 			buildPhases = (
+				A812A8726F7D66BCC132AEF0 /* [CP] Check Pods Manifest.lock */,
 				34B54B8E2270807D00E6C1A0 /* Sources */,
 				34B54B8F2270807D00E6C1A0 /* Frameworks */,
 				34B54B902270807D00E6C1A0 /* Resources */,
+				A12A81477A0C9CCF8506E379 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -208,6 +235,63 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A12A81477A0C9CCF8506E379 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-uber-clone/Pods-uber-clone-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/RevealingSplashView/RevealingSplashView.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealingSplashView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-uber-clone/Pods-uber-clone-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A812A8726F7D66BCC132AEF0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-uber-clone-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		34B54B8E2270807D00E6C1A0 /* Sources */ = {
@@ -372,6 +456,7 @@
 		};
 		34B54BA52270807F00E6C1A0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6686D27002177E126634D28A /* Pods-uber-clone.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -390,6 +475,7 @@
 		};
 		34B54BA62270807F00E6C1A0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3483C1BA8FB8E7FE8DCA793D /* Pods-uber-clone.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

@@ -10,5 +10,6 @@ target 'uber-clone' do
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'RevealingSplashView'
+  pod 'IQKeyboardManagerSwift'
 
 end

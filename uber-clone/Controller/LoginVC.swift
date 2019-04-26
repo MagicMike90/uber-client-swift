@@ -14,19 +14,7 @@ class LoginVC: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        view.bindToKeyboard()
-        
-        self.hideKeyboardWhenTappedAround()
-//
-//        let tapGesture = UITapGestureRecognizer(target: self.view, action: #selector(self.handleScreenTap(send:)))
-//        tapGesture.numberOfTapsRequired = 1
-//        tapGesture.numberOfTouchesRequired = 1
-//        self.view.addGestureRecognizer(tapGesture)
     }
-//    override func touchesBegan(_ touches: Set<UITouch>,
-//                               with event: UIEvent?) {
-//        self.view.endEditing(true)
-//    }
     
     @IBAction func cancelBtnPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
