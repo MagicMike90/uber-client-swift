@@ -17,7 +17,9 @@ class LoginVC: UIViewController {
     }
     
     @IBAction func cancelBtnPressed(_ sender: Any) {
+        view.endEditing(true)
         dismiss(animated: true, completion: nil)
+
     }
     
 }
