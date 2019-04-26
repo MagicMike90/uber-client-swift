@@ -36,7 +36,7 @@ class ContainerVC: UIViewController {
     }
     
     var isHidden: Bool = false
-    let centerPanelExpanedOffset: CGFloat = 160
+    let centerPanelExpanedOffset: CGFloat = 100
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -148,6 +148,7 @@ extension ContainerVC : CenterVCDelegate {
     }
     
     func shouldShowShadowForCenterVC(_ status: Bool) {
+        centerController.view.layer.shadowOffset = CGSize(width: 5, height: 5)
         if status == true {
             centerController.view.layer.shadowOpacity = 0.6
         } else {

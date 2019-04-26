@@ -23,6 +23,15 @@ class RoundedShadowButton: UIButton {
         self.layer.shadowColor = UIColor.darkGray.cgColor
         self.layer.shadowOpacity = 0.3
         self.layer.shadowOffset = CGSize.zero
+        
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.bounds
+        
+        let gradient1 = UIColor(rgb: 0xff8a00)
+        let gradient2 = UIColor(rgb: 0xda1b60)
+        gradientLayer.colors = [gradient1, gradient2]
+        self.layer.insertSublayer(gradientLayer, at: 0)
     }
     
     func animateButton(shouldLoad:Bool, withMessage message:String?) {

@@ -14,6 +14,7 @@ class RoundedShadowView: UIView {
         setupView()
     }
     func setupView() {
+        clipsToBounds = true
         self.layer.cornerRadius = 5.0
         self.layer.shadowOpacity = 0.3
         self.layer.shadowColor = UIColor.darkGray.cgColor

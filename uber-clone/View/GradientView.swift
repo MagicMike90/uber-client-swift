@@ -37,7 +37,7 @@ class GradientView: UIView {
         guard let gradientLayer = self.layer as? CAGradientLayer else { return }
         
         gradientLayer.colors = [
-            UIColor.white.cgColor, UIColor.init(white:1.0, alpha: 0.0).cgColor
+            UIColor.black.cgColor, UIColor.init(white:0.0, alpha: 0.0).cgColor
         ]
         gradientLayer.locations = [0.8, 1.0]
         gradientLayer.startPoint = CGPoint.zero
