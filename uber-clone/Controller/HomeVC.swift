@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RevealingSplashView
+import Lottie
 
 class HomeVC: UIViewController {
 
@@ -20,9 +22,13 @@ class HomeVC: UIViewController {
         // Do any additional setup after loading the view.
         hideKeyboardWhenTappedAround()
         
-//        let gradient1 = UIColor(rgb: 0xff8a00)
-//        let gradient2 = UIColor(rgb: 0xda1b60)
-//        self.actionBtn.applyGradient(withColours: [gradient1,gradient2], locations: nil)
+        let revealingSplashView = RevealingSplashView(iconImage: UIImage(named: "uber")!, iconInitialSize: CGSize(width: 80, height: 80), backgroundColor: UIColor(rgb: 0x100E17))
+
+        self.view.addSubview(revealingSplashView)
+        revealingSplashView.animationType = SplashAnimationType.heartBeat
+        revealingSplashView.startAnimation()
+
+        revealingSplashView.heartAttack = true
     }
     
     // This has to do with the constraints in your storyboard not being applied until the subviews are laid out. At viewDidLoad() the view has a

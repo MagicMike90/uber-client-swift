@@ -37,6 +37,9 @@
 		344124C1227333F700FEBE9C /* Nunito-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 344124A82273337D00FEBE9C /* Nunito-Regular.ttf */; };
 		344124C2227333F700FEBE9C /* Nunito-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 344124AC2273337D00FEBE9C /* Nunito-SemiBold.ttf */; };
 		344124C3227333F700FEBE9C /* Nunito-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 344124AE2273337D00FEBE9C /* Nunito-SemiBoldItalic.ttf */; };
+		344124C52273EFA900FEBE9C /* world-locations.json in Resources */ = {isa = PBXBuildFile; fileRef = 344124C42273EFA900FEBE9C /* world-locations.json */; };
+		344124C8227418AB00FEBE9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 344124C7227418AB00FEBE9C /* GoogleService-Info.plist */; };
+		344124CA22743B9500FEBE9C /* NiceGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344124C922743B9500FEBE9C /* NiceGradientView.swift */; };
 		34B54B962270807D00E6C1A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B54B952270807D00E6C1A0 /* AppDelegate.swift */; };
 		34B54B982270807D00E6C1A0 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B54B972270807D00E6C1A0 /* HomeVC.swift */; };
 		34B54B9B2270807D00E6C1A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34B54B992270807D00E6C1A0 /* Main.storyboard */; };
@@ -72,6 +75,9 @@
 		344124B32273337E00FEBE9C /* Nunito-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-ExtraLight.ttf"; sourceTree = "<group>"; };
 		344124B42273337E00FEBE9C /* Nunito-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-LightItalic.ttf"; sourceTree = "<group>"; };
 		344124B52273337E00FEBE9C /* Nunito-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Italic.ttf"; sourceTree = "<group>"; };
+		344124C42273EFA900FEBE9C /* world-locations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "world-locations.json"; sourceTree = "<group>"; };
+		344124C7227418AB00FEBE9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		344124C922743B9500FEBE9C /* NiceGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NiceGradientView.swift; sourceTree = "<group>"; };
 		3483C1BA8FB8E7FE8DCA793D /* Pods-uber-clone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uber-clone.release.xcconfig"; path = "Target Support Files/Pods-uber-clone/Pods-uber-clone.release.xcconfig"; sourceTree = "<group>"; };
 		34B54B922270807D00E6C1A0 /* uber-clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "uber-clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		34B54B952270807D00E6C1A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				342D9BB6227136DE00C901A0 /* GradientView.swift */,
+				344124C922743B9500FEBE9C /* NiceGradientView.swift */,
 				342D9BBC22713C1D00C901A0 /* RoundImageView.swift */,
 				342D9BBE22713D6C00C901A0 /* RoundedShadowView.swift */,
 				342D9BC022713E6B00C901A0 /* CircleView.swift */,
@@ -149,6 +156,7 @@
 		344124A52273334300FEBE9C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				344124C62273F02000FEBE9C /* Lottie */,
 				344124A62273335000FEBE9C /* Fonts */,
 			);
 			path = Resources;
@@ -183,6 +191,14 @@
 			path = Nunito;
 			sourceTree = "<group>";
 		};
+		344124C62273F02000FEBE9C /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				344124C42273EFA900FEBE9C /* world-locations.json */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
 		34B54B892270807D00E6C1A0 = {
 			isa = PBXGroup;
 			children = (
@@ -214,6 +230,7 @@
 				34B54B992270807D00E6C1A0 /* Main.storyboard */,
 				34B54B9C2270807E00E6C1A0 /* Assets.xcassets */,
 				34B54B9E2270807E00E6C1A0 /* LaunchScreen.storyboard */,
+				344124C7227418AB00FEBE9C /* GoogleService-Info.plist */,
 				34B54BA12270807F00E6C1A0 /* Info.plist */,
 			);
 			path = "uber-clone";
@@ -307,11 +324,13 @@
 				344124BE227333F700FEBE9C /* Nunito-Italic.ttf in Resources */,
 				344124BF227333F700FEBE9C /* Nunito-Light.ttf in Resources */,
 				344124C0227333F700FEBE9C /* Nunito-LightItalic.ttf in Resources */,
+				344124C8227418AB00FEBE9C /* GoogleService-Info.plist in Resources */,
 				344124C1227333F700FEBE9C /* Nunito-Regular.ttf in Resources */,
 				344124C2227333F700FEBE9C /* Nunito-SemiBold.ttf in Resources */,
 				344124C3227333F700FEBE9C /* Nunito-SemiBoldItalic.ttf in Resources */,
 				34B54BA02270807E00E6C1A0 /* LaunchScreen.storyboard in Resources */,
 				342D9BB922713AF000C901A0 /* Assets.xcassets in Resources */,
+				344124C52273EFA900FEBE9C /* world-locations.json in Resources */,
 				34B54B9B2270807D00E6C1A0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,6 +352,7 @@
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RevealingSplashView/RevealingSplashView.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -344,6 +364,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealingSplashView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -395,6 +416,7 @@
 				342D9BD32271C89200C901A0 /* RoundedConnerTextField.swift in Sources */,
 				342D9BC5227185C100C901A0 /* LeftSidePanelVC.swift in Sources */,
 				342D9BD722727A0100C901A0 /* CommonExt.swift in Sources */,
+				344124CA22743B9500FEBE9C /* NiceGradientView.swift in Sources */,
 				342D9BB7227136DE00C901A0 /* GradientView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

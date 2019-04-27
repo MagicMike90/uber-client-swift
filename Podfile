@@ -11,5 +11,6 @@ target 'uber-clone' do
   pod 'Firebase/Database'
   pod 'RevealingSplashView'
   pod 'IQKeyboardManagerSwift'
+  pod 'lottie-ios'
 
 end

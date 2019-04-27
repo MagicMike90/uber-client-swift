@@ -120,12 +120,12 @@ extension ContainerVC : CenterVCDelegate {
     func setupWhiteCoverView() {
         let whiteCoverView =  UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
         whiteCoverView.alpha = 0.0
-        whiteCoverView.backgroundColor =  UIColor.white
+        whiteCoverView.backgroundColor =  UIColor.lightGray
         whiteCoverView.tag = 25
         
         self.centerController.view.addSubview(whiteCoverView)
         whiteCoverView.fadeTo(alphaValue: 0.75, withDuration: 0.2)
-
+        
         
         // for gesture
         tag = UITapGestureRecognizer(target: self, action: #selector(animateLeftPanel(shouldexpand:)))
@@ -148,7 +148,12 @@ extension ContainerVC : CenterVCDelegate {
     }
     
     func shouldShowShadowForCenterVC(_ status: Bool) {
-        centerController.view.layer.shadowOffset = CGSize(width: 5, height: 5)
+        centerController.view.layer.shadowPath = UIBezierPath(rect: centerController.view.bounds).cgPath
+        centerController.view.layer.shouldRasterize = true
+        centerController.view.layer.shadowColor = UIColor.black.cgColor
+//        centerController.view.layer.masksToBounds = false
+        centerController.view.layer.shadowRadius = 1
+        centerController.view.layer.shadowOffset = CGSize.zero
         if status == true {
             centerController.view.layer.shadowOpacity = 0.6
         } else {

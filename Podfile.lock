@@ -63,6 +63,7 @@ PODS:
   - GTMSessionFetcher/Core (1.2.1)
   - IQKeyboardManagerSwift (6.2.1)
   - leveldb-library (1.20)
+  - lottie-ios (3.0.4)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
@@ -75,6 +76,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - IQKeyboardManagerSwift
+  - lottie-ios
   - RevealingSplashView
 
 SPEC REPOS:
@@ -91,6 +93,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - IQKeyboardManagerSwift
     - leveldb-library
+    - lottie-ios
     - nanopb
     - RevealingSplashView
 
@@ -107,9 +110,10 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   IQKeyboardManagerSwift: 0f0ae8935360b4003e6ea1ac7c19898f01e2f7c7
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
+  lottie-ios: 55a2de40418f8de2b155efaba4d4d1a025a5c570
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   RevealingSplashView: 40c5a770894459736acdc95655eeba0dd30ce91c
 
-PODFILE CHECKSUM: c94a32012ecad63207b5014b712b0de9b120fbcc
+PODFILE CHECKSUM: 8fd02dc3dde7b31c90db7b5186d773b4549eeb8a
 
 COCOAPODS: 1.6.1

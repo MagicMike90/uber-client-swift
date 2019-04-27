@@ -10,17 +10,24 @@ import UIKit
 
 class LoginVC: UIViewController {
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         hideKeyboardWhenTappedAround()
+        
+      
+        
     }
-    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+    }
     @IBAction func cancelBtnPressed(_ sender: Any) {
         view.endEditing(true)
         dismiss(animated: true, completion: nil)
-
+        
     }
     
 }
