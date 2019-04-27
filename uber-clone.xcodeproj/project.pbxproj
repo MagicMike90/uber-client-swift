@@ -41,6 +41,7 @@
 		344124C8227418AB00FEBE9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 344124C7227418AB00FEBE9C /* GoogleService-Info.plist */; };
 		344124CA22743B9500FEBE9C /* NiceGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344124C922743B9500FEBE9C /* NiceGradientView.swift */; };
 		344124CD22743D6400FEBE9C /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344124CC22743D6400FEBE9C /* DataService.swift */; };
+		344124CF2274652800FEBE9C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344124CE2274652800FEBE9C /* Constants.swift */; };
 		34B54B962270807D00E6C1A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B54B952270807D00E6C1A0 /* AppDelegate.swift */; };
 		34B54B982270807D00E6C1A0 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B54B972270807D00E6C1A0 /* HomeVC.swift */; };
 		34B54B9B2270807D00E6C1A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34B54B992270807D00E6C1A0 /* Main.storyboard */; };
@@ -80,6 +81,7 @@
 		344124C7227418AB00FEBE9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		344124C922743B9500FEBE9C /* NiceGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NiceGradientView.swift; sourceTree = "<group>"; };
 		344124CC22743D6400FEBE9C /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		344124CE2274652800FEBE9C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3483C1BA8FB8E7FE8DCA793D /* Pods-uber-clone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uber-clone.release.xcconfig"; path = "Target Support Files/Pods-uber-clone/Pods-uber-clone.release.xcconfig"; sourceTree = "<group>"; };
 		34B54B922270807D00E6C1A0 /* uber-clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "uber-clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		34B54B952270807D00E6C1A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				342D9BC4227185C100C901A0 /* LeftSidePanelVC.swift */,
 				342D9BC62271868300C901A0 /* ContainerVC.swift */,
 				342D9BCE2271C20700C901A0 /* LoginVC.swift */,
+				344124CE2274652800FEBE9C /* Constants.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -413,6 +416,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				342D9BCA2271890F00C901A0 /* CenterVCDelegate.swift in Sources */,
+				344124CF2274652800FEBE9C /* Constants.swift in Sources */,
 				342D9BC32271437500C901A0 /* RoundedShadowButton.swift in Sources */,
 				342D9BCF2271C20700C901A0 /* LoginVC.swift in Sources */,
 				342D9BC122713E6B00C901A0 /* CircleView.swift in Sources */,

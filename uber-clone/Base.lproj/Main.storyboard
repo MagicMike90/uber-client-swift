@@ -358,19 +358,22 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="85x-Qn-J4u">
-                                <rect key="frame" x="15" y="435" width="345" height="50"/>
+                                <rect key="frame" x="15" y="435" width="345" height="100"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="rp7-gy-X2J">
-                                        <rect key="frame" x="0.0" y="15" width="345" height="31"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="rp7-gy-X2J">
+                                        <rect key="frame" x="0.0" y="15" width="345" height="67"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable Pick-up" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0e-dv-86Y" userLabel="Account type">
-                                                <rect key="frame" x="0.0" y="0.0" width="165" height="31"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="345" height="31"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="17"/>
                                                 <color key="textColor" red="0.062745098040000002" green="0.054901960780000002" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mO5-nN-3IJ">
-                                                <rect key="frame" x="180" y="0.0" width="167" height="31"/>
+                                                <rect key="frame" x="0.0" y="36" width="347" height="31"/>
+                                                <connections>
+                                                    <action selector="togglePickupMode:" destination="MYM-fO-q8B" eventType="valueChanged" id="w8Q-Zu-efW"/>
+                                                </connections>
                                             </switch>
                                         </subviews>
                                     </stackView>
@@ -380,7 +383,7 @@
                                     <constraint firstAttribute="trailing" secondItem="rp7-gy-X2J" secondAttribute="trailing" id="2SL-Te-Bvo"/>
                                     <constraint firstItem="rp7-gy-X2J" firstAttribute="top" secondItem="85x-Qn-J4u" secondAttribute="top" constant="15" id="eR3-72-RLZ"/>
                                     <constraint firstItem="rp7-gy-X2J" firstAttribute="leading" secondItem="85x-Qn-J4u" secondAttribute="leading" id="lY4-CG-a1s"/>
-                                    <constraint firstAttribute="height" constant="50" id="tsv-kj-ymE"/>
+                                    <constraint firstAttribute="height" constant="100" id="tsv-kj-ymE"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -402,10 +405,12 @@
                     </view>
                     <connections>
                         <outlet property="authBtn" destination="K5Z-Be-fUP" id="Rph-35-h6u"/>
+                        <outlet property="pickupModeLabel" destination="d0e-dv-86Y" id="bWq-Gq-LHS"/>
+                        <outlet property="pickupModeSection" destination="85x-Qn-J4u" id="WDD-A5-QHc"/>
                         <outlet property="pickupModeSwitch" destination="mO5-nN-3IJ" id="TA9-Vd-Eaf"/>
                         <outlet property="userAccountType" destination="arH-mu-8Wf" id="JVc-qd-znw"/>
                         <outlet property="userEmailLabel" destination="blg-2E-79J" id="saI-Md-u2E"/>
-                        <outlet property="userImage" destination="CO0-yH-KRc" id="1aI-gk-HKp"/>
+                        <outlet property="userImageView" destination="CO0-yH-KRc" id="jkL-0a-UzJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5h6-j2-LVT" userLabel="First Responder" sceneMemberID="firstResponder"/>
