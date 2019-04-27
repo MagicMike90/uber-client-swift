@@ -20,8 +20,8 @@ class HomeVC: UIViewController {
         // Do any additional setup after loading the view.
         hideKeyboardWhenTappedAround()
         
-        let gradient1 = UIColor(rgb: 0xff8a00)
-        let gradient2 = UIColor(rgb: 0xda1b60)
+//        let gradient1 = UIColor(rgb: 0xff8a00)
+//        let gradient2 = UIColor(rgb: 0xda1b60)
 //        self.actionBtn.applyGradient(withColours: [gradient1,gradient2], locations: nil)
     }
     
