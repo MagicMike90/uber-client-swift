@@ -28,7 +28,7 @@ class DataService {
         return _REF_USER
     }
     
-    var REF_DRIVER: DatabaseReference {
+    var REF_DRIVERS: DatabaseReference {
         return _REF_DRIVER
     }
     
@@ -38,7 +38,7 @@ class DataService {
     
     func createFirebase(uid: String, userData: Dictionary<String, Any>, isDriver: Bool) -> Void {
         if isDriver {
-            REF_DRIVER.child(uid).updateChildValues(userData)
+            REF_DRIVERS.child(uid).updateChildValues(userData)
         } else {
             REF_USERS.child(uid).updateChildValues(userData)
         }

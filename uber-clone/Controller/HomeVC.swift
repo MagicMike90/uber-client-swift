@@ -9,41 +9,55 @@
 import UIKit
 import RevealingSplashView
 import Lottie
+import MapKit
+import CoreLocation
 
 class HomeVC: UIViewController {
-
+    
+    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var actionBtn: RoundedShadowButton!
     
     var delegate: CenterVCDelegate?
     
+    var locationManager: CLLocationManager?;
+    
+    var ragionRadius: CLLocationDistance = 1000
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        
+        mapView.delegate = self
+        
+        checkLocationAuthStatus()
+
         // Do any additional setup after loading the view.
         hideKeyboardWhenTappedAround()
         
         let revealingSplashView = RevealingSplashView(iconImage: UIImage(named: "uber")!, iconInitialSize: CGSize(width: 80, height: 80), backgroundColor: UIColor(rgb: 0x100E17))
-
         self.view.addSubview(revealingSplashView)
         revealingSplashView.animationType = SplashAnimationType.heartBeat
         revealingSplashView.startAnimation()
-
         revealingSplashView.heartAttack = true
     }
     
-    // This has to do with the constraints in your storyboard not being applied until the subviews are laid out. At viewDidLoad() the view has a
-    // fixed size from the storyboard. If you move the code that sets the layer's frame to viewDidLayoutSubviews() the constraints have been
-    // applied to topView and it then has the correct frame
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-//        let gradient1 = UIColor(rgb: 0xff8a00)
-//                let gradient2 = UIColor(rgb: 0xda1b60)
-//        self.actionBt.layer.applyGradient(withColours: [gradient1,gradient2], locations: nil)
-        //        self.actionBtn.applyGradient(withColours: [UIColor.yellow, UIColor.blue], locations: nil)
-//        self.view.applyGradient(withColours: [UIColor.yellow, UIColor.blue, UIColor.red], gradientOrientation: GradientOrientation.horizontal)
+    func checkLocationAuthStatus() {
+        if CLLocationManager.authorizationStatus() == .authorizedAlways {
+            locationManager?.startUpdatingLocation()
+        } else {
+            locationManager?.requestAlwaysAuthorization()
+        }
     }
-
+    
+    func centerMapUserLocation() {
+        let coordinateRegion =  MKCoordinateRegion(center: mapView.userLocation.coordinate, latitudinalMeters: ragionRadius * 2.0, longitudinalMeters: ragionRadius * 2)
+        mapView.setRegion(coordinateRegion, animated: true)
+    }
+    
     @IBAction func actionButtonWasPressed(_ sender: Any) {
         actionBtn.animateButton(shouldLoad: true, withMessage: nil)
     }
@@ -51,5 +65,25 @@ class HomeVC: UIViewController {
     @IBAction func menuBtnPressed(_ sender: Any) {
         delegate?.toggleLeftPanel()
     }
+    
+    @IBAction func centerMapBtnPressed(_ sender: Any) {
+        centerMapUserLocation()
+    }
 }
 
+extension HomeVC: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedAlways {
+            checkLocationAuthStatus()
+            mapView.showsUserLocation = true
+            mapView.userTrackingMode = .follow
+        }
+    }
+}
+
+extension HomeVC: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        UpdateService.instance.updateUserLocation(withCoordinate: userLocation.coordinate)
+        UpdateService.instance.updateDriverLocation(withCoordinate: userLocation.coordinate)
+    }
+}

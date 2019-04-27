@@ -57,7 +57,7 @@ class LeftSidePanelVC: UIViewController {
             }
         }
         
-        DataService.instance.REF_DRIVER.observeSingleEvent(of: .value) { (snapshot) in
+        DataService.instance.REF_DRIVERS.observeSingleEvent(of: .value) { (snapshot) in
             if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
                 for snap in snapshot {
                     if snap.key  == Auth.auth().currentUser?.uid {
@@ -79,7 +79,7 @@ class LeftSidePanelVC: UIViewController {
     }
     
     @IBAction func togglePickupMode(_ sender: Any) {
-        
+
         if pickupModeSwitch.isOn {
             pickupModeLabel.text = "Disable Pick-up Mode"
             
@@ -88,7 +88,7 @@ class LeftSidePanelVC: UIViewController {
         }
         
         appDelegate.MenuContainerVC.toggleLeftPanel()
-        DataService.instance.REF_DRIVER.child(currentUserId!).updateChildValues(["isPickupModeEnabled": pickupModeSwitch.isOn])
+        DataService.instance.REF_DRIVERS.child(currentUserId!).updateChildValues(["isPickupModeEnabled": pickupModeSwitch.isOn])
         
     }
     
