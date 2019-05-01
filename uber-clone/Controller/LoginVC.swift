@@ -25,13 +25,16 @@ class LoginVC: UIViewController , UITextFieldDelegate {
         // Do any additional setup after loading the view.
         hideKeyboardWhenTappedAround()
         
-        
-        
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     @IBAction func cancelBtnPressed(_ sender: Any) {
         view.endEditing(true)
         dismiss(animated: true, completion: nil)
