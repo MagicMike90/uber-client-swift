@@ -83,6 +83,10 @@ class LeftSidePanelVC: UIViewController {
     }
     
     @IBAction func togglePickupMode(_ sender: Any) {
+        
+        if pickupModeSwitch == nil {
+            return
+        }
 
         if pickupModeSwitch.isOn {
             pickupModeLabel.text = "Disable Pick-up Mode"
