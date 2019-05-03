@@ -13,5 +13,6 @@ target 'uber-clone' do
   pod 'RevealingSplashView'
   pod 'IQKeyboardManagerSwift'
   pod 'lottie-ios'
+  pod 'SwiftyBeaver'
 
 end

@@ -43,7 +43,6 @@ class LoginVC: UIViewController , UITextFieldDelegate {
     // create user account
     private func createNewAccount(email:String, password: String) {
         Auth.auth().createUser(withEmail: email, password: password, completion: { (result, error) in
-            
             if error != nil {
                 if let errorCode = AuthErrorCode(rawValue: error!._code) {
                     switch errorCode {
@@ -59,12 +58,13 @@ class LoginVC: UIViewController , UITextFieldDelegate {
                 return
             }
             
-
             if let user = result?.user {
                 self.createNewUser(user: user)
-                print("Create user successfully !")
+                log.info("Create user successfully !")
+                self.signIn(email: email, password: password)
+                log.info("Auto signin user")
             }
-
+            
         })
     }
     
@@ -83,38 +83,42 @@ class LoginVC: UIViewController , UITextFieldDelegate {
         
     }
     
+    // sign in user
+    private func signIn(email:String, password: String ) {
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] user, error in
+            
+            guard user != nil else {
+                if let errorCode = AuthErrorCode(rawValue: error!._code) {
+                    switch errorCode {
+                    case AuthErrorCode.invalidEmail:
+                        log.error("Email invalid. Please try again")
+                    case AuthErrorCode.wrongPassword:
+                        log.error("The password is a wrong password!")
+                    case AuthErrorCode.userNotFound:
+                        log.info("The user not found and create one!")
+                        self?.createNewAccount(email: email, password: password);
+                    default:
+                        log.error("Unexpeced error")
+                    }
+                }
+                return
+            }
+            
+            log.info("Email user authenicated successfully")
+            self?.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     @IBAction func authBtnPressed(_ sender: Any) {
         guard let email = emailField.text, let password = passwordField.text else {return}
-        
         
         authBtn.animateButton(shouldLoad: true, withMessage: nil)
         self.view.endEditing(true)
         
+        self.signIn(email: email, password: password)
+//        print("Email user authenicated successfully")
+//        self.dismiss(animated: true, completion: nil)
         
-        Auth.auth().signIn(withEmail: email, password: password) {  result, error in
-            
-            if error != nil {
-                if let errorCode = AuthErrorCode(rawValue: error!._code) {
-                    switch errorCode {
-                    case AuthErrorCode.invalidEmail:
-                        print("Email invalid. Please try again")
-                    case AuthErrorCode.wrongPassword:
-                        print("The password is a wrong password!")
-                    case AuthErrorCode.userNotFound:
-                        self.createNewAccount(email: email, password: password);
-                        self.dismiss(animated: true, completion: nil)
-                    default:
-                        print("Unexpeced error")
-                    }
-                }
-                
-                return;
-            }
-            
-            
-            print("Email user authenicated successfully")
-            return self.dismiss(animated: true, completion: nil)
-        }
     }
 }
 extension UIViewController {
