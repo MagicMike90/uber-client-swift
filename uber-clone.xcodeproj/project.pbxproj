@@ -43,6 +43,7 @@
 		344124CD22743D6400FEBE9C /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344124CC22743D6400FEBE9C /* DataService.swift */; };
 		344124CF2274652800FEBE9C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344124CE2274652800FEBE9C /* Constants.swift */; };
 		344124D1227472D200FEBE9C /* UpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344124D0227472D200FEBE9C /* UpdateService.swift */; };
+		3446965A227C44FE008591A9 /* DriverAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34469659227C44FE008591A9 /* DriverAnnotation.swift */; };
 		34B54B962270807D00E6C1A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B54B952270807D00E6C1A0 /* AppDelegate.swift */; };
 		34B54B982270807D00E6C1A0 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B54B972270807D00E6C1A0 /* HomeVC.swift */; };
 		34B54B9B2270807D00E6C1A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34B54B992270807D00E6C1A0 /* Main.storyboard */; };
@@ -84,6 +85,7 @@
 		344124CC22743D6400FEBE9C /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		344124CE2274652800FEBE9C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		344124D0227472D200FEBE9C /* UpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateService.swift; sourceTree = "<group>"; };
+		34469659227C44FE008591A9 /* DriverAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverAnnotation.swift; sourceTree = "<group>"; };
 		3483C1BA8FB8E7FE8DCA793D /* Pods-uber-clone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uber-clone.release.xcconfig"; path = "Target Support Files/Pods-uber-clone/Pods-uber-clone.release.xcconfig"; sourceTree = "<group>"; };
 		34B54B922270807D00E6C1A0 /* uber-clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "uber-clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		34B54B952270807D00E6C1A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				342D9BC022713E6B00C901A0 /* CircleView.swift */,
 				342D9BC22271437500C901A0 /* RoundedShadowButton.swift */,
 				342D9BD22271C89200C901A0 /* RoundedConnerTextField.swift */,
+				34469659227C44FE008591A9 /* DriverAnnotation.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				344124CF2274652800FEBE9C /* Constants.swift in Sources */,
 				342D9BC32271437500C901A0 /* RoundedShadowButton.swift in Sources */,
 				342D9BCF2271C20700C901A0 /* LoginVC.swift in Sources */,
+				3446965A227C44FE008591A9 /* DriverAnnotation.swift in Sources */,
 				342D9BC122713E6B00C901A0 /* CircleView.swift in Sources */,
 				34B54B982270807D00E6C1A0 /* HomeVC.swift in Sources */,
 				342D9BC72271868300C901A0 /* ContainerVC.swift in Sources */,

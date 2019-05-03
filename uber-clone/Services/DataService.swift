@@ -10,30 +10,32 @@ import Firebase
 import UIKit
 
 // Get a reference to the storage service using the default Firebase App
-let DB_BASE  = Database.database().reference()
+//let DB_BASE  = Database.database().reference()
 
 class DataService {
     static let instance = DataService()
     
-    private var _REF_BASE = DB_BASE
-    private var _REF_USER = DB_BASE.child("user")
-    private var _REF_DRIVER = DB_BASE.child("driver")
-    private var _REF_TRIPS = DB_BASE.child("trips")
+    private var _REF_BASE : DatabaseReference!
 
+    //Initializer access level change now
+    private init(){
+         self._REF_BASE = Database.database().reference()
+    }
+    
     var REF_BASE: DatabaseReference {
         return _REF_BASE
     }
     
     var REF_USERS: DatabaseReference {
-        return _REF_USER
+        return  _REF_BASE.child("user")
     }
     
     var REF_DRIVERS: DatabaseReference {
-        return _REF_DRIVER
+        return _REF_BASE.child("driver")
     }
     
     var REF_TRIPS: DatabaseReference {
-        return _REF_TRIPS
+        return _REF_BASE.child("trips")
     }
     
     func createFirebase(uid: String, userData: Dictionary<String, Any>, isDriver: Bool) -> Void {

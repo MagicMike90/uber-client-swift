@@ -11,6 +11,7 @@ import RevealingSplashView
 import Lottie
 import MapKit
 import CoreLocation
+import Firebase
 
 class HomeVC: UIViewController {
     
@@ -31,10 +32,12 @@ class HomeVC: UIViewController {
         locationManager?.delegate = self
         locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         
-        mapView.delegate = self
         
         checkLocationAuthStatus()
-
+        
+        loadDriverAnnotationFromFB()
+        
+        
         // Do any additional setup after loading the view.
         hideKeyboardWhenTappedAround()
         
@@ -45,6 +48,10 @@ class HomeVC: UIViewController {
         revealingSplashView.heartAttack = true
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+    }
+    
     func checkLocationAuthStatus() {
         if CLLocationManager.authorizationStatus() == .authorizedAlways {
             locationManager?.startUpdatingLocation()
@@ -52,6 +59,29 @@ class HomeVC: UIViewController {
             locationManager?.requestAlwaysAuthorization()
         }
     }
+    
+    // get the coordinate from Firebase
+    // and display on the map
+    func loadDriverAnnotationFromFB() {
+        DataService.instance.REF_DRIVERS.observeSingleEvent(of: .value) { (snapshot) in
+            if let driverSnapshot = snapshot.children.allObjects as? [DataSnapshot] {
+                for driver in driverSnapshot {
+                    if  driver.hasChild("coordinate") {
+                        if driver.childSnapshot(forPath: PICKUP_MODE).value as? Bool == true {
+                            if let driverDict =  driver.value as? Dictionary<String, AnyObject> {
+                                let coordinateArray =  driverDict["coordinate"] as! NSArray
+                                let driverCoordinate =  CLLocationCoordinate2D(latitude: coordinateArray[0] as! CLLocationDegrees, longitude: coordinateArray[1] as! CLLocationDegrees)
+                                
+                                let annotation = DriverAnnotation(coordinate: driverCoordinate, withKey: driver.key)
+                                self.mapView.addAnnotation(annotation)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     
     func centerMapUserLocation() {
         let coordinateRegion =  MKCoordinateRegion(center: mapView.userLocation.coordinate, latitudinalMeters: ragionRadius * 2.0, longitudinalMeters: ragionRadius * 2)
@@ -85,5 +115,18 @@ extension HomeVC: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         UpdateService.instance.updateUserLocation(withCoordinate: userLocation.coordinate)
         UpdateService.instance.updateDriverLocation(withCoordinate: userLocation.coordinate)
+    }
+    
+    // tell where to replace the image
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if let annotation =  annotation as? DriverAnnotation {
+            let identifier = "driver"
+            var view: MKAnnotationView
+            view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            view.image = UIImage(named: "driverAnnotation")
+            return view;
+        }
+        
+        return nil
     }
 }

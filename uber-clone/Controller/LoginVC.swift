@@ -40,7 +40,35 @@ class LoginVC: UIViewController , UITextFieldDelegate {
         dismiss(animated: true, completion: nil)
         
     }
+    // create user account
+    private func createNewAccount(email:String, password: String) {
+        Auth.auth().createUser(withEmail: email, password: password, completion: { (result, error) in
+            
+            if error != nil {
+                if let errorCode = AuthErrorCode(rawValue: error!._code) {
+                    switch errorCode {
+                    case AuthErrorCode.emailAlreadyInUse:
+                        print("This email is already in use.")
+                    case AuthErrorCode.invalidEmail:
+                        print("Email invalid. Please try again")
+                    default:
+                        print("Unexpeced error")
+                    }
+                }
+                
+                return
+            }
+            
+
+            if let user = result?.user {
+                self.createNewUser(user: user)
+                print("Create user successfully !")
+            }
+
+        })
+    }
     
+    // create a new user
     private func createNewUser(user: User) {
         var userData:[String:Any] = [:];
         
@@ -72,40 +100,17 @@ class LoginVC: UIViewController , UITextFieldDelegate {
                         print("Email invalid. Please try again")
                     case AuthErrorCode.wrongPassword:
                         print("The password is a wrong password!")
+                    case AuthErrorCode.userNotFound:
+                        self.createNewAccount(email: email, password: password);
+                        self.dismiss(animated: true, completion: nil)
                     default:
                         print("Unexpeced error")
                     }
                 }
+                
+                return;
             }
             
-            
-            guard let user = result?.user else {
-                // if there is user then create one
-                return Auth.auth().createUser(withEmail: email, password: password, completion: { (result, error) in
-                    
-                    if error != nil {
-                        if let errorCode = AuthErrorCode(rawValue: error!._code) {
-                            switch errorCode {
-                            case AuthErrorCode.emailAlreadyInUse:
-                                print("This email is already in use.")
-                            case AuthErrorCode.invalidEmail:
-                                print("Email invalid. Please try again")
-                            default:
-                                print("Unexpeced error")
-                            }
-                        }
-                    } else {
-                        if let user = result?.user {
-                            self.createNewUser(user: user)
-                            print("Create user successfully")
-                        }
-                        
-                    }
-                })
-            }
-            
-            
-            self.createNewUser(user: user)
             
             print("Email user authenicated successfully")
             return self.dismiss(animated: true, completion: nil)
