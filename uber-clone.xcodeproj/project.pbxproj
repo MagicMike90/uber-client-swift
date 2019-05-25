@@ -38,12 +38,12 @@
 		344124C2227333F700FEBE9C /* Nunito-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 344124AC2273337D00FEBE9C /* Nunito-SemiBold.ttf */; };
 		344124C3227333F700FEBE9C /* Nunito-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 344124AE2273337D00FEBE9C /* Nunito-SemiBoldItalic.ttf */; };
 		344124C52273EFA900FEBE9C /* world-locations.json in Resources */ = {isa = PBXBuildFile; fileRef = 344124C42273EFA900FEBE9C /* world-locations.json */; };
-		344124C8227418AB00FEBE9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 344124C7227418AB00FEBE9C /* GoogleService-Info.plist */; };
 		344124CA22743B9500FEBE9C /* NiceGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344124C922743B9500FEBE9C /* NiceGradientView.swift */; };
 		344124CD22743D6400FEBE9C /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344124CC22743D6400FEBE9C /* DataService.swift */; };
 		344124CF2274652800FEBE9C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344124CE2274652800FEBE9C /* Constants.swift */; };
 		344124D1227472D200FEBE9C /* UpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344124D0227472D200FEBE9C /* UpdateService.swift */; };
 		3446965A227C44FE008591A9 /* DriverAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34469659227C44FE008591A9 /* DriverAnnotation.swift */; };
+		34A3F3A122997272001F1592 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34A3F3A022997272001F1592 /* GoogleService-Info.plist */; };
 		34B54B962270807D00E6C1A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B54B952270807D00E6C1A0 /* AppDelegate.swift */; };
 		34B54B982270807D00E6C1A0 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B54B972270807D00E6C1A0 /* HomeVC.swift */; };
 		34B54B9B2270807D00E6C1A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34B54B992270807D00E6C1A0 /* Main.storyboard */; };
@@ -80,13 +80,13 @@
 		344124B42273337E00FEBE9C /* Nunito-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-LightItalic.ttf"; sourceTree = "<group>"; };
 		344124B52273337E00FEBE9C /* Nunito-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Italic.ttf"; sourceTree = "<group>"; };
 		344124C42273EFA900FEBE9C /* world-locations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "world-locations.json"; sourceTree = "<group>"; };
-		344124C7227418AB00FEBE9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		344124C922743B9500FEBE9C /* NiceGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NiceGradientView.swift; sourceTree = "<group>"; };
 		344124CC22743D6400FEBE9C /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		344124CE2274652800FEBE9C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		344124D0227472D200FEBE9C /* UpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateService.swift; sourceTree = "<group>"; };
 		34469659227C44FE008591A9 /* DriverAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverAnnotation.swift; sourceTree = "<group>"; };
 		3483C1BA8FB8E7FE8DCA793D /* Pods-uber-clone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uber-clone.release.xcconfig"; path = "Target Support Files/Pods-uber-clone/Pods-uber-clone.release.xcconfig"; sourceTree = "<group>"; };
+		34A3F3A022997272001F1592 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		34B54B922270807D00E6C1A0 /* uber-clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "uber-clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		34B54B952270807D00E6C1A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		34B54B972270807D00E6C1A0 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -250,7 +250,7 @@
 				34B54B992270807D00E6C1A0 /* Main.storyboard */,
 				34B54B9C2270807E00E6C1A0 /* Assets.xcassets */,
 				34B54B9E2270807E00E6C1A0 /* LaunchScreen.storyboard */,
-				344124C7227418AB00FEBE9C /* GoogleService-Info.plist */,
+				34A3F3A022997272001F1592 /* GoogleService-Info.plist */,
 				34B54BA12270807F00E6C1A0 /* Info.plist */,
 			);
 			path = "uber-clone";
@@ -344,7 +344,7 @@
 				344124BE227333F700FEBE9C /* Nunito-Italic.ttf in Resources */,
 				344124BF227333F700FEBE9C /* Nunito-Light.ttf in Resources */,
 				344124C0227333F700FEBE9C /* Nunito-LightItalic.ttf in Resources */,
-				344124C8227418AB00FEBE9C /* GoogleService-Info.plist in Resources */,
+				34A3F3A122997272001F1592 /* GoogleService-Info.plist in Resources */,
 				344124C1227333F700FEBE9C /* Nunito-Regular.ttf in Resources */,
 				344124C2227333F700FEBE9C /* Nunito-SemiBold.ttf in Resources */,
 				344124C3227333F700FEBE9C /* Nunito-SemiBoldItalic.ttf in Resources */,

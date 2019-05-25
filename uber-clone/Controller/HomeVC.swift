@@ -67,7 +67,8 @@ class HomeVC: UIViewController {
             if let driverSnapshot = snapshot.children.allObjects as? [DataSnapshot] {
                 for driver in driverSnapshot {
                     if  driver.hasChild("coordinate") {
-                        if driver.childSnapshot(forPath: PICKUP_MODE).value as? Bool == true {
+                        if driver.childSnapshot(forPath: IS_PICKUP_MODE).value as? Bool == true {
+                            // Pull down all the value from firease
                             if let driverDict =  driver.value as? Dictionary<String, AnyObject> {
                                 let coordinateArray =  driverDict["coordinate"] as! NSArray
                                 let driverCoordinate =  CLLocationCoordinate2D(latitude: coordinateArray[0] as! CLLocationDegrees, longitude: coordinateArray[1] as! CLLocationDegrees)
@@ -103,7 +104,7 @@ class HomeVC: UIViewController {
 
 extension HomeVC: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedAlways {
+        if status == .authorizedAlways || status == .authorizedWhenInUse {
             checkLocationAuthStatus()
             mapView.showsUserLocation = true
             mapView.userTrackingMode = .follow

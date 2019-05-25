@@ -43,6 +43,7 @@ class LoginVC: UIViewController , UITextFieldDelegate {
     // create user account
     private func createNewAccount(email:String, password: String) {
         Auth.auth().createUser(withEmail: email, password: password, completion: { (result, error) in
+            print(error)
             if error != nil {
                 if let errorCode = AuthErrorCode(rawValue: error!._code) {
                     switch errorCode {
@@ -77,7 +78,7 @@ class LoginVC: UIViewController , UITextFieldDelegate {
             
             DataService.instance.createFirebase(uid: user.uid, userData: userData, isDriver: false)
         } else {
-            userData = ["provider": user.providerID, "userIsDriver": true, PICKUP_MODE: false, "drvierIsOnTrip": false] as [String: Any]
+            userData = ["provider": user.providerID, "userIsDriver": true, IS_PICKUP_MODE: false, "drvierIsOnTrip": false] as [String: Any]
             DataService.instance.createFirebase(uid: user.uid, userData: userData, isDriver: true)
         }
         

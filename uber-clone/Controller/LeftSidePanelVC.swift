@@ -68,7 +68,7 @@ class LeftSidePanelVC: UIViewController {
                         self.userAccountType.text = "DRIVER"
                         self.pickupModeSection.isHidden = false
                         
-                        let switchStatus = snap.childSnapshot(forPath: PICKUP_MODE).value as! Bool
+                        let switchStatus = snap.childSnapshot(forPath: IS_PICKUP_MODE).value as! Bool
                         self.pickupModeSwitch.isOn = switchStatus
                     }
                 }
@@ -80,6 +80,7 @@ class LeftSidePanelVC: UIViewController {
         userEmailLabel.text = ""
         userAccountType.text = ""
         authBtn.setTitle("Sign Up / Login", for: .normal)
+        pickupModeSection.isHidden = true
     }
     
     @IBAction func togglePickupMode(_ sender: Any) {
@@ -87,7 +88,7 @@ class LeftSidePanelVC: UIViewController {
         if pickupModeSwitch == nil {
             return
         }
-
+        
         if pickupModeSwitch.isOn {
             pickupModeLabel.text = "Disable Pick-up Mode"
             
@@ -96,7 +97,9 @@ class LeftSidePanelVC: UIViewController {
         }
         
         appDelegate.MenuContainerVC.toggleLeftPanel()
-        DataService.instance.REF_DRIVERS.child(currentUserId!).updateChildValues(["isPickupModeEnabled": pickupModeSwitch.isOn])
+        
+        let userID = Auth.auth().currentUser?.uid
+        DataService.instance.REF_DRIVERS.child(userID!).updateChildValues(["isPickupModeEnabled": pickupModeSwitch.isOn])
         
     }
     

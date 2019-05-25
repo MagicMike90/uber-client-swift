@@ -7,4 +7,4 @@
 //
 
 
-let PICKUP_MODE = "isPickupModeEnabled"
+let IS_PICKUP_MODE = "isPickupModeEnabled"
