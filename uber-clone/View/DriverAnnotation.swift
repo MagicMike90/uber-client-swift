@@ -10,7 +10,8 @@ import Foundation
 import MapKit
 
 class DriverAnnotation: NSObject, MKAnnotation {
-    var coordinate: CLLocationCoordinate2D
+    // it requires objective c compile for mapview
+    dynamic var coordinate: CLLocationCoordinate2D
     var key: String
     
     init(coordinate:CLLocationCoordinate2D, withKey key: String) {
