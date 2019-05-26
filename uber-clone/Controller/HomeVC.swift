@@ -32,6 +32,7 @@ class HomeVC: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         DataService.instance.REF_DRIVERS.observe(.value) { (snapshot) in
+            print("updated");
             self.loadDriverAnnotationFromFB()
         }
         
@@ -77,6 +78,7 @@ class HomeVC: UIViewController {
                                         return self.mapView.annotations.contains(where: { (annotation) -> Bool in
                                             if let driverAnnotation = annotation as? DriverAnnotation {
                                                 if driverAnnotation.key == driver.key {
+                                                    print(driverCoordinate)
                                                     driverAnnotation.update(AnnotationPosition: driverAnnotation, withCoordinate: driverCoordinate)
                                                     return true
                                                 }
