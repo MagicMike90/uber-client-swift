@@ -43,7 +43,6 @@ class LoginVC: UIViewController , UITextFieldDelegate {
     // create user account
     private func createNewAccount(email:String, password: String) {
         Auth.auth().createUser(withEmail: email, password: password, completion: { (result, error) in
-            print(error)
             if error != nil {
                 if let errorCode = AuthErrorCode(rawValue: error!._code) {
                     switch errorCode {

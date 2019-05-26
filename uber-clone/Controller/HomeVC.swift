@@ -20,23 +20,18 @@ class HomeVC: UIViewController {
     
     var delegate: CenterVCDelegate?
     
-    var locationManager: CLLocationManager?;
+    let locationManager = CLLocationManager()
     
     var ragionRadius: CLLocationDistance = 1000
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
-        
-        
-        checkLocationAuthStatus()
+        locationManager.delegate = self
+        mapView.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         loadDriverAnnotationFromFB()
-        
         
         // Do any additional setup after loading the view.
         hideKeyboardWhenTappedAround()
@@ -49,14 +44,14 @@ class HomeVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        checkLocationAuthStatus()
     }
     
     func checkLocationAuthStatus() {
-        if CLLocationManager.authorizationStatus() == .authorizedAlways {
-            locationManager?.startUpdatingLocation()
+        if CLLocationManager.authorizationStatus() == .authorizedAlways || CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+            locationManager.startUpdatingLocation()
         } else {
-            locationManager?.requestAlwaysAuthorization()
+            locationManager.requestAlwaysAuthorization()
         }
     }
     
@@ -113,6 +108,9 @@ extension HomeVC: CLLocationManagerDelegate {
 }
 
 extension HomeVC: MKMapViewDelegate {
+    func mapViewDidFailLoadingMap(_ mapView: MKMapView, withError error: Error) {
+        print("mapViewDidFailLoadingMap \(error)")
+    }
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         UpdateService.instance.updateUserLocation(withCoordinate: userLocation.coordinate)
         UpdateService.instance.updateDriverLocation(withCoordinate: userLocation.coordinate)
