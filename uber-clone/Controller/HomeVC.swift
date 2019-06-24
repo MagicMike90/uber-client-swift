@@ -123,6 +123,7 @@ class HomeVC: UIViewController {
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
+    
     @IBAction func actionButtonWasPressed(_ sender: Any) {
         actionBtn.animateButton(shouldLoad: true, withMessage: nil)
     }
@@ -213,6 +214,7 @@ extension HomeVC: UITextFieldDelegate {
     }
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        centerMapUserLocation()
         return true;
     }
     
