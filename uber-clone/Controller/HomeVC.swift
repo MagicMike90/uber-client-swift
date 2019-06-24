@@ -19,6 +19,7 @@ class HomeVC: UIViewController {
     @IBOutlet weak var actionBtn: RoundedShadowButton!
     
     @IBOutlet weak var destinationTextField: UITextField!
+    @IBOutlet weak var destinationCircle: CircleView!
     var delegate: CenterVCDelegate?
     
     let locationManager = CLLocationManager()
@@ -183,12 +184,14 @@ extension HomeVC: UITextFieldDelegate {
             
             view.addSubview(tableView)
             animateTableView(shouldShow: true)
+            
+            UIView.animate(withDuration: 0.2, animations: {
+                self.destinationCircle.backgroundColor = UIColor.red
+                self.destinationCircle.borderColor = UIColor.init(red: 199/255, green: 0/255, blue: 0/255, alpha: 1.0)
+            })
         }
     }
-    func textFieldDid(_ textField: UITextField) {
-        
-    }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == destinationTextField {
 //            performSearch()
@@ -198,20 +201,28 @@ extension HomeVC: UITextFieldDelegate {
         return true
     }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == destinationTextField {
+            if destinationTextField.text == "" {
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.destinationCircle.backgroundColor = UIColor.lightGray
+                    self.destinationCircle.borderColor = UIColor.darkGray
+                })
+            }
+        }
+    }
+    
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         return true;
     }
     
-    
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        return true;
-    }
+
     
     
     func animateTableView(shouldShow: Bool) {
         if shouldShow {
             UIView.animate(withDuration: 0.2, animations: {
-                self.tableView.frame = CGRect(x: 20, y: 170, width: self.view.frame.width - 40, height: self.view.frame.height - 170)
+                self.tableView.frame = CGRect(x: 20, y: 250, width: self.view.frame.width - 40, height: self.view.frame.height - 170)
             })
         } else {
             UIView.animate(withDuration: 0.2, animations: {

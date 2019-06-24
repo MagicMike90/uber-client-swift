@@ -145,7 +145,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Where are you going?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5w3-Yl-je0">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Where are you going?" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="5w3-Yl-je0">
                                                         <rect key="frame" x="30" y="0.0" width="324" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="iRX-EP-WZh"/>
@@ -221,6 +221,7 @@
                     </view>
                     <connections>
                         <outlet property="actionBtn" destination="EDn-vy-ZJm" id="E0Q-ir-hds"/>
+                        <outlet property="destinationCircle" destination="8ii-dz-Wt5" id="dZx-vQ-fm3"/>
                         <outlet property="destinationTextField" destination="5w3-Yl-je0" id="Hs9-9e-kLK"/>
                         <outlet property="mapView" destination="fFE-OZ-Ktg" id="9D7-ZN-Gwf"/>
                     </connections>
