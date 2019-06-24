@@ -29,7 +29,7 @@ class UpdateService {
             if let driverSnapshot = snapshot.children.allObjects as? [DataSnapshot] {
                 for driver in driverSnapshot {
                     if (driver.key == Auth.auth().currentUser?.uid) {
-                        if driver.childSnapshot(forPath: IS_PICKUP_MODE).value as? Bool  == true {
+                        if driver.childSnapshot(forPath: ACCOUNT_PICKUP_MODE_ENABLED).value as? Bool  == true {
                             DataService.instance.REF_DRIVERS.child(driver.key).updateChildValues(["coordinate":[coordinate.latitude, coordinate.longitude]])
                         }
                     

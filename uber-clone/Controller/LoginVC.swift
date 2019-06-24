@@ -77,7 +77,7 @@ class LoginVC: UIViewController , UITextFieldDelegate {
             
             DataService.instance.createFirebase(uid: user.uid, userData: userData, isDriver: false)
         } else {
-            userData = ["provider": user.providerID, "userIsDriver": true, IS_PICKUP_MODE: false, "drvierIsOnTrip": false] as [String: Any]
+            userData = ["provider": user.providerID, "userIsDriver": true, ACCOUNT_PICKUP_MODE_ENABLED: false, "drvierIsOnTrip": false] as [String: Any]
             DataService.instance.createFirebase(uid: user.uid, userData: userData, isDriver: true)
         }
         

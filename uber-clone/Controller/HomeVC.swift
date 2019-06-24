@@ -18,23 +18,29 @@ class HomeVC: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var actionBtn: RoundedShadowButton!
     
+    @IBOutlet weak var destinationTextField: UITextField!
     var delegate: CenterVCDelegate?
     
     let locationManager = CLLocationManager()
     
     var ragionRadius: CLLocationDistance = 1000
     
+    var tableView = UITableView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         locationManager.delegate = self
         mapView.delegate = self
+        destinationTextField.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         DataService.instance.REF_DRIVERS.observe(.value) { (snapshot) in
             print("updated");
             self.loadDriverAnnotationFromFB()
         }
+        
+
         
         // Do any additional setup after loading the view.
         hideKeyboardWhenTappedAround()
@@ -66,7 +72,7 @@ class HomeVC: UIViewController {
                 for driver in driverSnapshot {
                     if driver.hasChild("userIsDriver") {
                         if  driver.hasChild("coordinate") {
-                            if driver.childSnapshot(forPath: IS_PICKUP_MODE).value as? Bool == true {
+                            if driver.childSnapshot(forPath: ACCOUNT_PICKUP_MODE_ENABLED).value as? Bool == true {
                                 // Pull down all the value from firease
                                 if let driverDict =  driver.value as? Dictionary<String, AnyObject> {
                                     let coordinateArray =  driverDict["coordinate"] as! NSArray
@@ -160,4 +166,74 @@ extension HomeVC: MKMapViewDelegate {
         
         return nil
     }
+}
+
+extension HomeVC: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == destinationTextField {
+            tableView.frame = CGRect(x: 20, y: view.frame.height, width: view.frame.width - 40, height: view.frame.height - 170)
+            tableView.layer.cornerRadius = 5.0
+            tableView.register(UITableViewCell.self, forCellReuseIdentifier: CELL_LOCATION)
+            
+            tableView.delegate = self
+            tableView.dataSource = self
+            
+            tableView.tag = 18
+            tableView.rowHeight = 60
+            
+            view.addSubview(tableView)
+            animateTableView(shouldShow: true)
+        }
+    }
+    func textFieldDid(_ textField: UITextField) {
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == destinationTextField {
+//            performSearch()
+//            shouldPresentLoadingView(true)
+            view.endEditing(true)
+        }
+        return true
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        return true;
+    }
+    
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        return true;
+    }
+    
+    
+    func animateTableView(shouldShow: Bool) {
+        if shouldShow {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.tableView.frame = CGRect(x: 20, y: 170, width: self.view.frame.width - 40, height: self.view.frame.height - 170)
+            })
+        } else {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.tableView.frame = CGRect(x: 20, y: self.view.frame.height, width: self.view.frame.width - 40, height: self.view.frame.height - 170)
+            }, completion: { (finished) in
+                for subview in self.view.subviews {
+                    if subview.tag == 18 {
+                        subview.removeFromSuperview()
+                    }
+                }
+            })
+        }
+    }
+}
+
+extension HomeVC: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    
 }
