@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		056D0184D76CC881EDB7D2C7 /* Pods_uber_clone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBAFF085AAC7D13BE7D5E37 /* Pods_uber_clone.framework */; };
+		34247A2522C234B800F8556F /* Alertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34247A2422C234B800F8556F /* Alertable.swift */; };
 		342D9BB7227136DE00C901A0 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BB6227136DE00C901A0 /* GradientView.swift */; };
 		342D9BB922713AF000C901A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34B54B9C2270807E00E6C1A0 /* Assets.xcassets */; };
 		342D9BBD22713C1D00C901A0 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BBC22713C1D00C901A0 /* RoundImageView.swift */; };
@@ -51,6 +52,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		34247A2422C234B800F8556F /* Alertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alertable.swift; sourceTree = "<group>"; };
 		342D9BB6227136DE00C901A0 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		342D9BBC22713C1D00C901A0 /* RoundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
 		342D9BBE22713D6C00C901A0 /* RoundedShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShadowView.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				342D9BC92271890F00C901A0 /* CenterVCDelegate.swift */,
+				34247A2422C234B800F8556F /* Alertable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				342D9BC122713E6B00C901A0 /* CircleView.swift in Sources */,
 				34B54B982270807D00E6C1A0 /* HomeVC.swift in Sources */,
 				342D9BC72271868300C901A0 /* ContainerVC.swift in Sources */,
+				34247A2522C234B800F8556F /* Alertable.swift in Sources */,
 				342D9BCD227198E300C901A0 /* UIViewExt.swift in Sources */,
 				342D9BBD22713C1D00C901A0 /* RoundImageView.swift in Sources */,
 				342D9BBF22713D6C00C901A0 /* RoundedShadowView.swift in Sources */,

@@ -13,7 +13,7 @@ import MapKit
 import CoreLocation
 import Firebase
 
-class HomeVC: UIViewController {
+class HomeVC: UIViewController, Alertable {
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var actionBtn: RoundedShadowButton!
@@ -28,6 +28,8 @@ class HomeVC: UIViewController {
     
     var tableView = UITableView()
     
+   var matchingItems: [MKMapItem] = [MKMapItem]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,8 +42,6 @@ class HomeVC: UIViewController {
             print("updated");
             self.loadDriverAnnotationFromFB()
         }
-        
-
         
         // Do any additional setup after loading the view.
         hideKeyboardWhenTappedAround()
@@ -168,6 +168,30 @@ extension HomeVC: MKMapViewDelegate {
         
         return nil
     }
+    
+    
+    func performSearch() {
+        matchingItems.removeAll()
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = destinationTextField.text
+        request.region = mapView.region
+        
+        let search = MKLocalSearch(request: request)
+        
+        search.start { (response, error) in
+            if error != nil {
+                self.showAlert(ERROR_MSG_UNEXPECTED_ERROR)
+            } else if response!.mapItems.count == 0 {
+                self.showAlert(ERROR_MSG_NO_MATCHES_FOUND)
+            } else {
+                for mapItem in response!.mapItems {
+                    self.matchingItems.append(mapItem as MKMapItem)
+                    self.tableView.reloadData()
+//                    self.shouldPresentLoadingView(false)
+                }
+            }
+        }
+    }
 }
 
 extension HomeVC: UITextFieldDelegate {
@@ -195,7 +219,7 @@ extension HomeVC: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == destinationTextField {
-//            performSearch()
+            performSearch()
 //            shouldPresentLoadingView(true)
             view.endEditing(true)
         }
@@ -214,6 +238,9 @@ extension HomeVC: UITextFieldDelegate {
     }
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        matchingItems = []
+        tableView.reloadData()
+        
         centerMapUserLocation()
         return true;
     }
@@ -242,11 +269,20 @@ extension HomeVC: UITextFieldDelegate {
 
 extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return matchingItems.count;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: CELL_LOCATION)
+        let mapItem = matchingItems[indexPath.row]
+        cell.textLabel?.text = mapItem.name
+        cell.detailTextLabel?.text = mapItem.placemark.title
+        return cell
     }
     
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if destinationTextField.text == "" {
+            animateTableView(shouldShow: false)
+        }
+    }
 }
