@@ -24,11 +24,15 @@ class HomeVC: UIViewController, Alertable {
     
     let locationManager = CLLocationManager()
     
+    var currentUserId : String?;
+    
     var ragionRadius: CLLocationDistance = 1000
     
     var tableView = UITableView()
     
-   var matchingItems: [MKMapItem] = [MKMapItem]()
+    var matchingItems: [MKMapItem] = [MKMapItem]()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +55,8 @@ class HomeVC: UIViewController, Alertable {
         revealingSplashView.animationType = SplashAnimationType.heartBeat
         revealingSplashView.startAnimation()
         revealingSplashView.heartAttack = true
+        
+        currentUserId = Auth.auth().currentUser?.uid;
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -151,6 +157,7 @@ extension HomeVC: MKMapViewDelegate {
     func mapViewDidFailLoadingMap(_ mapView: MKMapView, withError error: Error) {
         print("mapViewDidFailLoadingMap \(error)")
     }
+    
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         UpdateService.instance.updateUserLocation(withCoordinate: userLocation.coordinate)
         UpdateService.instance.updateDriverLocation(withCoordinate: userLocation.coordinate)
@@ -158,15 +165,22 @@ extension HomeVC: MKMapViewDelegate {
     
     // tell where to replace the image
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        var view: MKAnnotationView?;
+        
         if let annotation =  annotation as? DriverAnnotation {
             let identifier = "driver"
-            var view: MKAnnotationView
+            
             view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            view.image = UIImage(named: "driverAnnotation")
+            view?.image = UIImage(named: ANNO_DRIVER)
+            return view;
+        } else if let annotation = annotation as? PassengerAnnotation {
+            let identifier = "passenger"
+            view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            view?.image = UIImage(named: ANNO_PICKUP)
             return view;
         }
         
-        return nil
+        return view
     }
     
     
@@ -187,7 +201,7 @@ extension HomeVC: MKMapViewDelegate {
                 for mapItem in response!.mapItems {
                     self.matchingItems.append(mapItem as MKMapItem)
                     self.tableView.reloadData()
-//                    self.shouldPresentLoadingView(false)
+                    //                    self.shouldPresentLoadingView(false)
                 }
             }
         }
@@ -216,11 +230,11 @@ extension HomeVC: UITextFieldDelegate {
             })
         }
     }
-
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == destinationTextField {
             performSearch()
-//            shouldPresentLoadingView(true)
+            //            shouldPresentLoadingView(true)
             view.endEditing(true)
         }
         return true
@@ -245,7 +259,7 @@ extension HomeVC: UITextFieldDelegate {
         return true;
     }
     
-
+    
     
     
     func animateTableView(shouldShow: Bool) {
@@ -270,6 +284,33 @@ extension HomeVC: UITextFieldDelegate {
 extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return matchingItems.count;
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // update text filed by using selected text
+        destinationTextField.text = tableView.cellForRow(at: indexPath)?.textLabel?.text
+        
+        let passengerCoordinate = locationManager.location?.coordinate
+        
+        
+        if let id = currentUserId  {
+            let passengerAnnotation = PassengerAnnotation(coordinate: passengerCoordinate!, key: id)
+            mapView.addAnnotation(passengerAnnotation)
+            let selectedMapItem = matchingItems[indexPath.row]
+            
+            DataService.instance.REF_USERS.child(id).updateChildValues([TRIP_COORDINATE: [selectedMapItem.placemark.coordinate.latitude, selectedMapItem.placemark.coordinate.longitude]])
+        }
+        
+        
+        
+        
+        
+        
+        //        dropPinFor(placemark: selectedMapItem.placemark)
+        
+        //        searchMapKitForResultsWithPolyline(forOriginMapItem: nil, withDestinationMapItem: selectedMapItem)
+        
+        animateTableView(shouldShow: false)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

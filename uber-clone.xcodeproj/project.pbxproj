@@ -43,6 +43,7 @@
 		344124CD22743D6400FEBE9C /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344124CC22743D6400FEBE9C /* DataService.swift */; };
 		344124D1227472D200FEBE9C /* UpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344124D0227472D200FEBE9C /* UpdateService.swift */; };
 		3446965A227C44FE008591A9 /* DriverAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34469659227C44FE008591A9 /* DriverAnnotation.swift */; };
+		346F8A5122C4E18B00C983DE /* PassengerAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346F8A5022C4E18B00C983DE /* PassengerAnnotation.swift */; };
 		34A3F3A122997272001F1592 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34A3F3A022997272001F1592 /* GoogleService-Info.plist */; };
 		34B54B962270807D00E6C1A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B54B952270807D00E6C1A0 /* AppDelegate.swift */; };
 		34B54B982270807D00E6C1A0 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B54B972270807D00E6C1A0 /* HomeVC.swift */; };
@@ -86,6 +87,7 @@
 		344124CC22743D6400FEBE9C /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		344124D0227472D200FEBE9C /* UpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateService.swift; sourceTree = "<group>"; };
 		34469659227C44FE008591A9 /* DriverAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverAnnotation.swift; sourceTree = "<group>"; };
+		346F8A5022C4E18B00C983DE /* PassengerAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassengerAnnotation.swift; sourceTree = "<group>"; };
 		3483C1BA8FB8E7FE8DCA793D /* Pods-uber-clone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uber-clone.release.xcconfig"; path = "Target Support Files/Pods-uber-clone/Pods-uber-clone.release.xcconfig"; sourceTree = "<group>"; };
 		34A3F3A022997272001F1592 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		34B54B922270807D00E6C1A0 /* uber-clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "uber-clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -141,6 +143,7 @@
 				342D9BC22271437500C901A0 /* RoundedShadowButton.swift */,
 				342D9BD22271C89200C901A0 /* RoundedConnerTextField.swift */,
 				34469659227C44FE008591A9 /* DriverAnnotation.swift */,
+				346F8A5022C4E18B00C983DE /* PassengerAnnotation.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 				344124D1227472D200FEBE9C /* UpdateService.swift in Sources */,
 				342D9BD32271C89200C901A0 /* RoundedConnerTextField.swift in Sources */,
 				342D9BC5227185C100C901A0 /* LeftSidePanelVC.swift in Sources */,
+				346F8A5122C4E18B00C983DE /* PassengerAnnotation.swift in Sources */,
 				342D9BD722727A0100C901A0 /* CommonExt.swift in Sources */,
 				344124CA22743B9500FEBE9C /* NiceGradientView.swift in Sources */,
 				342D9BB7227136DE00C901A0 /* GradientView.swift in Sources */,

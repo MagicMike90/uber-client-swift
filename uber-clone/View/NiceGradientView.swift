@@ -10,9 +10,6 @@ import UIKit
 
 class NiceGradientView: UIView {
     
-    override func updateConstraints() {
-        super.updateConstraints()
-    }
     
     override public class var layerClass: Swift.AnyClass {
         return CAGradientLayer.self
