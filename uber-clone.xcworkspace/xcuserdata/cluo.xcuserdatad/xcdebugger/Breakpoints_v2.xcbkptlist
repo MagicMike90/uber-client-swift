@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "uber-clone/Controller/HomeVC.swift"
-            timestampString = "583335970.93119"
+            timestampString = "583337345.942737"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "164"
@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "uber-clone/Controller/HomeVC.swift"
-            timestampString = "583335970.931803"
+            timestampString = "583337345.943184"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "165"
@@ -106,7 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "uber-clone/Controller/HomeVC.swift"
-            timestampString = "583335970.9322"
+            timestampString = "583337345.9435461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "162"
@@ -122,7 +122,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "uber-clone/Controller/HomeVC.swift"
-            timestampString = "583335970.932532"
+            timestampString = "583337345.943884"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "71"
@@ -138,7 +138,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "uber-clone/Controller/HomeVC.swift"
-            timestampString = "583335970.9328589"
+            timestampString = "583337345.9441971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "170"
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "uber-clone/Controller/HomeVC.swift"
-            timestampString = "583335970.9331419"
+            timestampString = "583337345.944497"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
             landmarkName = "performSearch()"
             landmarkType = "7">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "uber-clone/Controller/HomeVC.swift"
-            timestampString = "583335970.933419"
+            timestampString = "583337345.944774"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
+            startingLineNumber = "219"
+            endingLineNumber = "219"
             landmarkName = "performSearch()"
             landmarkType = "7">
             <Locations>
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "uber-clone/Controller/HomeVC.swift"
-            timestampString = "583335970.933687"
+            timestampString = "583337345.945053"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "262"
-            endingLineNumber = "262"
+            startingLineNumber = "346"
+            endingLineNumber = "346"
             landmarkName = "textFieldShouldReturn(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "uber-clone/Controller/HomeVC.swift"
-            timestampString = "583335970.933977"
+            timestampString = "583337345.945333"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "263"
-            endingLineNumber = "263"
+            startingLineNumber = "347"
+            endingLineNumber = "347"
             landmarkName = "textFieldShouldReturn(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -266,7 +266,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "uber-clone/Controller/HomeVC.swift"
-            timestampString = "583335970.934279"
+            timestampString = "583337345.945702"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "27"
@@ -374,11 +374,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "uber-clone/Controller/HomeVC.swift"
-            timestampString = "583335970.934556"
+            timestampString = "583337345.946025"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "321"
-            endingLineNumber = "321"
+            startingLineNumber = "405"
+            endingLineNumber = "405"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -390,11 +390,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "uber-clone/Controller/HomeVC.swift"
-            timestampString = "583335970.934813"
+            timestampString = "583337345.946294"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "320"
-            endingLineNumber = "320"
+            startingLineNumber = "404"
+            endingLineNumber = "404"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -406,11 +406,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "uber-clone/Controller/HomeVC.swift"
-            timestampString = "583335970.9350621"
+            timestampString = "583337345.946551"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "323"
-            endingLineNumber = "323"
+            startingLineNumber = "407"
+            endingLineNumber = "407"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -422,13 +422,61 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "uber-clone/Controller/HomeVC.swift"
-            timestampString = "583335970.935303"
+            timestampString = "583337345.9468091"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "322"
-            endingLineNumber = "322"
+            startingLineNumber = "406"
+            endingLineNumber = "406"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "uber-clone/Controller/HomeVC.swift"
+            timestampString = "583337345.947067"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
+            landmarkName = "mapView(_:rendererFor:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "uber_clone.HomeVC.mapView(_: __C.MKMapView, rendererFor: __C.MKOverlay) -&gt; __C.MKOverlayRenderer"
+                  moduleName = "uber-clone"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cluo/Development/uber-clone/uber-clone/Controller/HomeVC.swift"
+                  timestampString = "583337346.192726"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "201"
+                  endingLineNumber = "201"
+                  offsetFromSymbolStart = "129">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "uber_clone.HomeVC.mapView(_: __C.MKMapView, rendererFor: __C.MKOverlay) -&gt; __C.MKOverlayRenderer"
+                  moduleName = "uber-clone"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cluo/Development/uber-clone/uber-clone/Controller/HomeVC.swift"
+                  timestampString = "583337346.194248"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "201"
+                  endingLineNumber = "201"
+                  offsetFromSymbolStart = "516">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
