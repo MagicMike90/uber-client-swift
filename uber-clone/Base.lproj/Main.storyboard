@@ -221,6 +221,7 @@
                     </view>
                     <connections>
                         <outlet property="actionBtn" destination="EDn-vy-ZJm" id="E0Q-ir-hds"/>
+                        <outlet property="centerMapBtn" destination="pyx-Zb-ewc" id="r61-pJ-dBj"/>
                         <outlet property="destinationCircle" destination="8ii-dz-Wt5" id="dZx-vQ-fm3"/>
                         <outlet property="destinationTextField" destination="5w3-Yl-je0" id="Hs9-9e-kLK"/>
                         <outlet property="mapView" destination="fFE-OZ-Ktg" id="9D7-ZN-Gwf"/>

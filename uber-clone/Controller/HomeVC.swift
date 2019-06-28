@@ -17,7 +17,7 @@ class HomeVC: UIViewController, Alertable {
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var actionBtn: RoundedShadowButton!
-    
+    @IBOutlet weak var centerMapBtn: UIButton!
     @IBOutlet weak var destinationTextField: UITextField!
     @IBOutlet weak var destinationCircle: CircleView!
     var delegate: CenterVCDelegate?
@@ -126,7 +126,7 @@ class HomeVC: UIViewController, Alertable {
     }
     
     
-    func centerMapUserLocation() {
+    func centerMapOnUserLocation() {
         let coordinateRegion =  MKCoordinateRegion(center: mapView.userLocation.coordinate, latitudinalMeters: ragionRadius * 2.0, longitudinalMeters: ragionRadius * 2)
         mapView.setRegion(coordinateRegion, animated: true)
     }
@@ -141,7 +141,21 @@ class HomeVC: UIViewController, Alertable {
     }
     
     @IBAction func centerMapBtnPressed(_ sender: Any) {
-        centerMapUserLocation()
+        DataService.instance.REF_USERS.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let userSnapshot = snapshot.children.allObjects as? [DataSnapshot] {
+                for user in userSnapshot {
+                    if user.key == self.currentUserId! {
+                        if user.hasChild(TRIP_COORDINATE) {
+                            self.zoom(toFitAnnotationsFromMapView: self.mapView, forActiveTripWithDriver: false, withKey: nil)
+                            self.centerMapBtn.fadeTo(alphaValue: 0.0, withDuration: 0.2)
+                        } else {
+                            self.centerMapOnUserLocation()
+                            self.centerMapBtn.fadeTo(alphaValue: 0.0, withDuration: 0.2)
+                        }
+                    }
+                }
+            }
+        })
     }
 }
 
@@ -379,7 +393,7 @@ extension HomeVC: UITextFieldDelegate {
             }
         }
         
-        centerMapUserLocation()
+        centerMapOnUserLocation()
         return true;
     }
     
