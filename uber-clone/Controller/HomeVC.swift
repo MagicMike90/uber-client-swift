@@ -202,7 +202,7 @@ extension HomeVC: MKMapViewDelegate {
         lineRenderer.strokeColor = UIColor(red: 216/255, green: 71/255, blue: 30/255, alpha: 0.75)
         lineRenderer.lineWidth = 3
         
-        //        shouldPresentLoadingView(false)
+        shouldPresentLoadingView(false)
         
         return lineRenderer
     }
@@ -225,7 +225,7 @@ extension HomeVC: MKMapViewDelegate {
                 for mapItem in response!.mapItems {
                     self.matchingItems.append(mapItem as MKMapItem)
                     self.tableView.reloadData()
-                    //                    self.shouldPresentLoadingView(false)
+                    self.shouldPresentLoadingView(false)
                 }
             }
         }
@@ -271,8 +271,7 @@ extension HomeVC: MKMapViewDelegate {
             
             self.zoom(toFitAnnotationsFromMapView: self.mapView, forActiveTripWithDriver: false, withKey: nil)
             
-            //            let delegate = AppDelegate.getAppDelegate()
-            //            delegate.window?.rootViewController?.shouldPresentLoadingView(false)
+            self.shouldPresentLoadingView(false)
         }
     }
     
@@ -345,7 +344,7 @@ extension HomeVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == destinationTextField {
             performSearch()
-            //            shouldPresentLoadingView(true)
+            shouldPresentLoadingView(true)
             view.endEditing(true)
         }
         return true
@@ -395,6 +394,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        shouldPresentLoadingView(true)
         // update text filed by using selected text
         destinationTextField.text = tableView.cellForRow(at: indexPath)?.textLabel?.text
         
