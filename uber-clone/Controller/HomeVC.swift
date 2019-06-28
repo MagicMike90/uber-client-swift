@@ -274,6 +274,7 @@ extension HomeVC: MKMapViewDelegate {
         }
     }
     
+    // zoom between the route
     func zoom(toFitAnnotationsFromMapView mapView: MKMapView, forActiveTripWithDriver: Bool, withKey key: String?) {
         if mapView.annotations.count == 0 {
             return
@@ -302,6 +303,7 @@ extension HomeVC: MKMapViewDelegate {
         }
         
         
+        // for any annotation that is not driver
         for annotation in mapView.annotations where !annotation.isKind(of: DriverAnnotation.self) {
             topLeftCoordinate.longitude = fmin(topLeftCoordinate.longitude, annotation.coordinate.longitude)
             topLeftCoordinate.latitude = fmax(topLeftCoordinate.latitude, annotation.coordinate.latitude)
@@ -422,6 +424,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
             DataService.instance.REF_USERS.child(id).updateChildValues([TRIP_COORDINATE: [selectedMapItem.placemark.coordinate.latitude, selectedMapItem.placemark.coordinate.longitude]])
             dropPinFor(placemark: selectedMapItem.placemark)
             
+            // draw the route line
             searchMapKitForResultsWithPolyline(forOriginMapItem: nil, withDestinationMapItem: selectedMapItem)
         }
         
