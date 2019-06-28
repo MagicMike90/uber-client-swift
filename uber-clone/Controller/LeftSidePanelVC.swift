@@ -97,9 +97,7 @@ class LeftSidePanelVC: UIViewController {
         }
         
         appDelegate.MenuContainerVC.toggleLeftPanel()
-        
-        let userID = Auth.auth().currentUser?.uid
-        DataService.instance.REF_DRIVERS.child(userID!).updateChildValues(["isPickupModeEnabled": pickupModeSwitch.isOn])
+        DataService.instance.REF_DRIVERS.child(currentUserId!).updateChildValues(["isPickupModeEnabled": pickupModeSwitch.isOn])
         
     }
     

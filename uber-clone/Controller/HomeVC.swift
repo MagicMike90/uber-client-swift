@@ -46,7 +46,6 @@ class HomeVC: UIViewController, Alertable {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         DataService.instance.REF_DRIVERS.observe(.value) { (snapshot) in
-            print("updated");
             self.loadDriverAnnotationFromFB()
         }
         
@@ -365,10 +364,24 @@ extension HomeVC: UITextFieldDelegate {
         matchingItems = []
         tableView.reloadData()
         
+        // Clean save location
+        DataService.instance.REF_USERS.child(currentUserId!).child(TRIP_COORDINATE).removeValue()
+        
+        // remove any annotations
+        mapView.removeOverlays(mapView.overlays)
+        for annotation in mapView.annotations {
+            if let annotation = annotation as? MKPointAnnotation {
+                mapView.removeAnnotation(annotation)
+            } else if annotation.isKind(of: PassengerAnnotation.self) {
+                mapView.removeAnnotation(annotation)
+            }
+        }
+        
         centerMapUserLocation()
         return true;
     }
     
+    // create and animate search table
     func animateTableView(shouldShow: Bool) {
         if shouldShow {
             UIView.animate(withDuration: 0.2, animations: {
