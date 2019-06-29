@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class LoginVC: UIViewController , UITextFieldDelegate {
+class LoginVC: UIViewController , UITextFieldDelegate ,Alertable{
     
     @IBOutlet weak var emailField: RoundedConnerTextField!
     @IBOutlet weak var passwordField: RoundedConnerTextField!
@@ -91,15 +91,20 @@ class LoginVC: UIViewController , UITextFieldDelegate {
                 if let errorCode = AuthErrorCode(rawValue: error!._code) {
                     switch errorCode {
                     case AuthErrorCode.invalidEmail:
+                        self?.showAlert(ERROR_MSG_INVALID_EMAIL)
                         log.error("Email invalid. Please try again")
                     case AuthErrorCode.wrongPassword:
+                        self?.showAlert(ERROR_MSG_WRONG_PASSWORD)
                         log.error("The password is a wrong password!")
                     case AuthErrorCode.userNotFound:
-                        log.info("The user not found and create one!")
                         self?.createNewAccount(email: email, password: password);
+                        log.info("The user not found and create one!")
                     default:
+                        self?.showAlert(ERROR_MSG_UNEXPECTED_ERROR)
                         log.error("Unexpeced error")
                     }
+                    
+                    self?.authBtn.animateButton(shouldLoad: false, withMessage: MSG_SIGN_UP_SIGN_IN)
                 }
                 return
             }

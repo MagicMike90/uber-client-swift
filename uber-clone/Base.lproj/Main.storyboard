@@ -542,9 +542,12 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cZ0-WH-AH2" userLabel="footer">
                                         <rect key="frame" x="0.0" y="752" width="414" height="100"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="enc-XJ-scS" customClass="RoundedShadowButton" customModule="uber_clone" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="enc-XJ-scS" customClass="RoundedShadowButton" customModule="uber_clone" customModuleProvider="target">
                                                 <rect key="frame" x="25" y="25" width="364" height="50"/>
                                                 <color key="backgroundColor" red="0.062745098040000002" green="0.054901960780000002" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="nPx-fC-obP"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="17"/>
                                                 <state key="normal" title="SIGN UP / LOGIN">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -565,10 +568,10 @@
                                     </view>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="cZ0-WH-AH2" firstAttribute="leading" secondItem="mIo-vZ-F0y" secondAttribute="leading" id="3as-X1-wPT"/>
+                                    <constraint firstAttribute="bottom" secondItem="cZ0-WH-AH2" secondAttribute="bottom" id="5sM-7x-0Nb"/>
                                     <constraint firstAttribute="trailing" secondItem="ajJ-9a-jJM" secondAttribute="trailing" constant="15" id="92P-oJ-wSS"/>
                                     <constraint firstItem="ajJ-9a-jJM" firstAttribute="top" secondItem="Nvi-Rs-91d" secondAttribute="bottom" constant="55" id="Azr-qb-bkG"/>
-                                    <constraint firstItem="cZ0-WH-AH2" firstAttribute="leading" secondItem="mIo-vZ-F0y" secondAttribute="leading" id="GUS-8k-Q89"/>
-                                    <constraint firstAttribute="bottom" secondItem="cZ0-WH-AH2" secondAttribute="bottom" id="Prn-1k-mta"/>
                                     <constraint firstItem="Nvi-Rs-91d" firstAttribute="top" secondItem="mIo-vZ-F0y" secondAttribute="top" id="X11-gv-hiJ"/>
                                     <constraint firstAttribute="trailing" secondItem="cZ0-WH-AH2" secondAttribute="trailing" id="XaN-Pf-kKI"/>
                                     <constraint firstItem="ajJ-9a-jJM" firstAttribute="leading" secondItem="mIo-vZ-F0y" secondAttribute="leading" constant="15" id="b9y-T6-IL0"/>

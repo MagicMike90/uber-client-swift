@@ -220,6 +220,9 @@ extension HomeVC: MKMapViewDelegate {
         return lineRenderer
     }
     
+    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        centerMapBtn.fadeTo(alphaValue: 1.0, withDuration: 0.2)
+    }
     
     func performSearch() {
         matchingItems.removeAll()
@@ -232,6 +235,7 @@ extension HomeVC: MKMapViewDelegate {
         search.start { (response, error) in
             if error != nil {
                 self.showAlert(ERROR_MSG_UNEXPECTED_ERROR)
+                self.shouldPresentLoadingView(false)
             } else if response!.mapItems.count == 0 {
                 self.showAlert(ERROR_MSG_NO_MATCHES_FOUND)
             } else {
