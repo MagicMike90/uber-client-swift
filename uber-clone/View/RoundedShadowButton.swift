@@ -13,22 +13,12 @@ import UIKit
     private static let ANIMATED_DURATION = 0.3
     
     var originalSize: CGRect?
-    
-    override init(frame: CGRect) {
-      super.init(frame: frame)
-         setupView()
+ 
+    override func awakeFromNib() {
+        setupView()
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-         setupView()
-    }
-//    override func awakeFromNib() {
-//        setupView()
-//    }
-//
+
     func setupView() -> Void {
-        originalSize = self.frame
         self.layer.cornerRadius = 5.0
         self.layer.shadowRadius = 10.0
         self.layer.shadowColor = UIColor.darkGray.cgColor
@@ -38,11 +28,8 @@ import UIKit
     
     func animateButton(shouldLoad:Bool, withMessage message:String?) {
         let spinnerTag = 21
-        
- 
+    
         if shouldLoad {
-           
-            
             let spinner = UIActivityIndicatorView()
             spinner.style = .white
             spinner.color = UIColor.darkGray
@@ -55,11 +42,9 @@ import UIKit
             
             UIView.animate(withDuration: RoundedShadowButton.ANIMATED_DURATION, animations: {
                 self.layer.cornerRadius = self.frame.height / 2
-                print("before")
-                print("originalSize \(self.originalSize!)")
-                print("self.frame \(self.frame)")
-                 print("center \(self.center)")
-                print("````````````````````")
+                
+                // frame calulation is different from story board
+                self.originalSize = self.frame
                 self.frame = CGRect(x: self.frame.midX - (self.frame.height / 2), y: self.frame.origin.y, width: self.frame.height, height: self.frame.height)
             }, completion: {(finish) in
                 if finish == true {
@@ -84,18 +69,15 @@ import UIKit
                 }
             }
             
-            print("````````````````````\(shouldLoad)")
-            print("originalSize \(self.originalSize!)")
-            print("self.frame \(self.frame)")
-            print("````````````````````")
             
             UIView.animate(withDuration: RoundedShadowButton.ANIMATED_DURATION, animations: {
                 self.layer.cornerRadius = 5.0
                 self.frame = self.originalSize!
-                self.setTitle(message, for: .normal)
-                self.setNeedsLayout()
+            },completion: {(finish) in
+                if finish == true {
+                  self.setTitle(message, for: .normal)
+                }
             })
-//            self.frame = self.originalSize!
         }
     }
     
