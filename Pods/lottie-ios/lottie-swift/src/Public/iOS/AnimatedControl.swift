@@ -26,9 +26,9 @@ import UIKit
  NOTE: Do not initialize directly. This is intended to be subclassed.
  */
 open class AnimatedControl: UIControl {
-  
+
   // MARK: Public
-  
+
   /// The animation backing the animated control.
   public var animation: Animation? {
     didSet {
@@ -39,86 +39,86 @@ open class AnimatedControl: UIControl {
       animationDidSet()
     }
   }
-  
+
   /// Sets which Animation Layer should be visible for the given state.
   public func setLayer(named: String, forState: UIControl.State) {
     stateMap[forState.rawValue] = named
     updateForState()
   }
-  
+
   // MARK: Initializers
-  
+
   public init(animation: Animation) {
     self.animationView = AnimationView(animation: animation)
     super.init(frame: animation.bounds)
     commonInit()
   }
-  
+
   public init() {
     self.animationView = AnimationView()
     super.init(frame: .zero)
     commonInit()
   }
-  
+
   required public init?(coder aDecoder: NSCoder) {
     self.animationView = AnimationView()
     super.init(coder: aDecoder)
     commonInit()
   }
-  
+
   // MARK: UIControl Overrides
-  
+
   open override var isEnabled: Bool {
     didSet {
       updateForState()
     }
   }
-  
+
   open override var isSelected: Bool {
     didSet {
       updateForState()
     }
   }
-  
+
   open override var isHighlighted: Bool {
     didSet {
       updateForState()
     }
   }
-  
+
   open override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
     updateForState()
     return super.beginTracking(touch, with: event)
   }
-  
+
   open override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
     updateForState()
     return super.continueTracking(touch, with: event)
   }
-  
+
   open override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
     updateForState()
     return super.endTracking(touch, with: event)
   }
-  
+
   open override func cancelTracking(with event: UIEvent?) {
     updateForState()
     super.cancelTracking(with: event)
   }
-  
+
   open override var intrinsicContentSize: CGSize {
     return animationView.intrinsicContentSize
   }
-  
+
   open func animationDidSet() {
-    
+
   }
-  
+
   // MARK: Private
-  
+
   let animationView: AnimationView
-  var stateMap: [UInt : String] = [:]
-  
+  var stateMap: [UInt: String] = [:]
+
   fileprivate func commonInit() {
     animationView.clipsToBounds = false
     clipsToBounds = true
@@ -131,7 +131,7 @@ open class AnimatedControl: UIControl {
     animationView.topAnchor.constraint(equalTo: topAnchor).isActive = true
     animationView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
   }
-  
+
   func updateForState() {
     guard let animationLayer = animationView.animationLayer else { return }
     if let layerName = stateMap[state.rawValue],
@@ -146,5 +146,5 @@ open class AnimatedControl: UIControl {
       }
     }
   }
-  
+
 }

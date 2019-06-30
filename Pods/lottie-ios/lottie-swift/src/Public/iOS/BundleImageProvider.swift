@@ -14,10 +14,10 @@ import UIKit
  The BundleImageProvider is initialized with a bundle and an optional searchPath.
  */
 public class BundleImageProvider: AnimationImageProvider {
-  
+
   let bundle: Bundle
   let searchPath: String?
-  
+
   /**
    Initializes an image provider with a bundle and an optional subpath.
    
@@ -32,23 +32,23 @@ public class BundleImageProvider: AnimationImageProvider {
     self.bundle = bundle
     self.searchPath = searchPath
   }
-  
+
   public func imageForAsset(asset: ImageAsset) -> CGImage? {
-    
+
     if asset.name.hasPrefix("data:"),
       let url = URL(string: asset.name),
       let data = try? Data(contentsOf: url),
       let image = UIImage(data: data) {
       return image.cgImage
     }
-    
+
     let imagePath: String?
     /// Try to find the image in the bundle.
     if let searchPath = searchPath {
       /// Search in the provided search path for the image
       var directoryPath = URL(fileURLWithPath: searchPath)
       directoryPath.appendPathComponent(asset.directory)
-      
+
       if let path = bundle.path(forResource: asset.name, ofType: nil, inDirectory: directoryPath.path) {
         /// First search for the image in the asset provided sub directory.
         imagePath = path
@@ -67,12 +67,12 @@ public class BundleImageProvider: AnimationImageProvider {
         imagePath = bundle.path(forResource: asset.name, ofType: nil)
       }
     }
-    
+
     guard let foundPath = imagePath, let image = UIImage(contentsOfFile: foundPath) else {
       /// No image found.
       return nil
     }
     return image.cgImage
   }
-  
+
 }

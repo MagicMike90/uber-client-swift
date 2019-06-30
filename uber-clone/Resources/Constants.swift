@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 // Account
 let ACCOUNT_IS_DRIVER = "isDriver"
 let ACCOUNT_PICKUP_MODE_ENABLED = "isPickupModeEnabled"
@@ -75,3 +74,4 @@ let ERROR_MSG_INVALID_EMAIL = "Sorry, the email you've entered appears to be inv
 let ERROR_MSG_EMAIL_ALREADY_IN_USE = "It appears that email is already in use by another user. Please try again."
 let ERROR_MSG_WRONG_PASSWORD = "The password you tried is incorrect. Please try again."
 let ERROR_MSG_UNEXPECTED_ERROR = "There has been an unexpected error. Please try again."
+let ERROR_MSG_NOT_LOGIN_ERROR = "Please log in."

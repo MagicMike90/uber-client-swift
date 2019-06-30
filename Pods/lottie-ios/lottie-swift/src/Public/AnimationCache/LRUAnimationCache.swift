@@ -16,19 +16,19 @@ import Foundation
 public class LRUAnimationCache: AnimationCacheProvider {
 
   public init() { }
-  
+
   /// Clears the Cache.
   public func clearCache() {
     cacheMap.removeAll()
     lruList.removeAll()
   }
-  
+
   /// The global shared Cache.
   public static let sharedCache = LRUAnimationCache()
-  
+
   /// The size of the cache.
   public var cacheSize: Int = 100
-  
+
   public func animation(forKey: String) -> Animation? {
     guard let animation = cacheMap[forKey] else {
       return nil
@@ -39,7 +39,7 @@ public class LRUAnimationCache: AnimationCacheProvider {
     }
     return animation
   }
-  
+
   public func setAnimation(_ animation: Animation, forKey: String) {
     cacheMap[forKey] = animation
     lruList.append(forKey)
@@ -47,8 +47,8 @@ public class LRUAnimationCache: AnimationCacheProvider {
       lruList.remove(at: 0)
     }
   }
-  
-  fileprivate var cacheMap: [String : Animation] = [:]
+
+  fileprivate var cacheMap: [String: Animation] = [:]
   fileprivate var lruList: [String] = []
-  
+
 }

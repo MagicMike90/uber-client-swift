@@ -9,7 +9,7 @@ import Foundation
 import QuartzCore
 
 class TrimPathProperties: NodePropertyMap, KeypathSearchable {
-  
+
   init(trim: Trim) {
     self.keypathName = trim.name
     self.start = NodeProperty(provider: KeyframeInterpolator(keyframes: trim.start.keyframes))
@@ -17,17 +17,17 @@ class TrimPathProperties: NodePropertyMap, KeypathSearchable {
     self.offset = NodeProperty(provider: KeyframeInterpolator(keyframes: trim.offset.keyframes))
     self.type = trim.trimType
     self.keypathProperties = [
-      "Start" : start,
-      "End" : end,
-      "Offset" : offset
+      "Start": start,
+      "End": end,
+      "Offset": offset
     ]
     self.properties = Array(keypathProperties.values)
   }
-  
-  let keypathProperties: [String : AnyNodeProperty]
+
+  let keypathProperties: [String: AnyNodeProperty]
   let properties: [AnyNodeProperty]
   let keypathName: String
-  
+
   let start: NodeProperty<Vector1D>
   let end: NodeProperty<Vector1D>
   let offset: NodeProperty<Vector1D>
@@ -35,47 +35,47 @@ class TrimPathProperties: NodePropertyMap, KeypathSearchable {
 }
 
 class TrimPathNode: AnimatorNode {
-  
+
   let properties: TrimPathProperties
-  
+
   fileprivate let upstreamPaths: [PathOutputNode]
-  
+
   init(parentNode: AnimatorNode?, trim: Trim, upstreamPaths: [PathOutputNode]) {
     self.outputNode = PassThroughOutputNode(parent: parentNode?.outputNode)
     self.parentNode = parentNode
     self.properties = TrimPathProperties(trim: trim)
     self.upstreamPaths = upstreamPaths
   }
-  
+
   // MARK: Animator Node
   var propertyMap: NodePropertyMap & KeypathSearchable {
     return properties
   }
-  
+
   let parentNode: AnimatorNode?
   let outputNode: NodeOutput
   var hasLocalUpdates: Bool = false
   var hasUpstreamUpdates: Bool = false
-  var lastUpdateFrame: CGFloat? = nil
-  
+  var lastUpdateFrame: CGFloat?
+
   func forceUpstreamOutputUpdates() -> Bool {
     return hasLocalUpdates || hasUpstreamUpdates
   }
-  
+
   func rebuildOutputs(frame: CGFloat) {
     /// Make sure there is a trim.
     let startValue = properties.start.value.cgFloatValue  * 0.01
     let endValue = properties.end.value.cgFloatValue * 0.01
     let start = min(startValue, endValue)
     let end = max(startValue, endValue)
-    
+
     let offset = properties.offset.value.cgFloatValue.truncatingRemainder(dividingBy: 360) / 360
-    
+
     /// No need to trim, it's a full path
     if start == 0, end == 1 {
       return
     }
-    
+
     /// All paths are empty.
     if start == end {
       for pathContainer in upstreamPaths {
@@ -83,7 +83,7 @@ class TrimPathNode: AnimatorNode {
       }
       return
     }
-    
+
     if properties.type == .simultaneously {
       /// Just trim each path
       for pathContainer in upstreamPaths {
@@ -95,19 +95,19 @@ class TrimPathNode: AnimatorNode {
       }
       return
     }
-    
+
     /// Individual path trimming.
-    
+
     /// Brace yourself for the below code.
-    
+
     /// Normalize lengths with offset.
     var startPosition = (start+offset).truncatingRemainder(dividingBy: 1)
     var endPosition =  (end+offset).truncatingRemainder(dividingBy: 1)
-    
+
     if startPosition < 0 {
       startPosition = 1 + startPosition
     }
-    
+
     if endPosition < 0 {
       endPosition = 1 + endPosition
     }
@@ -117,27 +117,26 @@ class TrimPathNode: AnimatorNode {
     if endPosition == 0 {
       endPosition = 1
     }
-    
-    
+
     /// First get the total length of all paths.
     var totalLength: CGFloat = 0
     upstreamPaths.forEach({ totalLength = totalLength + $0.totalLength })
-    
+
     /// Now determine the start and end cut lengths
     let startLength = startPosition * totalLength
     let endLength = endPosition * totalLength
     var pathStart: CGFloat = 0
-    
+
     /// Now loop through all path containers
     for pathContainer in upstreamPaths {
-      
+
       let pathEnd = pathStart + pathContainer.totalLength
-      
+
       if !startLength.isInRange(pathStart, pathEnd) &&
         endLength.isInRange(pathStart, pathEnd) {
         // pathStart|=======E----------------------|pathEnd
         // Cut path components, removing after end.
-        
+
         let pathCutLength = endLength - pathStart
         let subpaths = pathContainer.removePaths(updateFrame: frame)
         var subpathStart: CGFloat = 0
@@ -159,12 +158,12 @@ class TrimPathNode: AnimatorNode {
           }
           subpathStart = subpathEnd
         }
-        
+
       } else if !endLength.isInRange(pathStart, pathEnd) &&
         startLength.isInRange(pathStart, pathEnd) {
         // pathStart|-------S======================|pathEnd
         //
-        
+
         // Cut path components, removing before beginning.
         let pathCutLength = startLength - pathStart
         // Clear paths from container
@@ -172,7 +171,7 @@ class TrimPathNode: AnimatorNode {
         var subpathStart: CGFloat = 0
         for path in subpaths {
           let subpathEnd = subpathStart + path.length
-          
+
           if subpathStart < pathCutLength, pathCutLength < subpathEnd {
             /// This is the subpath that needs to be cut.
             let cutLength = pathCutLength - subpathStart
@@ -188,7 +187,7 @@ class TrimPathNode: AnimatorNode {
         // pathStart|-------S============E---------|endLength
         // pathStart|=====E----------------S=======|endLength
         // trim from path beginning to endLength.
-        
+
         // Cut path components, removing before beginnings.
         let startCutLength = startLength - pathStart
         let endCutLength = endLength - pathStart
@@ -196,15 +195,15 @@ class TrimPathNode: AnimatorNode {
         let subpaths = pathContainer.removePaths(updateFrame: frame)
         var subpathStart: CGFloat = 0
         for path in subpaths {
-          
+
           let subpathEnd = subpathStart + path.length
-          
+
           if !startCutLength.isInRange(subpathStart, subpathEnd) &&
             !endCutLength.isInRange(subpathStart, subpathEnd) {
             // The whole path is included. Add
             // S|==============================|E
             pathContainer.appendPath(path, updateFrame: frame)
-            
+
           } else if startCutLength.isInRange(subpathStart, subpathEnd) &&
             !endCutLength.isInRange(subpathStart, subpathEnd) {
             /// The start of the path needs to be trimmed
@@ -228,7 +227,7 @@ class TrimPathNode: AnimatorNode {
             pathContainer.appendPath(newPath, updateFrame: frame)
             break
           }
-          
+
           subpathStart = subpathEnd
         }
       } else if (endLength <= pathStart && pathEnd <= startLength) ||
@@ -237,10 +236,10 @@ class TrimPathNode: AnimatorNode {
         /// The Path needs to be cleared
         pathContainer.removePaths(updateFrame: frame)
       }
-      
+
       pathStart = pathEnd
     }
-    
+
   }
-  
+
 }

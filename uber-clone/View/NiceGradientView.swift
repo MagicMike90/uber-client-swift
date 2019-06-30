@@ -9,16 +9,14 @@
 import UIKit
 
 class NiceGradientView: UIView {
-    
-    
+
     override public class var layerClass: Swift.AnyClass {
         return CAGradientLayer.self
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        
+
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.bounds
 
@@ -30,8 +28,7 @@ class NiceGradientView: UIView {
         gradientLayer.colors = [gradient1.cgColor, gradient2.cgColor]
         // Rasterize this static layer to improve app performance.
 //        gradientLayer.shouldRasterize = true
-        
-        
+
         self.layer.addSublayer(gradientLayer)
     }
 }

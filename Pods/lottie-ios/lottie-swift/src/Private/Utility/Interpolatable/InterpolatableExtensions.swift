@@ -18,7 +18,7 @@ extension Vector2D: Interpolatable {
   func interpolateTo(_ to: Vector2D, amount: CGFloat, spatialOutTangent: CGPoint?, spatialInTangent: CGPoint?) -> Vector2D {
     return pointValue.interpolateTo(to.pointValue, amount: CGFloat(amount), spatialOutTangent: spatialOutTangent, spatialInTangent: spatialInTangent).vector2dValue
   }
-  
+
 }
 
 extension Vector3D: Interpolatable {
@@ -37,16 +37,16 @@ extension Vector3D: Interpolatable {
 }
 
 extension Color: Interpolatable {
-  
+
   /// Initialize a new color with Hue Saturation and Value
   init(h: Double, s: Double, v: Double, a: Double) {
-    
+
     let i = floor(h * 6)
     let f = h * 6 - i
-    let p = v * (1 - s);
+    let p = v * (1 - s)
     let q = v * (1 - f * s)
     let t = v * (1 - (1 - f) * s)
-    
+
     switch (i.truncatingRemainder(dividingBy: 6)) {
     case 0:
       self.r = v
@@ -79,17 +79,17 @@ extension Color: Interpolatable {
     }
     self.a = a
   }
-  
+
   /// Hue Saturation Value of the color.
   var hsva: (h: Double, s: Double, v: Double, a: Double) {
     let maxValue = max(r, g, b)
     let minValue = min(r, g, b)
-    
+
     var h: Double, s: Double, v: Double = maxValue
-    
+
     let d = maxValue - minValue
-    s = maxValue == 0 ? 0 : d / maxValue;
-    
+    s = maxValue == 0 ? 0 : d / maxValue
+
     if (maxValue == minValue) {
       h = 0; // achromatic
     } else {
@@ -103,7 +103,7 @@ extension Color: Interpolatable {
     }
     return (h: h, s: s, v: v, a: a)
   }
-  
+
   init(y: Double, u: Double, v: Double, a: Double) {
     // From https://www.fourcc.org/fccyvrgb.php
     self.r = y + 1.403 * v
@@ -111,7 +111,7 @@ extension Color: Interpolatable {
     self.b = y + 1.770 * u
     self.a = a
   }
-  
+
   var yuv: (y: Double, u: Double, v: Double, a: Double) {
     /// From https://www.fourcc.org/fccyvrgb.php
     let y = 0.299 * r + 0.587 * g + 0.114 * b
@@ -119,7 +119,7 @@ extension Color: Interpolatable {
     let v = 0.615 * r - 0.51499 * g - 0.10001 * b
     return (y: y, u: u, v: v, a: a)
   }
-  
+
   func interpolateTo(_ to: Color, amount: CGFloat, spatialOutTangent: CGPoint?, spatialInTangent: CGPoint?) -> Color {
     return Color(r: r.interpolateTo(to.r, amount: amount),
                  g: g.interpolateTo(to.g, amount: amount),
@@ -149,7 +149,7 @@ extension BezierPath: Interpolatable {
 }
 
 extension TextDocument: Interpolatable {
-  
+
   func interpolateTo(_ to: TextDocument, amount: CGFloat, spatialOutTangent: CGPoint?, spatialInTangent: CGPoint?) -> TextDocument {
     if amount == 1 {
       return to
@@ -166,5 +166,5 @@ extension Array: Interpolatable where Element == Double {
     }
     return returnArray
   }
-  
+
 }

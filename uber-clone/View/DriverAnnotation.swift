@@ -12,16 +12,16 @@ import MapKit
 class DriverAnnotation: NSObject, MKAnnotation {
     // it requires objective c compile for mapview
     @objc dynamic var coordinate: CLLocationCoordinate2D
-    
+
     var key: String
-    
-    init(coordinate:CLLocationCoordinate2D, withKey key: String) {
+
+    init(coordinate: CLLocationCoordinate2D, withKey key: String) {
         self.coordinate = coordinate
         self.key = key
         super.init()
     }
-    
-    func update(AnnotationPosition annotation: DriverAnnotation, withCoordinate:CLLocationCoordinate2D){
+
+    func update(AnnotationPosition annotation: DriverAnnotation, withCoordinate: CLLocationCoordinate2D) {
         UIView.animate(withDuration: 0.2) {
             self.coordinate = withCoordinate
         }

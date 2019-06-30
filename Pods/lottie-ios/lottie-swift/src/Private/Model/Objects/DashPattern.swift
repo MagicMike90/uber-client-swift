@@ -16,8 +16,8 @@ enum DashElementType: String, Codable {
 struct DashElement: Codable {
   let type: DashElementType
   let value: KeyframeGroup<Vector1D>
-  
-  enum CodingKeys : String, CodingKey {
+
+  enum CodingKeys: String, CodingKey {
     case type = "n"
     case value = "v"
   }

@@ -15,10 +15,10 @@ import QuartzCore
  the currentFrame property.
  */
 class AnimationContainer: CALayer {
-  
+
   /// The animatable Current Frame Property
   @NSManaged var currentFrame: CGFloat
-  
+
   var imageProvider: AnimationImageProvider {
     get {
       return layerImageProvider.imageProvider
@@ -27,29 +27,29 @@ class AnimationContainer: CALayer {
       layerImageProvider.imageProvider = newValue
     }
   }
-  
+
   func reloadImages() {
     layerImageProvider.reloadImages()
   }
-  
+
   var renderScale: CGFloat = 1 {
     didSet {
       animationLayers.forEach({ $0.renderScale = renderScale })
     }
   }
-  
+
   public var respectAnimationFrameRate: Bool = false
-  
+
   /// Forces the view to update its drawing.
   func forceDisplayUpdate() {
-    animationLayers.forEach( { $0.displayWithFrame(frame: currentFrame, forceUpdates: true) })
+    animationLayers.forEach({ $0.displayWithFrame(frame: currentFrame, forceUpdates: true) })
   }
-  
+
   func logHierarchyKeypaths() {
     print("Lottie: Logging Animation Keypaths")
     animationLayers.forEach({ $0.logKeypaths(for: nil) })
   }
-  
+
   func setValueProvider(_ valueProvider: AnyValueProvider, keypath: AnimationKeypath) {
     for layer in animationLayers {
       if let foundProperties = layer.nodeProperties(for: keypath) {
@@ -60,7 +60,7 @@ class AnimationContainer: CALayer {
       }
     }
   }
-  
+
   func getValue(for keypath: AnimationKeypath, atFrame: CGFloat?) -> Any? {
     for layer in animationLayers {
       if let foundProperties = layer.nodeProperties(for: keypath),
@@ -70,7 +70,7 @@ class AnimationContainer: CALayer {
     }
     return nil
   }
-  
+
   func layer(for keypath: AnimationKeypath) -> CALayer? {
     for layer in animationLayers {
       if let foundLayer = layer.layer(for: keypath) {
@@ -79,20 +79,20 @@ class AnimationContainer: CALayer {
     }
     return nil
   }
-  
+
   var animationLayers: [CompositionLayer]
   fileprivate let layerImageProvider: LayerImageProvider
-  
+
   init(animation: Animation, imageProvider: AnimationImageProvider) {
     self.layerImageProvider = LayerImageProvider(imageProvider: imageProvider, assets: animation.assetLibrary?.imageAssets)
     self.animationLayers = []
     super.init()
     bounds = animation.bounds
     let layers = animation.layers.initializeCompositionLayers(assetLibrary: animation.assetLibrary, layerImageProvider: layerImageProvider, frameRate: CGFloat(animation.framerate))
-    
+
     var imageLayers = [ImageCompositionLayer]()
-    
-    var mattedLayer: CompositionLayer? = nil
+
+    var mattedLayer: CompositionLayer?
 
     for layer in layers.reversed() {
       layer.bounds = bounds
@@ -113,38 +113,38 @@ class AnimationContainer: CALayer {
       }
       addSublayer(layer)
     }
-    
+
     layerImageProvider.addImageLayers(imageLayers)
     layerImageProvider.reloadImages()
     setNeedsDisplay()
   }
-  
+
   /// For CAAnimation Use
   public override init(layer: Any) {
     self.animationLayers = []
     self.layerImageProvider = LayerImageProvider(imageProvider: BlankImageProvider(), assets: nil)
 
     super.init(layer: layer)
-    
+
     guard let animationLayer = layer as? AnimationContainer else { return }
-    
+
     currentFrame = animationLayer.currentFrame
-    
+
   }
-  
+
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   // MARK: CALayer Animations
-  
+
   override public class func needsDisplay(forKey key: String) -> Bool {
     if key == "currentFrame" {
       return true
     }
     return super.needsDisplay(forKey: key)
   }
-  
+
   override public func action(forKey event: String) -> CAAction? {
     if event == "currentFrame" {
       let animation = CABasicAnimation(keyPath: event)
@@ -154,18 +154,18 @@ class AnimationContainer: CALayer {
     }
     return super.action(forKey: event)
   }
-  
+
   public override func display() {
     var newFrame: CGFloat = self.presentation()?.currentFrame ?? self.currentFrame
     if respectAnimationFrameRate {
       newFrame = floor(newFrame)
     }
-    animationLayers.forEach( { $0.displayWithFrame(frame: newFrame, forceUpdates: false) })
+    animationLayers.forEach({ $0.displayWithFrame(frame: newFrame, forceUpdates: false) })
   }
-  
+
 }
 
-fileprivate class BlankImageProvider: AnimationImageProvider {
+private class BlankImageProvider: AnimationImageProvider {
   func imageForAsset(asset: ImageAsset) -> CGImage? {
     return nil
   }

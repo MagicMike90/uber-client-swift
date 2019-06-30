@@ -13,7 +13,7 @@ import CoreGraphics
  Note: This is a parent class and should not be used directly.
  */
 struct Keyframe<T: Interpolatable> {
-  
+
   /// The value of the keyframe
   let value: T
   /// The time in frames of the keyframe.
@@ -24,12 +24,12 @@ struct Keyframe<T: Interpolatable> {
   let inTangent: Vector2D?
   /// The out tangent for the time interpolation curve.
   let outTangent: Vector2D?
-  
+
   /// The spacial in tangent of the vector.
   let spatialInTangent: Vector3D?
   /// The spacial out tangent of the vector.
   let spatialOutTangent: Vector3D?
-  
+
   /// Initialize a value-only keyframe with no time data.
   init(_ value: T,
        spatialInTangent: Vector3D? = nil,
@@ -42,7 +42,7 @@ struct Keyframe<T: Interpolatable> {
     self.spatialInTangent = spatialInTangent
     self.spatialOutTangent = spatialOutTangent
   }
-  
+
   /// Initialize a keyframe
   init(value: T,
        time: Double,
@@ -59,7 +59,7 @@ struct Keyframe<T: Interpolatable> {
     self.spatialInTangent = spatialInTangent
     self.spatialOutTangent = spatialOutTangent
   }
-  
+
 }
 
 /**
@@ -70,7 +70,7 @@ struct Keyframe<T: Interpolatable> {
  we can reconfigure it into a constant format.
  */
 struct KeyframeData<T: Codable>: Codable {
-  
+
   /// The start value of the keyframe
   let startValue: T?
   /// The End value of the keyframe. Note: Newer versions animation json do not have this field.
@@ -79,17 +79,17 @@ struct KeyframeData<T: Codable>: Codable {
   let time: Double?
   /// A hold keyframe freezes interpolation until the next keyframe that is not a hold.
   let hold: Int?
-  
+
   /// The in tangent for the time interpolation curve.
   let inTangent: Vector2D?
   /// The out tangent for the time interpolation curve.
   let outTangent: Vector2D?
-  
+
   /// The spacial in tangent of the vector.
   let spatialInTangent: Vector3D?
   /// The spacial out tangent of the vector.
-  let spatialOutTangent:Vector3D?
-  
+  let spatialOutTangent: Vector3D?
+
   init(startValue: T?,
        endValue: T?,
        time: Double?,
@@ -107,8 +107,8 @@ struct KeyframeData<T: Codable>: Codable {
     self.spatialInTangent = spatialInTangent
     self.spatialOutTangent = spatialOutTangent
   }
-  
-  enum CodingKeys : String, CodingKey {
+
+  enum CodingKeys: String, CodingKey {
     case startValue = "s"
     case endValue = "e"
     case time = "t"
@@ -118,7 +118,7 @@ struct KeyframeData<T: Codable>: Codable {
     case spatialInTangent = "ti"
     case spatialOutTangent = "to"
   }
-  
+
   var isHold: Bool {
     if let hold = hold {
       return hold > 0

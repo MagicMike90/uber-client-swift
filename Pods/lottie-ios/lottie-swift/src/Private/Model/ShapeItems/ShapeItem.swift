@@ -11,7 +11,7 @@ import Foundation
 extension ShapeType: ClassFamily {
 
   static var discriminator: Discriminator = .type
-  
+
   func getType() -> AnyObject.Type {
     switch self {
     case .ellipse:
@@ -65,18 +65,18 @@ enum ShapeType: String, Codable {
 
 /// An item belonging to a Shape Layer
 class ShapeItem: Codable {
-  
+
   /// The name of the shape
   let name: String
-  
+
   /// The type of shape
   let type: ShapeType
-  
-  private enum CodingKeys : String, CodingKey {
+
+  private enum CodingKeys: String, CodingKey {
     case name = "nm"
     case type = "ty"
   }
-  
+
   required init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: ShapeItem.CodingKeys.self)
     self.name = try container.decodeIfPresent(String.self, forKey: .name) ?? "Layer"

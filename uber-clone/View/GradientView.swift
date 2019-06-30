@@ -9,7 +9,7 @@
 import UIKit
 
 class GradientView: UIView {
-    
+
     //    let gradient =  CAGradientLayer()
     //
     //    // setup anycode when the interface change
@@ -26,18 +26,18 @@ class GradientView: UIView {
     //        gradient.locations = [0.8, 1.0]
     //        self.layer.addSublayer(gradient)
     //    }
-    
+
     override public class var layerClass: Swift.AnyClass {
         return CAGradientLayer.self
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         guard let gradientLayer = self.layer as? CAGradientLayer else { return }
-        
+
         gradientLayer.colors = [
-            UIColor.black.cgColor, UIColor.init(white:0.0, alpha: 0.0).cgColor
+            UIColor.black.cgColor, UIColor.init(white: 0.0, alpha: 0.0).cgColor
         ]
         gradientLayer.locations = [0.8, 1.0]
         gradientLayer.startPoint = CGPoint.zero

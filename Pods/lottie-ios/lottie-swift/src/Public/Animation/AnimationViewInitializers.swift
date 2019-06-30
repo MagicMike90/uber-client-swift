@@ -8,7 +8,7 @@
 import Foundation
 
 public extension AnimationView {
-  
+
   /**
    Loads a Lottie animation from a JSON file in the supplied bundle.
    
@@ -27,7 +27,7 @@ public extension AnimationView {
     let provider = imageProvider ?? BundleImageProvider(bundle: bundle, searchPath: nil)
     self.init(animation: animation, imageProvider: provider)
   }
-  
+
   /**
    Loads a Lottie animation from a JSON file in a specific path on disk.
    
@@ -42,7 +42,7 @@ public extension AnimationView {
     let provider = imageProvider ?? FilepathImageProvider(filepath: URL(fileURLWithPath: filePath).deletingLastPathComponent().path)
     self.init(animation: animation, imageProvider: provider)
   }
-  
+
   /**
    Loads a Lottie animation asynchronously from the URL
    
@@ -55,14 +55,14 @@ public extension AnimationView {
                           imageProvider: AnimationImageProvider? = nil,
                           closure: @escaping AnimationView.DownloadClosure,
                           animationCache: AnimationCacheProvider? = LRUAnimationCache.sharedCache) {
-    
+
     if let animationCache = animationCache, let animation = animationCache.animation(forKey: url.absoluteString) {
       self.init(animation: animation, imageProvider: imageProvider)
       closure(nil)
     } else {
-      
+
       self.init(animation: nil, imageProvider: imageProvider)
-      
+
       Animation.loadedFrom(url: url, closure: { (animation) in
         if let animation = animation {
           self.animation = animation
@@ -73,9 +73,9 @@ public extension AnimationView {
       }, animationCache: animationCache)
     }
   }
-  
+
   typealias DownloadClosure = (Error?) -> Void
-  
+
 }
 
 enum LottieDownloadError: Error {

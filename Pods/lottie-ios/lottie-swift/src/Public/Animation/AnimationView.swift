@@ -30,9 +30,9 @@ public enum LottieLoopMode {
 
 @IBDesignable
 final public class AnimationView: LottieView {
-  
+
   // MARK: - Public Properties
-  
+
   /**
    Sets the animation backing the animation view. Setting this will clear the
    view's contents, completion blocks and current state. The new animation will
@@ -43,7 +43,7 @@ final public class AnimationView: LottieView {
       makeAnimationLayer()
     }
   }
-  
+
   /// Set animation name from Interface Builder
   @IBInspectable var animationName: String? {
     didSet {
@@ -52,7 +52,7 @@ final public class AnimationView: LottieView {
       }
     }
   }
-  
+
   /**
    Describes the behavior of an AnimationView when the app is moved to the background.
    
@@ -60,7 +60,7 @@ final public class AnimationView: LottieView {
    the background. The completion block is called with `false` for completed.
    */
   public var backgroundBehavior: LottieBackgroundBehavior = .pause
-  
+
   /**
    Sets the image provider for the animation view. An image provider provides the
    animation with its required image data.
@@ -72,19 +72,19 @@ final public class AnimationView: LottieView {
       reloadImages()
     }
   }
-  
+
   /// Returns `true` if the animation is currently playing.
   public var isAnimationPlaying: Bool {
     return animationLayer?.animation(forKey: activeAnimationName) != nil
   }
-  
+
   /// Sets the loop behavior for `play` calls. Defaults to `playOnce`
   public var loopMode: LottieLoopMode = .playOnce {
     didSet {
       updateInFlightAnimation()
     }
   }
-  
+
   /**
    When `true` the animation view will rasterize its contents when not animating.
    Rasterizing will improve performance of static animations.
@@ -98,7 +98,7 @@ final public class AnimationView: LottieView {
       updateRasterizationState()
     }
   }
-  
+
   /**
    Sets the current animation time with a Progress Time
    
@@ -121,7 +121,7 @@ final public class AnimationView: LottieView {
       }
     }
   }
-  
+
   /**
    Sets the current animation time with a time in seconds.
    
@@ -144,7 +144,7 @@ final public class AnimationView: LottieView {
       }
     }
   }
-  
+
   /**
    Sets the current animation time with a frame in the animations framerate.
    
@@ -159,12 +159,12 @@ final public class AnimationView: LottieView {
       return animationLayer?.currentFrame ?? 0
     }
   }
-  
+
   /// Returns the current animation frame while an animation is playing.
   public var realtimeAnimationFrame: AnimationFrameTime {
     return isAnimationPlaying ? animationLayer?.presentation()?.currentFrame ?? currentFrame : currentFrame
   }
-  
+
   /// Returns the current animation frame while an animation is playing.
   public var realtimeAnimationProgress: AnimationProgressTime {
     if let animation = animation {
@@ -172,14 +172,14 @@ final public class AnimationView: LottieView {
     }
     return 0
   }
-  
+
   /// Sets the speed of the animation playback. Defaults to 1
   public var animationSpeed: CGFloat = 1 {
     didSet {
       updateInFlightAnimation()
     }
   }
-  
+
   /**
    When `true` the animation will play back at the framerate encoded in the
    `Animation` model. When `false` the animation will play at the framerate
@@ -192,9 +192,9 @@ final public class AnimationView: LottieView {
       animationLayer?.respectAnimationFrameRate = respectAnimationFrameRate
     }
   }
-  
+
   // MARK: - Public Functions
-  
+
   /**
    Plays the animation from its current state to the end.
    
@@ -204,7 +204,7 @@ final public class AnimationView: LottieView {
     guard let animation = animation else {
       return
     }
-    
+
     /// Build a context for the animation.
     let context = AnimationContext(playFrom: CGFloat(animation.startFrame),
                                    playTo: CGFloat(animation.endFrame),
@@ -212,7 +212,7 @@ final public class AnimationView: LottieView {
     removeCurrentAnimation()
     addNewAnimationForContext(context)
   }
-  
+
   /**
    Plays the animation from a progress (0-1) to a progress (0-1).
    
@@ -228,7 +228,7 @@ final public class AnimationView: LottieView {
     guard let animation = animation else {
       return
     }
-    
+
     removeCurrentAnimation()
     if let loopMode = loopMode {
       /// Set the loop mode, if one was supplied
@@ -239,7 +239,7 @@ final public class AnimationView: LottieView {
                                    closure: completion)
     addNewAnimationForContext(context)
   }
-  
+
   /**
    Plays the animation from a start frame to an end frame in the animation's framerate.
    
@@ -257,13 +257,13 @@ final public class AnimationView: LottieView {
       /// Set the loop mode, if one was supplied
       self.loopMode = loopMode
     }
-    
+
     let context = AnimationContext(playFrom: fromFrame ?? currentProgress,
                                    playTo: toFrame,
                                    closure: completion)
     addNewAnimationForContext(context)
   }
-  
+
   /**
    Plays the animation from a named marker to another marker.
    
@@ -282,30 +282,30 @@ final public class AnimationView: LottieView {
                    toMarker: String,
                    loopMode: LottieLoopMode? = nil,
                    completion: LottieCompletionBlock? = nil) {
-    
+
     guard let animation = animation, let markers = animation.markerMap, let to = markers[toMarker] else {
       return
     }
-    
+
     removeCurrentAnimation()
     if let loopMode = loopMode {
       /// Set the loop mode, if one was supplied
       self.loopMode = loopMode
     }
-    
+
     let fromTime: CGFloat
     if let fromName = fromMarker, let from = markers[fromName] {
       fromTime = CGFloat(from.frameTime)
     } else {
       fromTime = currentFrame
     }
-    
+
     let context = AnimationContext(playFrom: fromTime,
                                    playTo: CGFloat(to.frameTime),
                                    closure: completion)
     addNewAnimationForContext(context)
   }
-  
+
   /**
    Stops the animation and resets the view to its start frame.
    
@@ -315,7 +315,7 @@ final public class AnimationView: LottieView {
     removeCurrentAnimation()
     currentFrame = 0
   }
-  
+
   /**
    Pauses the animation in its current state.
    
@@ -324,19 +324,19 @@ final public class AnimationView: LottieView {
   public func pause() {
     removeCurrentAnimation()
   }
-  
+
   /// Reloads the images supplied to the animation from the `imageProvider`
   public func reloadImages() {
     animationLayer?.reloadImages()
   }
-  
+
   /// Forces the AnimationView to redraw its contents.
   public func forceDisplayUpdate() {
     animationLayer?.forceDisplayUpdate()
   }
-  
+
   // MARK: - Public (Dynamic Properties)
-  
+
   /**
    
    Sets a ValueProvider for the specified keypath. The value provider will be set
@@ -375,14 +375,14 @@ final public class AnimationView: LottieView {
   public func getValue(for keypath: AnimationKeypath, atFrame: AnimationFrameTime?) -> Any? {
     return animationLayer?.getValue(for: keypath, atFrame: atFrame)
   }
-  
+
   /// Logs all child keypaths.
   public func logHierarchyKeypaths() {
     animationLayer?.logHierarchyKeypaths()
   }
-  
+
   // MARK: - Public (Add Subview)
-  
+
   /**
    Searches for the nearest child layer to the first Keypath and adds the subview
    to that layer. The subview will move and animate with the child layer.
@@ -418,7 +418,7 @@ final public class AnimationView: LottieView {
       sublayer.addSublayer(subViewLayer)
     }
   }
-  
+
   /**
    Converts a CGRect from the AnimationView's coordinate space into the
    coordinate space of the layer found at Keypath.
@@ -441,7 +441,7 @@ final public class AnimationView: LottieView {
     self.forceDisplayUpdate()
     return animationLayer.convert(rect, to: sublayer)
   }
-  
+
   /**
    Converts a CGPoint from the AnimationView's coordinate space into the
    coordinate space of the layer found at Keypath.
@@ -464,9 +464,9 @@ final public class AnimationView: LottieView {
     self.forceDisplayUpdate()
     return animationLayer.convert(point, to: sublayer)
   }
-  
+
   // MARK: - Public (Markers)
-  
+
   /**
    Markers are a way to describe a point in time by a key name.
    
@@ -483,7 +483,7 @@ final public class AnimationView: LottieView {
     }
     return animation.progressTime(forMarker: named)
   }
-  
+
   /**
    Markers are a way to describe a point in time by a key name.
    
@@ -500,9 +500,9 @@ final public class AnimationView: LottieView {
     }
     return animation.frameTime(forMarker: named)
   }
-  
+
   // MARK: - Public (Initializers)
-  
+
   /// Initializes a LottieView with an animation.
   public init(animation: Animation?, imageProvider: AnimationImageProvider? = nil) {
     self.animation = animation
@@ -514,40 +514,40 @@ final public class AnimationView: LottieView {
       frame = animation.bounds
     }
   }
-  
+
   public init() {
     self.animation = nil
     self.imageProvider = BundleImageProvider(bundle: Bundle.main, searchPath: nil)
     super.init(frame: .zero)
     commonInit()
   }
-  
+
   public override init(frame: CGRect) {
     self.animation = nil
     self.imageProvider = BundleImageProvider(bundle: Bundle.main, searchPath: nil)
     super.init(frame: .zero)
     commonInit()
   }
-  
+
   required public init?(coder aDecoder: NSCoder) {
     self.imageProvider = BundleImageProvider(bundle: Bundle.main, searchPath: nil)
     super.init(coder: aDecoder)
     commonInit()
   }
-  
+
   deinit {
     NotificationCenter.default.removeObserver(self)
   }
-  
+
   // MARK: - Public (UIView Overrides)
-  
+
   override public var intrinsicContentSize: CGSize {
     if let animation = animation {
       return animation.bounds.size
     }
     return .zero
   }
-  
+
   override func layoutAnimation() {
     guard let animation = animation, let animationLayer = animationLayer else { return }
     var position = animation.bounds.center
@@ -558,7 +558,7 @@ final public class AnimationView: LottieView {
       position = bounds.center
       xform = CATransform3DMakeScale(bounds.size.width / animation.size.width,
                                      bounds.size.height / animation.size.height,
-                                     1);
+                                     1)
     case .scaleAspectFit:
       position = bounds.center
       let compAspect = animation.size.width / animation.size.height
@@ -611,39 +611,38 @@ final public class AnimationView: LottieView {
     }
     animationLayer.position = position
     animationLayer.transform = xform
-    
+
     if shouldForceUpdates {
       animationLayer.forceDisplayUpdate()
     }
   }
-  
+
   // MARK: - Private (Properties)
-  
-  
-  var animationLayer: AnimationContainer? = nil
-  
+
+  var animationLayer: AnimationContainer?
+
   fileprivate var animationContext: AnimationContext?
   static private let animationName: String = "Lottie"
   fileprivate var activeAnimationName: String = AnimationView.animationName
   fileprivate var animationID: Int = 0
-  
+
   // MARK: - Private (Building Animation View)
-  
+
   fileprivate func makeAnimationLayer() {
-    
+
     /// Remove current animation if any
     removeCurrentAnimation()
-    
+
     if let oldAnimation = self.animationLayer {
       oldAnimation.removeFromSuperlayer()
     }
-    
+
     invalidateIntrinsicContentSize()
-    
+
     guard let animation = animation else {
       return
     }
-    
+
     let animationLayer = AnimationContainer(animation: animation, imageProvider: imageProvider)
     animationLayer.renderScale = self.screenScale
     viewLayer?.addSublayer(animationLayer)
@@ -653,7 +652,7 @@ final public class AnimationView: LottieView {
     setNeedsLayout()
     currentFrame = CGFloat(animation.startFrame)
   }
-  
+
   func updateRasterizationState() {
     if isAnimationPlaying {
       animationLayer?.shouldRasterize = false
@@ -661,9 +660,9 @@ final public class AnimationView: LottieView {
       animationLayer?.shouldRasterize = shouldRasterizeWhenIdle
     }
   }
-  
+
   // MARK: - Private (Animation Playback)
-  
+
   /// Updates the animation frame. Does not affect any current animations
   func updateAnimationFrame(_ newFrame: CGFloat) {
     CATransaction.begin()
@@ -672,7 +671,7 @@ final public class AnimationView: LottieView {
     CATransaction.commit()
     animationLayer?.forceDisplayUpdate()
   }
-  
+
   @objc override func animationWillMoveToBackground() {
     if backgroundBehavior == .pauseAndRestore, let currentContext = animationContext {
       /// Ignore the delegate of the animation.
@@ -680,26 +679,26 @@ final public class AnimationView: LottieView {
       removeCurrentAnimation()
       /// Keep the stale context around for when the app enters the foreground.
       self.animationContext = currentContext
-    }  else if backgroundBehavior == .stop,
+    } else if backgroundBehavior == .stop,
       let context = animationContext {
       removeCurrentAnimation()
       updateAnimationFrame(context.playFrom)
     }
   }
-  
+
   @objc override func animationWillEnterForeground() {
     if backgroundBehavior == .pauseAndRestore {
       /// Restore animation from saved state
       updateInFlightAnimation()
     }
   }
-  
+
   override func animationMovedToWindow() {
     if let context = self.animationContext {
       self.addNewAnimationForContext(context)
     }
   }
-  
+
   /// Stops the current in flight animation and freezes the animation in its current state.
   fileprivate func removeCurrentAnimation() {
     guard animationContext != nil else { return }
@@ -708,69 +707,69 @@ final public class AnimationView: LottieView {
     updateAnimationFrame(pauseFrame)
     self.animationContext = nil
   }
-  
+
   /// Updates an in flight animation.
   fileprivate func updateInFlightAnimation() {
     guard let animationContext = animationContext else { return }
-    
+
     /// Tell existing context to ignore its closure
     animationContext.closure.ignoreDelegate = true
-    
+
     /// Make a new context, stealing the completion block from the previous.
     let newContext = AnimationContext(playFrom: animationContext.playFrom,
                                       playTo: animationContext.playTo,
                                       closure: animationContext.closure.completionBlock)
-    
+
     /// Remove current animation, and freeze the current frame.
     let pauseFrame = realtimeAnimationFrame
     animationLayer?.removeAnimation(forKey: activeAnimationName)
     animationLayer?.currentFrame = pauseFrame
-    
+
     addNewAnimationForContext(newContext)
   }
-  
+
   /// Adds animation to animation layer and sets the delegate. If animation layer or animation are nil, exits.
   fileprivate func addNewAnimationForContext(_ animationContext: AnimationContext) {
     guard let animationlayer = animationLayer, let animation = animation else {
       return
     }
-    
+
     self.animationContext = animationContext
-    
+
     guard self.window != nil else { return }
-    
+
     animationID = animationID + 1
     activeAnimationName = AnimationView.animationName + String(animationID)
-    
+
     /// At this point there is no animation on animationLayer and its state is set.
-    
+
     let framerate = animation.framerate
-    
+
     let playFrom = animationContext.playFrom.clamp(animation.startFrame, animation.endFrame)
     let playTo = animationContext.playTo.clamp(animation.startFrame, animation.endFrame)
-    
+
     let duration = ((max(playFrom, playTo) - min(playFrom, playTo)) / CGFloat(framerate))
-    
+
     let playingForward: Bool =
       ((animationSpeed > 0 && playFrom < playTo) ||
         (animationSpeed < 0 && playTo < playFrom))
-    
+
     var startFrame = currentFrame.clamp(min(playFrom, playTo), max(playFrom, playTo))
     if startFrame == playTo {
       startFrame = playFrom
     }
-    
+
     let timeOffset: TimeInterval = playingForward ?
       Double(startFrame - min(playFrom, playTo)) / framerate :
       Double(max(playFrom, playTo) - startFrame) / framerate
-    
+
     let layerAnimation = CABasicAnimation(keyPath: "currentFrame")
     layerAnimation.fromValue = playFrom
     layerAnimation.toValue = playTo
     layerAnimation.speed = Float(animationSpeed)
     layerAnimation.duration = TimeInterval(duration)
     layerAnimation.fillMode = CAMediaTimingFillMode.both
-    
+
     layerAnimation.repeatCount = loopMode == .playOnce ? 1 : HUGE
     layerAnimation.autoreverses = loopMode == .autoReverse ? true : false
     layerAnimation.isRemovedOnCompletion = false
@@ -781,9 +780,9 @@ final public class AnimationView: LottieView {
     layerAnimation.delegate = animationContext.closure
     animationContext.closure.animationLayer = animationlayer
     animationContext.closure.animationKey = activeAnimationName
-    
+
     animationlayer.add(layerAnimation, forKey: activeAnimationName)
     updateRasterizationState()
   }
-  
+
 }

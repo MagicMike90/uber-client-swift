@@ -9,17 +9,17 @@ import Foundation
 import QuartzCore
 
 class PreCompositionLayer: CompositionLayer {
-  
+
   let frameRate: CGFloat
   let remappingNode: NodeProperty<Vector1D>?
   fileprivate var animationLayers: [CompositionLayer]
-  
+
   override var renderScale: CGFloat {
     didSet {
-      animationLayers.forEach( { $0.renderScale = renderScale } )
+      animationLayers.forEach({ $0.renderScale = renderScale })
     }
   }
-  
+
   init(precomp: PreCompLayerModel,
        asset: PrecompAsset,
        layerImageProvider: LayerImageProvider,
@@ -35,13 +35,13 @@ class PreCompositionLayer: CompositionLayer {
     super.init(layer: precomp, size: CGSize(width: precomp.width, height: precomp.height))
     masksToBounds = true
     bounds = CGRect(origin: .zero, size: CGSize(width: precomp.width, height: precomp.height))
-    
+
     let layers = asset.layers.initializeCompositionLayers(assetLibrary: assetLibrary, layerImageProvider: layerImageProvider, frameRate: frameRate)
-    
+
     var imageLayers = [ImageCompositionLayer]()
-    
-    var mattedLayer: CompositionLayer? = nil
-    
+
+    var mattedLayer: CompositionLayer?
+
     for layer in layers.reversed() {
       layer.bounds = bounds
       animationLayers.append(layer)
@@ -61,12 +61,12 @@ class PreCompositionLayer: CompositionLayer {
       }
       contentsLayer.addSublayer(layer)
     }
-    
+
     self.childKeypaths.append(contentsOf: layers)
-    
+
     layerImageProvider.addImageLayers(imageLayers)
   }
-  
+
   override init(layer: Any) {
     /// Used for creating shadow model layers. Read More here: https://developer.apple.com/documentation/quartzcore/calayer/1410842-init
     guard let layer = layer as? PreCompositionLayer else {
@@ -75,14 +75,14 @@ class PreCompositionLayer: CompositionLayer {
     self.frameRate = layer.frameRate
     self.remappingNode = nil
     self.animationLayers = []
-    
+
     super.init(layer: layer)
   }
-  
+
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   override func displayContentsWithFrame(frame: CGFloat, forceUpdates: Bool) {
     let localFrame: CGFloat
     if let remappingNode = remappingNode {
@@ -91,13 +91,13 @@ class PreCompositionLayer: CompositionLayer {
     } else {
       localFrame = (frame - startFrame) / timeStretch
     }
-    animationLayers.forEach( { $0.displayWithFrame(frame: localFrame, forceUpdates: forceUpdates) })
+    animationLayers.forEach({ $0.displayWithFrame(frame: localFrame, forceUpdates: forceUpdates) })
   }
-  
-  override var keypathProperties: [String : AnyNodeProperty] {
+
+  override var keypathProperties: [String: AnyNodeProperty] {
     guard let remappingNode = remappingNode else {
       return super.keypathProperties
     }
-    return ["Time Remap" : remappingNode]
+    return ["Time Remap": remappingNode]
   }
 }

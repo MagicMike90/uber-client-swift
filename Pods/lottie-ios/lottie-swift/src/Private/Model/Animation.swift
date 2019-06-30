@@ -19,45 +19,45 @@ public enum CoordinateSpace: Int, Codable {
  Codable, see JSON schema [here](https://github.com/airbnb/lottie-web/tree/master/docs/json).
  */
 public class Animation: Codable {
-  
+
   /// The version of the JSON Schema.
   let version: String
-  
+
   /// The coordinate space of the composition.
   let type: CoordinateSpace
-  
+
   /// The start time of the composition in frameTime.
   public let startFrame: AnimationFrameTime
-  
+
   /// The end time of the composition in frameTime.
   public let endFrame: AnimationFrameTime
-  
+
   /// The frame rate of the composition.
   public let framerate: Double
-  
+
   /// The height of the composition in points.
   let width: Int
-  
+
   /// The width of the composition in points.
   let height: Int
-  
+
   /// The list of animation layers
   let layers: [LayerModel]
-  
+
   /// The list of glyphs used for text rendering
   let glyphs: [Glyph]?
-  
+
   /// The list of fonts used for text rendering
   let fonts: FontList?
-  
+
   /// Asset Library
   let assetLibrary: AssetLibrary?
-  
+
   /// Markers
   let markers: [Marker]?
-  let markerMap: [String : Marker]?
-  
-  enum CodingKeys : String, CodingKey {
+  let markerMap: [String: Marker]?
+
+  enum CodingKeys: String, CodingKey {
     case version = "v"
     case type = "ddd"
     case startFrame = "ip"
@@ -71,7 +71,7 @@ public class Animation: Codable {
     case assetLibrary = "assets"
     case markers = "markers"
   }
-  
+
   required public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: Animation.CodingKeys.self)
     self.version = try container.decode(String.self, forKey: .version)
@@ -86,9 +86,9 @@ public class Animation: Codable {
     self.fonts = try container.decodeIfPresent(FontList.self, forKey: .fonts)
     self.assetLibrary = try container.decodeIfPresent(AssetLibrary.self, forKey: .assetLibrary)
     self.markers = try container.decodeIfPresent([Marker].self, forKey: .markers)
-    
+
     if let markers = markers {
-      var markerMap: [String : Marker] = [:]
+      var markerMap: [String: Marker] = [:]
       for marker in markers {
         markerMap[marker.name] = marker
       }

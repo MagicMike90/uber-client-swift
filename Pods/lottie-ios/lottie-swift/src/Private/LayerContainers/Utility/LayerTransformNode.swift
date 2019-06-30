@@ -10,21 +10,21 @@ import CoreGraphics
 import QuartzCore
 
 class LayerTransformProperties: NodePropertyMap, KeypathSearchable {
-  
+
   init(transform: Transform) {
-    
+
     self.anchor = NodeProperty(provider: KeyframeInterpolator(keyframes: transform.anchorPoint.keyframes))
     self.scale = NodeProperty(provider: KeyframeInterpolator(keyframes: transform.scale.keyframes))
     self.rotation = NodeProperty(provider: KeyframeInterpolator(keyframes: transform.rotation.keyframes))
     self.opacity = NodeProperty(provider: KeyframeInterpolator(keyframes: transform.opacity.keyframes))
-    
+
     var propertyMap: [String: AnyNodeProperty] = [
-      "Anchor Point" : anchor,
-      "Scale" : scale,
-      "Rotation" : rotation,
-      "Opacity" : opacity
+      "Anchor Point": anchor,
+      "Scale": scale,
+      "Rotation": rotation,
+      "Opacity": opacity
     ]
-    
+
     if let positionKeyframesX = transform.positionX?.keyframes,
       let positionKeyframesY = transform.positionY?.keyframes {
       let xPosition: NodeProperty<Vector1D> = NodeProperty(provider: KeyframeInterpolator(keyframes: positionKeyframesX))
@@ -45,20 +45,20 @@ class LayerTransformProperties: NodePropertyMap, KeypathSearchable {
       self.positionY = nil
       self.positionX = nil
     }
-    
+
     self.keypathProperties = propertyMap
     self.properties = Array(propertyMap.values)
   }
-  
-  let keypathProperties: [String : AnyNodeProperty]
+
+  let keypathProperties: [String: AnyNodeProperty]
   var keypathName: String = "Transform"
-  
+
   var childKeypaths: [KeypathSearchable] {
     return []
   }
-  
+
   let properties: [AnyNodeProperty]
-  
+
   let anchor: NodeProperty<Vector3D>
   let scale: NodeProperty<Vector3D>
   let rotation: NodeProperty<Vector1D>
@@ -66,36 +66,36 @@ class LayerTransformProperties: NodePropertyMap, KeypathSearchable {
   let positionX: NodeProperty<Vector1D>?
   let positionY: NodeProperty<Vector1D>?
   let opacity: NodeProperty<Vector1D>
-  
+
 }
 
 class LayerTransformNode: AnimatorNode {
   let outputNode: NodeOutput = PassThroughOutputNode(parent: nil)
-  
+
   init(transform: Transform) {
     self.transformProperties = LayerTransformProperties(transform: transform)
   }
-  
+
   let transformProperties: LayerTransformProperties
-  
+
   // MARK: Animator Node Protocol
-  
+
   var propertyMap: NodePropertyMap & KeypathSearchable {
     return transformProperties
   }
-  
+
   var parentNode: AnimatorNode?
   var hasLocalUpdates: Bool = false
   var hasUpstreamUpdates: Bool = false
-  var lastUpdateFrame: CGFloat? = nil
-  
+  var lastUpdateFrame: CGFloat?
+
   func shouldRebuildOutputs(frame: CGFloat) -> Bool {
     return hasLocalUpdates || hasUpstreamUpdates
   }
-  
+
   func rebuildOutputs(frame: CGFloat) {
     opacity = Float(transformProperties.opacity.value.cgFloatValue) * 0.01
-    
+
     let position: CGPoint
     if let point = transformProperties.position?.value.pointValue {
       position = point
@@ -105,23 +105,23 @@ class LayerTransformNode: AnimatorNode {
     } else {
       position = .zero
     }
-    
+
     localTransform = CATransform3D.makeTransform(anchor: transformProperties.anchor.value.pointValue,
                                                  position: position,
                                                  scale: transformProperties.scale.value.sizeValue,
                                                  rotation: transformProperties.rotation.value.cgFloatValue,
                                                  skew: nil,
                                                  skewAxis: nil)
-    
+
     if let parentNode = parentNode as? LayerTransformNode {
       globalTransform = CATransform3DConcat(localTransform, parentNode.globalTransform)
     } else {
       globalTransform = localTransform
     }
   }
-  
+
   var opacity: Float = 1
   var localTransform: CATransform3D = CATransform3DIdentity
   var globalTransform: CATransform3D = CATransform3DIdentity
-  
+
 }

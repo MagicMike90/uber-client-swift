@@ -14,41 +14,41 @@ enum TextJustification: Int, Codable {
 }
 
 final class TextDocument: Codable {
-  
+
   /// The Text
   let text: String
-  
+
   /// The Font size
   let fontSize: Double
-  
+
   /// The Font Family
   let fontFamily: String
-  
+
   /// Justification
   let justification: TextJustification
-  
+
   /// Tracking
   let tracking: Int
-  
+
   /// Line Height
   let lineHeight: Double
-  
+
   /// Baseline
   let baseline: Double?
-  
+
   /// Fill Color data
   let fillColorData: Color
-  
+
   /// Scroke Color data
   let strokeColorData: Color?
-  
+
   /// Stroke Width
   let strokeWidth: Double?
-  
+
   /// Stroke Over Fill
   let strokeOverFill: Bool?
-  
-  private enum CodingKeys : String, CodingKey {
+
+  private enum CodingKeys: String, CodingKey {
     case text = "t"
     case fontSize = "s"
     case fontFamily = "f"

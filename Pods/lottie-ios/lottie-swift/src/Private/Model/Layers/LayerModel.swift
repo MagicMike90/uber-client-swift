@@ -10,7 +10,7 @@ import Foundation
 /// Used for mapping a heterogeneous list to classes for parsing.
 extension LayerType: ClassFamily {
   static var discriminator: Discriminator = .type
-  
+
   func getType() -> AnyObject.Type {
     switch self {
     case .precomp:
@@ -68,46 +68,46 @@ public enum BlendMode: Int, Codable {
  A base top container for shapes, images, and other view objects.
  */
 class LayerModel: Codable {
-  
+
   /// The readable name of the layer
   let name: String
-  
+
   /// The index of the layer
   let index: Int
-  
+
   /// The type of the layer.
   let type: LayerType
-  
+
   /// The coordinate space
   let coordinateSpace: CoordinateSpace
-  
+
   /// The in time of the layer in frames.
   let inFrame: Double
   /// The out time of the layer in frames.
   let outFrame: Double
-  
+
   /// The start time of the layer in frames.
   let startTime: Double
-  
+
   /// The transform of the layer
   let transform: Transform
-  
+
   /// The index of the parent layer, if applicable.
   let parent: Int?
-  
+
   /// The blending mode for the layer
   let blendMode: BlendMode
-  
+
   /// An array of masks for the layer.
   let masks: [Mask]?
-  
+
   /// A number that stretches time by a multiplier
   let timeStretch: Double
-  
+
   /// The type of matte if any.
   let matte: MatteType?
-  
-  private enum CodingKeys : String, CodingKey {
+
+  private enum CodingKeys: String, CodingKey {
     case name = "nm"
     case index = "ind"
     case type = "ty"
@@ -122,7 +122,7 @@ class LayerModel: Codable {
     case timeStretch = "sr"
     case matte = "tt"
   }
-  
+
   required init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: LayerModel.CodingKeys.self)
     self.name = try container.decodeIfPresent(String.self, forKey: .name) ?? "Layer"

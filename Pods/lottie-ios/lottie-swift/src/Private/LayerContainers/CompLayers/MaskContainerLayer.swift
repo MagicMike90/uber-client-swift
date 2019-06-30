@@ -30,7 +30,7 @@ extension MaskMode {
 }
 
 class MaskContainerLayer: CALayer {
-  
+
   init(masks: [Mask]) {
     super.init()
     anchorPoint = .zero
@@ -53,7 +53,7 @@ class MaskContainerLayer: CALayer {
     }
     addSublayer(containerLayer)
   }
-  
+
   override init(layer: Any) {
     /// Used for creating shadow model layers. Read More here: https://developer.apple.com/documentation/quartzcore/calayer/1410842-init
     guard let layer = layer as? MaskContainerLayer else {
@@ -61,13 +61,13 @@ class MaskContainerLayer: CALayer {
     }
     super.init(layer: layer)
   }
-  
+
   fileprivate var maskLayers: [MaskLayer] = []
-  
+
   func updateWithFrame(frame: CGFloat, forceUpdates: Bool) {
     maskLayers.forEach({ $0.updateWithFrame(frame: frame, forceUpdates: forceUpdates) })
   }
-  
+
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -82,12 +82,12 @@ extension CGRect {
   }
 }
 
-fileprivate class MaskLayer: CALayer {
-  
+private class MaskLayer: CALayer {
+
   let properties: MaskNodeProperties
-  
+
   let maskLayer = CAShapeLayer()
-  
+
   init(mask: Mask) {
     self.properties = MaskNodeProperties(mask: mask)
     super.init()
@@ -97,26 +97,26 @@ fileprivate class MaskLayer: CALayer {
       CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [0, 1, 0, 1])
     maskLayer.fillRule = CAShapeLayerFillRule.evenOdd
     self.actions = [
-      "opacity" : NSNull()
+      "opacity": NSNull()
     ]
-    
+
   }
-  
+
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   func updateWithFrame(frame: CGFloat, forceUpdates: Bool) {
-    
+
     if properties.opacity.needsUpdate(frame: frame) || forceUpdates {
       properties.opacity.update(frame: frame)
       self.opacity = Float(properties.opacity.value.cgFloatValue)
     }
-    
+
     if properties.shape.needsUpdate(frame: frame) || forceUpdates {
       properties.shape.update(frame: frame)
       properties.expansion.update(frame: frame)
-      
+
       let shapePath = properties.shape.value.cgPath()
       var path = shapePath
       if properties.mode.usableMode == .subtract && !properties.inverted ||
@@ -129,16 +129,16 @@ fileprivate class MaskLayer: CALayer {
       }
       maskLayer.path = path
     }
-    
+
   }
 }
 
-fileprivate class MaskNodeProperties: NodePropertyMap {
-  
-  var propertyMap: [String : AnyNodeProperty]
-  
+private class MaskNodeProperties: NodePropertyMap {
+
+  var propertyMap: [String: AnyNodeProperty]
+
   var properties: [AnyNodeProperty]
-  
+
   init(mask: Mask) {
     self.mode = mask.mode
     self.inverted = mask.inverted
@@ -146,18 +146,17 @@ fileprivate class MaskNodeProperties: NodePropertyMap {
     self.shape = NodeProperty(provider: KeyframeInterpolator(keyframes: mask.shape.keyframes))
     self.expansion = NodeProperty(provider: KeyframeInterpolator(keyframes: mask.expansion.keyframes))
     self.propertyMap = [
-      "Opacity" : opacity,
-      "Shape" : shape,
-      "Expansion" : expansion
+      "Opacity": opacity,
+      "Shape": shape,
+      "Expansion": expansion
     ]
     self.properties = Array(self.propertyMap.values)
   }
-  
+
   let mode: MaskMode
   let inverted: Bool
-  
+
   let opacity: NodeProperty<Vector1D>
   let shape: NodeProperty<BezierPath>
   let expansion: NodeProperty<Vector1D>
 }
-

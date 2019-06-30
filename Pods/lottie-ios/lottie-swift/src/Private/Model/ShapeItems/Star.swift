@@ -15,35 +15,35 @@ enum StarType: Int, Codable {
 
 /// An item that define an ellipse shape
 class Star: ShapeItem {
-  
+
   /// The direction of the star.
   let direction: PathDirection
-  
+
   /// The position of the star
   let position: KeyframeGroup<Vector3D>
-  
+
   /// The outer radius of the star
   let outerRadius: KeyframeGroup<Vector1D>
-  
+
   /// The outer roundness of the star
   let outerRoundness: KeyframeGroup<Vector1D>
-  
+
   /// The outer radius of the star
   let innerRadius: KeyframeGroup<Vector1D>?
-  
+
   /// The outer roundness of the star
   let innerRoundness: KeyframeGroup<Vector1D>?
-  
+
   /// The rotation of the star
   let rotation: KeyframeGroup<Vector1D>
-  
+
   /// The number of points on the star
   let points: KeyframeGroup<Vector1D>
-  
+
   /// The type of star
   let starType: StarType
-  
-  private enum CodingKeys : String, CodingKey {
+
+  private enum CodingKeys: String, CodingKey {
     case direction = "d"
     case position = "p"
     case outerRadius = "or"
@@ -54,7 +54,7 @@ class Star: ShapeItem {
     case points = "pt"
     case starType = "sy"
   }
-  
+
   required init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: Star.CodingKeys.self)
     self.direction = try container.decodeIfPresent(PathDirection.self, forKey: .direction) ?? .clockwise
@@ -68,7 +68,7 @@ class Star: ShapeItem {
     self.starType = try container.decode(StarType.self, forKey: .starType)
     try super.init(from: decoder)
   }
-  
+
   override func encode(to encoder: Encoder) throws {
     try super.encode(to: encoder)
     var container = encoder.container(keyedBy: CodingKeys.self)
@@ -82,5 +82,5 @@ class Star: ShapeItem {
     try container.encode(points, forKey: .points)
     try container.encode(starType, forKey: .starType)
   }
-  
+
 }

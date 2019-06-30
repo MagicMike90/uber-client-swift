@@ -10,49 +10,49 @@ import CoreGraphics
 
 /// A single vertex with an in and out tangent
 struct CurveVertex {
-  
+
   let point: CGPoint
-  
+
   let inTangent: CGPoint
   let outTangent: CGPoint
-  
+
   /// Initializes a curve point with absolute values
   init(_ inTangent: CGPoint, _ point: CGPoint, _ outTangent: CGPoint) {
     self.point = point
     self.inTangent = inTangent
     self.outTangent = outTangent
   }
-  
+
   /// Initializes a curve point with relative values
   init(point: CGPoint, inTangentRelative: CGPoint, outTangentRelative: CGPoint) {
     self.point = point
     self.inTangent = point.add(inTangentRelative)
     self.outTangent = point.add(outTangentRelative)
   }
-  
+
   /// Initializes a curve point with absolute values
   init(point: CGPoint, inTangent: CGPoint, outTangent: CGPoint) {
     self.point = point
     self.inTangent = inTangent
     self.outTangent = outTangent
   }
-  
+
   var inTangentRelative: CGPoint {
     return inTangent.subtract(point)
   }
-  
+
   var outTangentRelative: CGPoint {
     return outTangent.subtract(point)
   }
-  
+
   func reversed() -> CurveVertex {
     return CurveVertex(point: point, inTangent: outTangent, outTangent: inTangent)
   }
-  
+
   func translated(_ translation: CGPoint) -> CurveVertex {
     return CurveVertex(point: point + translation, inTangent: inTangent + translation, outTangent: outTangent + translation)
   }
-  
+
   /**
    Trims a path defined by two Vertices at a specific position, from 0 to 1
    
@@ -75,21 +75,21 @@ struct CurveVertex {
    */
   func splitCurve(toVertex: CurveVertex, position: CGFloat) ->
     (start: CurveVertex, trimPoint: CurveVertex, end: CurveVertex) {
-      
+
       /// If position is less than or equal to 0, trim at start.
       if position <= 0 {
         return (start: CurveVertex(point: point, inTangentRelative: inTangentRelative, outTangentRelative: .zero),
                 trimPoint: CurveVertex(point: point, inTangentRelative: .zero, outTangentRelative: outTangentRelative),
                 end: toVertex)
       }
-      
+
       /// If position is greater than or equal to 1, trim at end.
       if position >= 1 {
         return (start: self,
                 trimPoint: CurveVertex(point: toVertex.point, inTangentRelative: toVertex.inTangentRelative, outTangentRelative: .zero),
                 end: CurveVertex(point: toVertex.point, inTangentRelative: .zero, outTangentRelative: toVertex.outTangentRelative))
       }
-      
+
       if outTangentRelative.isZero && toVertex.inTangentRelative.isZero {
         /// If both tangents are zero, then span to be trimmed is a straight line.
         let trimPoint = point.interpolate(toVertex.point, amount: position)
@@ -111,7 +111,7 @@ struct CurveVertex {
               trimPoint: CurveVertex(point: f, inTangent: d, outTangent: e),
               end: CurveVertex(point: toVertex.point, inTangent: c, outTangent: toVertex.outTangent))
   }
-  
+
   /**
    Trims a curve of a known length to a specific length and returns the points.
    
@@ -129,11 +129,11 @@ struct CurveVertex {
     (start: CurveVertex, trimPoint: CurveVertex, end: CurveVertex) {
       var currentPosition = atLength / curveLength
       var results = splitCurve(toVertex: toVertex, position: currentPosition)
-      
+
       if maxSamples == 0 {
         return results
       }
-      
+
       for _ in 1...maxSamples {
         let length = results.start.distanceTo(results.trimPoint)
         let lengthDiff = atLength - length
@@ -148,7 +148,6 @@ struct CurveVertex {
       return results
   }
 
-  
   /**
    The distance from the receiver to the provided vertex.
    
@@ -157,14 +156,14 @@ struct CurveVertex {
    This is ~99% accurate at a sample count of 30
    */
   func distanceTo(_ toVertex: CurveVertex, sampleCount: Int = 25) -> CGFloat {
-    
+
     if outTangentRelative.isZero && toVertex.inTangentRelative.isZero {
       /// Return a linear distance.
       return point.distanceTo(toVertex.point)
     }
-    
+
     var distance: CGFloat = 0
-    
+
     var previousPoint = point
     for i in 0..<sampleCount {
       let pointOnCurve = splitCurve(toVertex: toVertex, position: CGFloat(i) / CGFloat(sampleCount)).trimPoint

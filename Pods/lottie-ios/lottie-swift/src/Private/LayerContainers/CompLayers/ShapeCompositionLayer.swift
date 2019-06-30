@@ -12,16 +12,16 @@ import CoreGraphics
  A CompositionLayer responsible for initializing and rendering shapes
  */
 class ShapeCompositionLayer: CompositionLayer {
-  
+
   let rootNode: AnimatorNode?
   let renderContainer: ShapeContainerLayer?
-  
+
   override var renderScale: CGFloat {
     didSet {
       renderContainer?.renderScale = renderScale
     }
   }
-  
+
   init(shapeLayer: ShapeLayerModel) {
     let results = shapeLayer.items.initializeNodeTree()
     let renderContainer = ShapeContainerLayer()
@@ -35,7 +35,7 @@ class ShapeCompositionLayer: CompositionLayer {
     rootNode?.updateTree(0, forceUpdates: true)
     self.childKeypaths.append(contentsOf: results.childrenNodes)
   }
-  
+
   override init(layer: Any) {
     guard let layer = layer as? ShapeCompositionLayer else {
       fatalError("init(layer:) wrong class.")
@@ -44,14 +44,14 @@ class ShapeCompositionLayer: CompositionLayer {
     self.renderContainer = nil
     super.init(layer: layer)
   }
-  
+
   override func displayContentsWithFrame(frame: CGFloat, forceUpdates: Bool) {
     rootNode?.updateTree(frame, forceUpdates: forceUpdates)
     renderContainer?.markRenderUpdates(forFrame: frame)
   }
-  
+
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
 }

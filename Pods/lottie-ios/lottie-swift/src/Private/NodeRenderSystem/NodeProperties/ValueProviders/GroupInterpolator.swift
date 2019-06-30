@@ -13,7 +13,7 @@ class GroupInterpolator<ValueType>: AnyValueProvider where ValueType: Interpolat
   var valueType: Any.Type {
     return [ValueType].self
   }
-  
+
   func hasUpdate(frame: CGFloat) -> Bool {
     for interpolator in keyframeInterpolators {
       if interpolator.hasUpdate(frame: frame) {
@@ -22,7 +22,7 @@ class GroupInterpolator<ValueType>: AnyValueProvider where ValueType: Interpolat
     }
     return false
   }
-  
+
   func value(frame: CGFloat) -> Any {
     var output = [ValueType]()
     for interpolator in keyframeInterpolators {
@@ -30,7 +30,7 @@ class GroupInterpolator<ValueType>: AnyValueProvider where ValueType: Interpolat
     }
     return output
   }
-  
+
   /// Initialize with an array of array of keyframes.
   init(keyframeGroups: [[Keyframe<ValueType>]]) {
     var interpolators = [KeyframeInterpolator<ValueType>]()
@@ -40,5 +40,5 @@ class GroupInterpolator<ValueType>: AnyValueProvider where ValueType: Interpolat
     self.keyframeInterpolators = interpolators
   }
   let keyframeInterpolators: [KeyframeInterpolator<ValueType>]
-  
+
 }

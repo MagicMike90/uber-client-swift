@@ -13,25 +13,25 @@ enum TrimType: Int, Codable {
 }
 /// An item that define an ellipse shape
 class Trim: ShapeItem {
-  
+
   /// The start of the trim
   let start: KeyframeGroup<Vector1D>
-  
+
   /// The end of the trim
   let end: KeyframeGroup<Vector1D>
-  
+
   /// The offset of the trim
   let offset: KeyframeGroup<Vector1D>
-  
+
   let trimType: TrimType
-  
-  private enum CodingKeys : String, CodingKey {
+
+  private enum CodingKeys: String, CodingKey {
     case start = "s"
     case end = "e"
     case offset = "o"
     case trimType = "m"
   }
-  
+
   required init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: Trim.CodingKeys.self)
     self.start = try container.decode(KeyframeGroup<Vector1D>.self, forKey: .start)
@@ -40,7 +40,7 @@ class Trim: ShapeItem {
     self.trimType = try container.decode(TrimType.self, forKey: .trimType)
     try super.init(from: decoder)
   }
-  
+
   override func encode(to encoder: Encoder) throws {
     try super.encode(to: encoder)
     var container = encoder.container(keyedBy: CodingKeys.self)
@@ -49,5 +49,5 @@ class Trim: ShapeItem {
     try container.encode(offset, forKey: .offset)
     try container.encode(trimType, forKey: .trimType)
   }
-  
+
 }

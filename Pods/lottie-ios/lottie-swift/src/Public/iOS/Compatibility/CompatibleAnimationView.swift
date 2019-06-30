@@ -139,8 +139,7 @@ public final class CompatibleAnimationView: UIView {
   public func play(
     fromProgress: CGFloat,
     toProgress: CGFloat,
-    completion: ((Bool) -> Void)? = nil)
-  {
+    completion: ((Bool) -> Void)? = nil) {
     animationView.play(
       fromProgress: fromProgress,
       toProgress: toProgress,
@@ -152,8 +151,7 @@ public final class CompatibleAnimationView: UIView {
   public func play(
     fromFrame: CGFloat,
     toFrame: CGFloat,
-    completion: ((Bool) -> Void)? = nil)
-  {
+    completion: ((Bool) -> Void)? = nil) {
     animationView.play(
       fromFrame: fromFrame,
       toFrame: toFrame,
@@ -165,8 +163,7 @@ public final class CompatibleAnimationView: UIView {
   public func play(
     fromMarker: String,
     toMarker: String,
-    completion: ((Bool) -> Void)? = nil)
-  {
+    completion: ((Bool) -> Void)? = nil) {
     animationView.play(
       fromMarker: fromMarker,
       toMarker: toMarker,
@@ -196,8 +193,7 @@ public final class CompatibleAnimationView: UIView {
   @objc
   public func getValue(
     for keypath: CompatibleAnimationKeypath,
-    atFrame: CGFloat) -> Any?
-  {
+    atFrame: CGFloat) -> Any? {
     return animationView.getValue(
       for: keypath.animationKeypath,
       atFrame: atFrame)
@@ -211,8 +207,7 @@ public final class CompatibleAnimationView: UIView {
   @objc
   public func addSubview(
     _ subview: AnimationSubview,
-    forLayerAt keypath: CompatibleAnimationKeypath)
-  {
+    forLayerAt keypath: CompatibleAnimationKeypath) {
     animationView.addSubview(
       subview,
       forLayerAt: keypath.animationKeypath)
@@ -222,8 +217,7 @@ public final class CompatibleAnimationView: UIView {
   public func convert(
     rect: CGRect,
     toLayerAt keypath: CompatibleAnimationKeypath?)
-    -> CGRect
-  {
+    -> CGRect {
     return animationView.convert(
       rect,
       toLayerAt: keypath?.animationKeypath) ?? .zero
@@ -233,8 +227,7 @@ public final class CompatibleAnimationView: UIView {
   public func convert(
     point: CGPoint,
     toLayerAt keypath: CompatibleAnimationKeypath?)
-    -> CGPoint
-  {
+    -> CGPoint {
     return animationView.convert(
       point,
       toLayerAt: keypath?.animationKeypath) ?? .zero

@@ -10,16 +10,16 @@ import CoreGraphics
 
 /// A value provider that produces a value at Time from a group of keyframes
 class KeyframeInterpolator<ValueType>: AnyValueProvider where ValueType: Interpolatable {
-  
+
   init(keyframes: [Keyframe<ValueType>]) {
     self.keyframes = keyframes
   }
   let keyframes: [Keyframe<ValueType>]
-  
+
   var valueType: Any.Type {
     return ValueType.self
   }
-  
+
   /**
    Returns true to trigger a frame update for this interpolator.
    
@@ -64,9 +64,9 @@ class KeyframeInterpolator<ValueType>: AnyValueProvider where ValueType: Interpo
     }
     return true
   }
-  
+
   fileprivate var lastUpdatedFrame: CGFloat?
-  
+
   func value(frame: CGFloat) -> Any {
     // First set the keyframe span for the frame.
     self.updateSpanIndices(frame: frame)
@@ -74,7 +74,7 @@ class KeyframeInterpolator<ValueType>: AnyValueProvider where ValueType: Interpo
     // If only one keyframe return its value
     let progress: CGFloat
     let value: ValueType
-    
+
     if let leading = leadingKeyframe,
       let trailing = trailingKeyframe {
       /// We have leading and trailing keyframe.
@@ -93,12 +93,12 @@ class KeyframeInterpolator<ValueType>: AnyValueProvider where ValueType: Interpo
     }
     return value
   }
-  
-  fileprivate var leadingIndex: Int? = nil
-  fileprivate var trailingIndex: Int? = nil
-  fileprivate var leadingKeyframe: Keyframe<ValueType>? = nil
-  fileprivate var trailingKeyframe: Keyframe<ValueType>? = nil
-  
+
+  fileprivate var leadingIndex: Int?
+  fileprivate var trailingIndex: Int?
+  fileprivate var leadingKeyframe: Keyframe<ValueType>?
+  fileprivate var trailingKeyframe: Keyframe<ValueType>?
+
   /// Finds the appropriate Leading and Trailing keyframe index for the given time.
   fileprivate func updateSpanIndices(frame: CGFloat) {
     guard keyframes.count > 0 else {
@@ -108,7 +108,7 @@ class KeyframeInterpolator<ValueType>: AnyValueProvider where ValueType: Interpo
       trailingKeyframe = nil
       return
     }
-    
+
     /**
      This function searches through the array to find the span of two keyframes
      that contain the current time.
@@ -122,7 +122,7 @@ class KeyframeInterpolator<ValueType>: AnyValueProvider where ValueType: Interpo
      O(n), where n is the number of items after or before the last used index.
      
      */
-    
+
     if keyframes.count == 1 {
       /// Only one keyframe. Set it as first and move on.
       leadingIndex = 0
@@ -131,7 +131,7 @@ class KeyframeInterpolator<ValueType>: AnyValueProvider where ValueType: Interpo
       trailingKeyframe = nil
       return
     }
-    
+
     /// Sets the initial keyframes. This is often only needed for the first check.
     if leadingIndex == nil &&
       trailingIndex == nil {
@@ -144,17 +144,17 @@ class KeyframeInterpolator<ValueType>: AnyValueProvider where ValueType: Interpo
         trailingIndex = 1
       }
     }
-    
+
     if let currentTrailing = trailingIndex,
       keyframes[currentTrailing].time <= frame {
       /// Time is after the current span. Iterate forward.
       var newLeading = currentTrailing
       var keyframeFound: Bool = false
       while !keyframeFound {
-        
+
         leadingIndex = newLeading
         trailingIndex = keyframes.validIndex(newLeading + 1)
-        
+
         guard let trailing = trailingIndex else {
             /// We have reached the end of our keyframes. Time is after the last keyframe.
             keyframeFound = true
@@ -168,19 +168,19 @@ class KeyframeInterpolator<ValueType>: AnyValueProvider where ValueType: Interpo
         /// Advance the array.
         newLeading = trailing
       }
-      
+
     } else if let currentLeading = leadingIndex,
       frame < keyframes[currentLeading].time {
-      
+
       /// Time is before the current span. Iterate backwards
       var newTrailing = currentLeading
-      
+
       var keyframeFound: Bool = false
       while !keyframeFound {
-        
+
         leadingIndex = keyframes.validIndex(newTrailing - 1)
         trailingIndex = newTrailing
-        
+
         guard let leading = leadingIndex else {
             /// We have reached the end of our keyframes. Time is after the last keyframe.
             keyframeFound = true
@@ -200,7 +200,7 @@ class KeyframeInterpolator<ValueType>: AnyValueProvider where ValueType: Interpo
     } else {
       leadingKeyframe = nil
     }
-    
+
     if let keyFrame = trailingIndex {
       trailingKeyframe = keyframes[keyFrame]
     } else {
@@ -210,12 +210,12 @@ class KeyframeInterpolator<ValueType>: AnyValueProvider where ValueType: Interpo
 }
 
 fileprivate extension Array {
-  
+
   func validIndex(_ index: Int) -> Int? {
     if 0 <= index, index < endIndex {
       return index
     }
     return nil
   }
-  
+
 }

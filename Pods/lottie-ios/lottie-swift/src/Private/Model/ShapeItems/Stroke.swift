@@ -9,29 +9,29 @@ import Foundation
 
 /// An item that define an ellipse shape
 class Stroke: ShapeItem {
-  
+
   /// The opacity of the stroke
   let opacity: KeyframeGroup<Vector1D>
-  
+
   /// The Color of the stroke
   let color: KeyframeGroup<Color>
-  
+
   /// The width of the stroke
   let width: KeyframeGroup<Vector1D>
-  
+
   /// Line Cap
   let lineCap: LineCap
-  
+
   /// Line Join
   let lineJoin: LineJoin
-  
+
   /// Miter Limit
   let miterLimit: Double
-  
+
   /// The dash pattern of the stroke
   let dashPattern: [DashElement]?
-  
-  private enum CodingKeys : String, CodingKey {
+
+  private enum CodingKeys: String, CodingKey {
     case opacity = "o"
     case color = "c"
     case width = "w"
@@ -40,7 +40,7 @@ class Stroke: ShapeItem {
     case miterLimit = "ml"
     case dashPattern = "d"
   }
-  
+
   required init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: Stroke.CodingKeys.self)
     self.opacity = try container.decode(KeyframeGroup<Vector1D>.self, forKey: .opacity)
@@ -52,7 +52,7 @@ class Stroke: ShapeItem {
     self.dashPattern = try container.decodeIfPresent([DashElement].self, forKey: .dashPattern)
     try super.init(from: decoder)
   }
-  
+
   override func encode(to encoder: Encoder) throws {
     try super.encode(to: encoder)
     var container = encoder.container(keyedBy: CodingKeys.self)

@@ -9,23 +9,23 @@ import Foundation
 import QuartzCore
 
 extension KeypathSearchable {
-  
+
   func nodeProperties(for keyPath: AnimationKeypath) -> [AnyNodeProperty]? {
     guard let nextKeypath = keyPath.popKey(keypathName) else {
       /// Nope. Stop Search
       return nil
     }
-    
+
     /// Keypath matches in some way. Continue the search.
     var results: [AnyNodeProperty] = []
-    
+
     /// Check if we have a property keypath yet
     if let propertyKey = nextKeypath.propertyKey,
       let property = keypathProperties[propertyKey] {
       /// We found a property!
       results.append(property)
     }
-    
+
     if nextKeypath.nextKeypath != nil {
       /// Now check child keypaths.
       for child in childKeypaths {
@@ -34,14 +34,14 @@ extension KeypathSearchable {
         }
       }
     }
-    
+
     guard results.count > 0 else {
       return nil
     }
-    
+
     return results
   }
-  
+
   func layer(for keyPath: AnimationKeypath) -> CALayer? {
     if keyPath.currentKey == keypathName && keyPath.nextKeypath == nil {
       /// We found our layer!
@@ -51,7 +51,7 @@ extension KeypathSearchable {
       /// Nope. Stop Search
       return nil
     }
-    
+
     if nextKeypath.nextKeypath != nil {
       /// Now check child keypaths.
       for child in childKeypaths {
@@ -62,7 +62,7 @@ extension KeypathSearchable {
     }
     return nil
   }
-  
+
   func logKeypaths(for keyPath: AnimationKeypath?) {
     let newKeypath: AnimationKeypath
     if let previousKeypath = keyPath {
@@ -84,14 +84,14 @@ extension AnimationKeypath {
   var currentKey: String? {
     return keys.first
   }
-  
+
   var nextKeypath: String? {
     guard keys.count > 1 else {
       return nil
     }
     return keys[1]
   }
-  
+
   var propertyKey: String? {
     if nextKeypath == nil {
       /// There are no more keypaths. This is a property key.
@@ -103,14 +103,14 @@ extension AnimationKeypath {
     }
     return nil
   }
-  
+
   func popKey(_ keyname: String) -> AnimationKeypath? {
     guard let currentKey = currentKey,
       currentKey.equalsKeypath(keyname),
       keys.count > 1 else {
         return nil
     }
-    
+
     let newKeys: [String]
     if currentKey.keyPathType == .fuzzyWildcard {
       /// Dont remove if current key is a fuzzy wildcard, and if the next keypath doesnt equal keypathname
@@ -128,22 +128,20 @@ extension AnimationKeypath {
       oldKeys.remove(at: 0)
       newKeys = oldKeys
     }
-    
+
     return AnimationKeypath(keys: newKeys)
   }
-  
+
   var fullPath: String {
     return keys.joined(separator: ".")
   }
-  
+
   func appendingKey(_ key: String) -> AnimationKeypath {
     var newKeys = keys
     newKeys.append(key)
     return AnimationKeypath(keys: newKeys)
   }
 }
-
-
 
 extension String {
   var keyPathType: KeyType {
@@ -156,7 +154,7 @@ extension String {
       return .specific
     }
   }
-  
+
   func equalsKeypath(_ keyname: String) -> Bool {
     if keyPathType == .wildcard || keyPathType == .fuzzyWildcard {
       return true

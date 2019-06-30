@@ -21,7 +21,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-
 import Foundation
 
 ///-----------------------------------
@@ -38,7 +37,7 @@ Creates Toolbar according to tag property of TextField's.
 `IQAutoToolbarByPosition`
 Creates Toolbar according to the y,x position of textField in it's superview coordinate.
 */
-@objc public enum IQAutoToolbarManageBehaviour : Int {
+@objc public enum IQAutoToolbarManageBehaviour: Int {
     case bySubviews
     case byTag
     case byPosition
@@ -54,7 +53,7 @@ Creates Toolbar according to the y,x position of textField in it's superview coo
  `IQPreviousNextDisplayModeAlwaysShow`
  Always show nextPrevious buttons, if there are more than 1 textField then both buttons will be visible but will be shown as disabled.
  */
-@objc public enum IQPreviousNextDisplayMode : Int {
+@objc public enum IQPreviousNextDisplayMode: Int {
     case Default
     case alwaysHide
     case alwaysShow
@@ -70,7 +69,7 @@ Creates Toolbar according to the y,x position of textField in it's superview coo
  `IQEnableModeDisabled`
  setting is disabled.
  */
-@objc public enum IQEnableMode : Int {
+@objc public enum IQEnableMode: Int {
     case Default
     case enabled
     case disabled

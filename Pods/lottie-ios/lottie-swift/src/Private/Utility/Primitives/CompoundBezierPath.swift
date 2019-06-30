@@ -13,26 +13,26 @@ import CoreGraphics
  
  */
 struct CompoundBezierPath {
-  
+
   let paths: [BezierPath]
-  
+
   let length: CGFloat
-  
+
   init() {
     paths = []
     length = 0
   }
-  
+
   init(path: BezierPath) {
     self.paths = [path]
     self.length = path.length
   }
-  
+
   init(paths: [BezierPath], length: CGFloat) {
     self.paths = paths
     self.length = length
   }
-  
+
   init(paths: [BezierPath]) {
     self.paths = paths
     var l: CGFloat = 0
@@ -41,24 +41,24 @@ struct CompoundBezierPath {
     }
     self.length = l
   }
-  
+
   func addPath(path: BezierPath) -> CompoundBezierPath {
     var newPaths = paths
     newPaths.append(path)
     return CompoundBezierPath(paths: newPaths, length: length + path.length)
   }
-  
+
   func combine(_ compoundBezier: CompoundBezierPath) -> CompoundBezierPath {
     var newPaths = paths
     newPaths.append(contentsOf: compoundBezier.paths)
     return CompoundBezierPath(paths: newPaths, length: length + compoundBezier.length)
   }
-  
+
   func trim(fromPosition: CGFloat, toPosition: CGFloat, offset: CGFloat, trimSimultaneously: Bool) -> CompoundBezierPath {
     if fromPosition == toPosition {
       return CompoundBezierPath()
     }
-    
+
     if trimSimultaneously {
       /// Trim each path individually.
       var newPaths = [BezierPath]()
@@ -69,33 +69,33 @@ struct CompoundBezierPath {
       }
       return CompoundBezierPath(paths: newPaths)
     }
-    
+
     /// Normalize lengths to the curve length.
     var startPosition = (fromPosition+offset).truncatingRemainder(dividingBy: 1)
     var endPosition =  (toPosition+offset).truncatingRemainder(dividingBy: 1)
-    
+
     if startPosition < 0 {
       startPosition = 1 + startPosition
     }
-    
+
     if endPosition < 0 {
       endPosition = 1 + endPosition
     }
-    
+
     if startPosition == 1 {
       startPosition = 0
     }
     if endPosition == 0 {
       endPosition = 1
     }
-    
+
     if startPosition == 0 && endPosition == 1 ||
       startPosition == endPosition ||
       startPosition == 1 && endPosition == 0 {
       /// The trim encompasses the entire path. Return.
       return self
     }
-    
+
     var positions: [(start: CGFloat, end: CGFloat)]
     if endPosition < startPosition {
       positions = [(start: 0, end: endPosition * length),
@@ -103,14 +103,14 @@ struct CompoundBezierPath {
     } else {
       positions = [(start: startPosition * length, end: endPosition * length)]
     }
-    
+
     var compoundPath = CompoundBezierPath()
     var trim = positions.remove(at: 0)
     var pathStartPosition: CGFloat = 0
-    
+
     var finishedTrimming: Bool = false
     var i: Int = 0
-    
+
     while !finishedTrimming {
       if paths.count <= i {
         /// Rounding errors
@@ -118,15 +118,15 @@ struct CompoundBezierPath {
         continue
       }
       let path = paths[i]
-      
+
       let pathEndPosition = pathStartPosition + path.length
-      
+
       if pathEndPosition < trim.start {
         /// Path is not included in the trim, continue.
         pathStartPosition = pathEndPosition
         i = i + 1
         continue
-        
+
       } else if trim.start <= pathStartPosition, pathEndPosition <= trim.end {
         /// Full Path is inside of trim. Add full path.
         compoundPath = compoundPath.addPath(path: path)
@@ -137,7 +137,6 @@ struct CompoundBezierPath {
         compoundPath = compoundPath.addPath(path: trimPath)
       }
 
-      
       if trim.end <= pathEndPosition {
         /// We are done with the current trim.
         /// Advance trim but remain on the same path in case the next trim overlaps it.
@@ -153,5 +152,5 @@ struct CompoundBezierPath {
     }
     return compoundPath
   }
-  
+
 }

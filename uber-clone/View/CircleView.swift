@@ -11,7 +11,7 @@ import UIKit
 class CircleView: UIView {
 
     // Interface builder will look at this value
-    @IBInspectable var borderColor : UIColor? {
+    @IBInspectable var borderColor: UIColor? {
         didSet {
             setupView()
         }

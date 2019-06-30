@@ -18,25 +18,25 @@ enum MaskMode: String, Codable {
 }
 
 class Mask: Codable {
-  
+
   let mode: MaskMode
-  
+
   let opacity: KeyframeGroup<Vector1D>
-  
+
   let shape: KeyframeGroup<BezierPath>
-  
+
   let inverted: Bool
-  
+
   let expansion: KeyframeGroup<Vector1D>
-  
-  enum CodingKeys : String, CodingKey {
+
+  enum CodingKeys: String, CodingKey {
     case mode = "mode"
     case opacity = "o"
     case inverted = "inv"
     case shape = "pt"
     case expansion = "x"
   }
-  
+
   required init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: Mask.CodingKeys.self)
     self.mode = try container.decodeIfPresent(MaskMode.self, forKey: .mode) ?? .add

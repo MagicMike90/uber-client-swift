@@ -9,14 +9,14 @@ import Foundation
 import CoreGraphics
 
 extension Array where Element == LayerModel {
-  
+
   func initializeCompositionLayers(assetLibrary: AssetLibrary?, layerImageProvider: LayerImageProvider, frameRate: CGFloat) -> [CompositionLayer] {
     var compositionLayers = [CompositionLayer]()
-    var layerMap = [Int : CompositionLayer]()
-    
+    var layerMap = [Int: CompositionLayer]()
+
     /// Organize the assets into a dictionary of [ID : ImageAsset]
     var childLayers = [LayerModel]()
-    
+
     for layer in self {
       if let shapeLayer = layer as? ShapeLayerModel {
         let shapeContainer = ShapeCompositionLayer(shapeLayer: shapeLayer)
@@ -55,7 +55,7 @@ extension Array where Element == LayerModel {
         childLayers.append(layer)
       }
     }
-    
+
     /// Now link children with their parents
     for layerModel in childLayers {
       if let parentID = layerModel.parent {
@@ -64,8 +64,8 @@ extension Array where Element == LayerModel {
         childLayer?.transformNode.parentNode = parentLayer?.transformNode
       }
     }
-    
+
     return compositionLayers
   }
-  
+
 }

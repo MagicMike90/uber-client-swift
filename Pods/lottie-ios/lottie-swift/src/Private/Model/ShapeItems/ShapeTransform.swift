@@ -9,29 +9,29 @@ import Foundation
 
 /// An item that define an ellipse shape
 class ShapeTransform: ShapeItem {
-  
+
   /// Anchor Point
   let anchor: KeyframeGroup<Vector3D>
-  
+
   /// Position
   let position: KeyframeGroup<Vector3D>
-  
+
   /// Scale
   let scale: KeyframeGroup<Vector3D>
-  
+
   /// Rotation
   let rotation: KeyframeGroup<Vector1D>
-  
+
   /// opacity
   let opacity: KeyframeGroup<Vector1D>
-  
+
   /// Skew
   let skew: KeyframeGroup<Vector1D>
-  
+
   /// Skew Axis
   let skewAxis: KeyframeGroup<Vector1D>
-  
-  private enum CodingKeys : String, CodingKey {
+
+  private enum CodingKeys: String, CodingKey {
     case anchor = "a"
     case position = "p"
     case scale = "s"
@@ -40,7 +40,7 @@ class ShapeTransform: ShapeItem {
     case skew = "sk"
     case skewAxis = "sa"
   }
-  
+
   required init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: ShapeTransform.CodingKeys.self)
     self.anchor = try container.decodeIfPresent(KeyframeGroup<Vector3D>.self, forKey: .anchor) ?? KeyframeGroup(Vector3D(x: Double(0), y: 0, z: 0))
@@ -52,7 +52,7 @@ class ShapeTransform: ShapeItem {
     self.skewAxis =  try container.decodeIfPresent(KeyframeGroup<Vector1D>.self, forKey: .skewAxis) ?? KeyframeGroup(Vector1D(0))
     try super.init(from: decoder)
   }
-  
+
   override func encode(to encoder: Encoder) throws {
     try super.encode(to: encoder)
     var container = encoder.container(keyedBy: CodingKeys.self)
@@ -64,5 +64,5 @@ class ShapeTransform: ShapeItem {
     try container.encode(skew, forKey: .skew)
     try container.encode(skewAxis, forKey: .skewAxis)
   }
-  
+
 }

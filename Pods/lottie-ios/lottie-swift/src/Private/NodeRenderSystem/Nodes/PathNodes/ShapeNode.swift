@@ -9,30 +9,30 @@ import Foundation
 import CoreGraphics
 
 class ShapeNodeProperties: NodePropertyMap, KeypathSearchable {
-  
+
   var keypathName: String
-  
+
   init(shape: Shape) {
     self.keypathName = shape.name
     self.path = NodeProperty(provider: KeyframeInterpolator(keyframes: shape.path.keyframes))
     self.keypathProperties = [
-      "Path" : path
+      "Path": path
     ]
     self.properties = Array(keypathProperties.values)
   }
-  
+
   let path: NodeProperty<BezierPath>
-  let keypathProperties: [String : AnyNodeProperty]
+  let keypathProperties: [String: AnyNodeProperty]
   let properties: [AnyNodeProperty]
-  
+
 }
 
 class ShapeNode: AnimatorNode, PathNode {
-  
+
   let properties: ShapeNodeProperties
 
   let pathOutput: PathOutputNode
-  
+
   init(parentNode: AnimatorNode?, shape: Shape) {
     self.pathOutput = PathOutputNode(parent: parentNode?.outputNode)
     self.properties = ShapeNodeProperties(shape: shape)
@@ -43,14 +43,14 @@ class ShapeNode: AnimatorNode, PathNode {
   var propertyMap: NodePropertyMap & KeypathSearchable {
     return properties
   }
-  
+
   let parentNode: AnimatorNode?
   var hasLocalUpdates: Bool = false
   var hasUpstreamUpdates: Bool = false
-  var lastUpdateFrame: CGFloat? = nil
-  
+  var lastUpdateFrame: CGFloat?
+
   func rebuildOutputs(frame: CGFloat) {
     pathOutput.setPath(properties.path.value, updateFrame: frame)
   }
-  
+
 }

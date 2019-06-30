@@ -12,9 +12,9 @@ import UIKit
  Provides an image for a lottie animation from a provided Bundle.
  */
 public class FilepathImageProvider: AnimationImageProvider {
-  
+
   let filepath: URL
-  
+
   /**
    Initializes an image provider with a specific filepath.
    
@@ -24,11 +24,11 @@ public class FilepathImageProvider: AnimationImageProvider {
   public init(filepath: String) {
     self.filepath = URL(fileURLWithPath: filepath)
   }
-  
+
   public init(filepath: URL) {
     self.filepath = filepath
   }
-  
+
   public func imageForAsset(asset: ImageAsset) -> CGImage? {
 
     if asset.name.hasPrefix("data:"),
@@ -37,18 +37,18 @@ public class FilepathImageProvider: AnimationImageProvider {
       let image = UIImage(data: data) {
       return image.cgImage
     }
-    
+
     let directPath = filepath.appendingPathComponent(asset.name).path
     if FileManager.default.fileExists(atPath: directPath) {
       return UIImage(contentsOfFile: directPath)?.cgImage
     }
-    
+
     let pathWithDirectory = filepath.appendingPathComponent(asset.directory).appendingPathComponent(asset.name).path
     if FileManager.default.fileExists(atPath: pathWithDirectory) {
       return UIImage(contentsOfFile: pathWithDirectory)?.cgImage
     }
-    
+
     return nil
   }
-  
+
 }

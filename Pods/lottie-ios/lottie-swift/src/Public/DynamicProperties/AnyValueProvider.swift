@@ -17,13 +17,13 @@ import CoreGraphics
  Value Providers can be used to dynamically set animation properties at run time.
  */
 public protocol AnyValueProvider {
-  
+
   /// The Type of the value provider
   var valueType: Any.Type { get }
-  
+
   /// Asks the provider if it has an update for the given frame.
   func hasUpdate(frame: AnimationFrameTime) -> Bool
-  
+
   /// Asks the provider to update the container with its value for the frame.
   func value(frame: AnimationFrameTime) -> Any
 }

@@ -14,5 +14,5 @@ target 'uber-clone' do
   pod 'IQKeyboardManagerSwift'
   pod 'lottie-ios'
   pod 'SwiftyBeaver'
-
+  pod 'SwiftLint'
 end

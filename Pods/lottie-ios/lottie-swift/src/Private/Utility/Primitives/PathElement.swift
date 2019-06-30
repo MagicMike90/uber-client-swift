@@ -20,31 +20,31 @@ import CoreGraphics
 struct PathElement {
   /// The absolute Length of the path element.
   let length: CGFloat
-  
+
   /// The vertex of the element
   let vertex: CurveVertex
-  
+
   /// Returns a new path element define the span from the receiver to the new vertex.
   func pathElementTo(_ toVertex: CurveVertex) -> PathElement {
     return PathElement(length: vertex.distanceTo(toVertex), vertex: toVertex)
   }
-  
+
   /// Initializes a new path with length of 0
   init(vertex: CurveVertex) {
     self.length = 0
     self.vertex = vertex
   }
-  
+
   /// Initializes a new path with length
   fileprivate init(length: CGFloat, vertex: CurveVertex) {
     self.length = length
     self.vertex = vertex
   }
-  
+
   func updateVertex(newVertex: CurveVertex) -> PathElement {
     return PathElement(length: length, vertex: newVertex)
   }
-  
+
   /// Splits an element span defined by the receiver and fromElement to a position 0-1
   func splitElementAtPosition(fromElement: PathElement, atLength: CGFloat) ->
     (leftSpan: (start: PathElement, end: PathElement), rightSpan: (start: PathElement, end: PathElement)) {
@@ -58,11 +58,11 @@ struct PathElement {
                                                        outTangent: trimResults.start.outTangent))
       /// Recalculating the length here is a waste as the trimCurve function also accurately calculates this length.
       let spanAEnd = spanAStart.pathElementTo(trimResults.trimPoint)
-      
+
       let spanBStart = PathElement(vertex: trimResults.trimPoint)
       let spanBEnd = spanBStart.pathElementTo(trimResults.end)
       return (leftSpan: (start: spanAStart, end: spanAEnd),
               rightSpan: (start: spanBStart, end: spanBEnd))
   }
-  
+
 }

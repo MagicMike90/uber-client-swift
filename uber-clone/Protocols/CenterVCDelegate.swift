@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 protocol CenterVCDelegate {
     func toggleLeftPanel()
     func addLeftPanelViewController()

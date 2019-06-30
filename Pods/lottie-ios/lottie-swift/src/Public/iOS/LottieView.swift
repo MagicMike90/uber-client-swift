@@ -19,16 +19,16 @@ open class LottieView: UIView {
   func layoutAnimation() {
 
   }
-  
+
   func animationMovedToWindow() {
-    
+
   }
-  
+
   open override func didMoveToWindow() {
     super.didMoveToWindow()
     animationMovedToWindow()
   }
-  
+
   var screenScale: CGFloat {
     return UIScreen.main.scale
   }
@@ -50,11 +50,11 @@ open class LottieView: UIView {
     super.layoutSubviews()
     self.layoutAnimation()
   }
-  
+
   @objc func animationWillMoveToBackground() {
   }
-  
+
   @objc func animationWillEnterForeground() {
   }
-  
+
 }

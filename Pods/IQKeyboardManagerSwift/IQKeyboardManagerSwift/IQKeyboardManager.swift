@@ -21,7 +21,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-
 import Foundation
 import CoreGraphics
 import UIKit
@@ -36,12 +35,12 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 */
 
 @objc public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
-    
+
     /**
     Default tag for toolbar with Done button   -1002.
     */
     private static let  kIQDoneButtonToolbarTag         =   -1002
-    
+
     /**
     Default tag for toolbar with Previous/Next buttons -1005.
     */
@@ -55,17 +54,17 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     ///---------------------------
     ///  MARK: UIKeyboard handling
     ///---------------------------
-    
+
     /**
      Registered classes list with library.
      */
     private var registeredClasses  = [UIView.Type]()
-    
+
     /**
     Enable/disable managing distance between keyboard and textField. Default is YES(Enabled when class loads in `+(void)load` method).
     */
     @objc public var enable = false {
-        
+
         didSet {
             //If not enable, enable it.
             if enable == true &&
@@ -82,11 +81,11 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             }
         }
     }
-    
-    private func privateIsEnabled()-> Bool {
-        
+
+    private func privateIsEnabled() -> Bool {
+
         var isEnabled = enable
-        
+
 //        let enableMode = _textFieldView?.enableMode
 //
 //        if enableMode == .enabled {
@@ -94,37 +93,37 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 //        } else if enableMode == .disabled {
 //            isEnabled = false
 //        } else {
-        
+
             if let textFieldViewController = _textFieldView?.viewContainingController() {
-                
+
                 if isEnabled == false {
-                    
+
                     //If viewController is kind of enable viewController class, then assuming it's enabled.
                     for enabledClass in enabledDistanceHandlingClasses {
-                        
+
                         if textFieldViewController.isKind(of: enabledClass) {
                             isEnabled = true
                             break
                         }
                     }
                 }
-                
+
                 if isEnabled == true {
-                    
+
                     //If viewController is kind of disabled viewController class, then assuming it's disabled.
                     for disabledClass in disabledDistanceHandlingClasses {
-                        
+
                         if textFieldViewController.isKind(of: disabledClass) {
                             isEnabled = false
                             break
                         }
                     }
-                    
+
                     //Special Controllers
                     if isEnabled == true {
-                        
-                        let classNameString = NSStringFromClass(type(of:textFieldViewController.self))
-                        
+
+                        let classNameString = NSStringFromClass(type(of: textFieldViewController.self))
+
                         //_UIAlertControllerTextFieldViewController
                         if (classNameString.contains("UIAlertController") && classNameString.hasSuffix("TextFieldViewController")) {
                             isEnabled = false
@@ -133,15 +132,15 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                 }
             }
 //        }
-        
+
         return isEnabled
     }
-    
+
     /**
     To set keyboard distance from textField. can't be less than zero. Default is 10.0.
     */
     @objc public var keyboardDistanceFromTextField: CGFloat {
-        
+
         set {
             _privateKeyboardDistanceFromTextField =  max(0, newValue)
             showLog("keyboardDistanceFromTextField: \(_privateKeyboardDistanceFromTextField)")
@@ -150,20 +149,20 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             return _privateKeyboardDistanceFromTextField
         }
     }
-    
+
     /**
      Boolean to know if keyboard is showing.
      */
     @objc public var keyboardShowing: Bool {
-        
+
         return _privateIsKeyboardShowing
     }
-    
+
     /**
      moved distance to the top used to maintain distance between keyboard and textField. Most of the time this will be a positive value.
      */
     @objc public var movedDistance: CGFloat {
-        
+
         return _privateMovedDistance
     }
 
@@ -175,20 +174,20 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             //Singleton instance. Initializing keyboard manger.
             static let kbManager = IQKeyboardManager()
         }
-        
+
         /** @return Returns the default singleton instance. */
         return Static.kbManager
     }
-    
+
     ///-------------------------
     /// MARK: IQToolbar handling
     ///-------------------------
-    
+
     /**
     Automatic add the IQToolbar functionality. Default is YES.
     */
     @objc public var enableAutoToolbar = true {
-        
+
         didSet {
 
             privateIsEnableAutoToolbar() ? addToolbarIfRequired() : removeToolbarIfRequired()
@@ -198,41 +197,41 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             showLog("enableAutoToolbar: \(enableToolbar)")
         }
     }
-    
+
     private func privateIsEnableAutoToolbar() -> Bool {
-        
+
         var enableToolbar = enableAutoToolbar
-        
+
         if let textFieldViewController = _textFieldView?.viewContainingController() {
-            
+
             if enableToolbar == false {
-                
+
                 //If found any toolbar enabled classes then return.
                 for enabledClass in enabledToolbarClasses {
-                    
+
                     if textFieldViewController.isKind(of: enabledClass) {
                         enableToolbar = true
                         break
                     }
                 }
             }
-            
+
             if enableToolbar == true {
-                
+
                 //If found any toolbar disabled classes then return.
                 for disabledClass in disabledToolbarClasses {
-                    
+
                     if textFieldViewController.isKind(of: disabledClass) {
                         enableToolbar = false
                         break
                     }
                 }
-                
+
                 //Special Controllers
                 if enableToolbar == true {
-                    
-                    let classNameString = NSStringFromClass(type(of:textFieldViewController.self))
-                    
+
+                    let classNameString = NSStringFromClass(type(of: textFieldViewController.self))
+
                     //_UIAlertControllerTextFieldViewController
                     if (classNameString.contains("UIAlertController") && classNameString.hasSuffix("TextFieldViewController")) {
                         enableToolbar = false
@@ -260,16 +259,16 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is black. Default is NO.
     */
     @objc public var shouldToolbarUsesTextFieldTintColor = false
-    
+
     /**
     This is used for toolbar.tintColor when textfield.keyboardAppearance is UIKeyboardAppearanceDefault. If shouldToolbarUsesTextFieldTintColor is YES then this property is ignored. Default is nil and uses black color.
     */
-    @objc public var toolbarTintColor : UIColor?
+    @objc public var toolbarTintColor: UIColor?
 
     /**
      This is used for toolbar.barTintColor. Default is nil and uses white color.
      */
-    @objc public var toolbarBarTintColor : UIColor?
+    @objc public var toolbarBarTintColor: UIColor?
 
     /**
      IQPreviousNextDisplayModeDefault:      Show NextPrevious when there are more than 1 textField otherwise hide.
@@ -281,16 +280,16 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     /**
      Toolbar previous/next/done button icon, If nothing is provided then check toolbarDoneBarButtonItemText to draw done button.
      */
-    @objc public var toolbarPreviousBarButtonItemImage : UIImage?
-    @objc public var toolbarNextBarButtonItemImage : UIImage?
-    @objc public var toolbarDoneBarButtonItemImage : UIImage?
+    @objc public var toolbarPreviousBarButtonItemImage: UIImage?
+    @objc public var toolbarNextBarButtonItemImage: UIImage?
+    @objc public var toolbarDoneBarButtonItemImage: UIImage?
 
     /**
      Toolbar previous/next/done button text, If nothing is provided then system default 'UIBarButtonSystemItemDone' will be used.
      */
-    @objc public var toolbarPreviousBarButtonItemText : String?
-    @objc public var toolbarNextBarButtonItemText : String?
-    @objc public var toolbarDoneBarButtonItemText : String?
+    @objc public var toolbarPreviousBarButtonItemText: String?
+    @objc public var toolbarNextBarButtonItemText: String?
+    @objc public var toolbarDoneBarButtonItemText: String?
 
     /**
     If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
@@ -301,31 +300,29 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     Placeholder Font. Default is nil.
     */
     @objc public var placeholderFont: UIFont?
-    
+
     /**
      Placeholder Color. Default is nil. Which means lightGray
      */
     @objc public var placeholderColor: UIColor?
-    
+
     /**
      Placeholder Button Color when it's treated as button. Default is nil. Which means iOS Blue for light toolbar and Yellow for dark toolbar
      */
     @objc public var placeholderButtonColor: UIColor?
-    
 
     ///--------------------------
     /// MARK: UITextView handling
     ///--------------------------
-    
+
     /** used to adjust contentInset of UITextView. */
     private var         startingTextViewContentInsets = UIEdgeInsets()
-    
+
     /** used to adjust scrollIndicatorInsets of UITextView. */
     private var         startingTextViewScrollIndicatorInsets = UIEdgeInsets()
-    
+
     /** used with textView to detect a textFieldView contentInset is changed or not. (Bug ID: #92)*/
     private var         isTextViewContentInsetChanged = false
-        
 
     ///---------------------------------------
     /// MARK: UIKeyboard appearance overriding
@@ -335,32 +332,30 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     Override the keyboardAppearance for all textField/textView. Default is NO.
     */
     @objc public var overrideKeyboardAppearance = false
-    
+
     /**
     If overrideKeyboardAppearance is YES, then all the textField keyboardAppearance is set using this property.
     */
     @objc public var keyboardAppearance = UIKeyboardAppearance.default
 
-    
     ///-----------------------------------------------------------
     /// MARK: UITextField/UITextView Next/Previous/Resign handling
     ///-----------------------------------------------------------
-    
-    
+
     /**
     Resigns Keyboard on touching outside of UITextField/View. Default is NO.
     */
     @objc public var shouldResignOnTouchOutside = false {
-        
+
         didSet {
             resignFirstResponderGesture.isEnabled = privateShouldResignOnTouchOutside()
-            
+
             let shouldResign = shouldResignOnTouchOutside ? "Yes" : "NO"
-            
+
             showLog("shouldResignOnTouchOutside: \(shouldResign)")
         }
     }
-    
+
     /** TapGesture to resign keyboard on view's touch. It's a readonly property and exposed only for adding/removing dependencies if your added gesture does have collision with this one */
     @objc lazy public var resignFirstResponderGesture: UITapGestureRecognizer = {
 
@@ -370,50 +365,50 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 
         return tapGesture
     }()
-    
+
     /*******************************************/
-    
+
     private func privateShouldResignOnTouchOutside() -> Bool {
-        
+
         var shouldResign = shouldResignOnTouchOutside
-        
+
         let enableMode = _textFieldView?.shouldResignOnTouchOutsideMode
-        
+
         if enableMode == .enabled {
             shouldResign = true
         } else if enableMode == .disabled {
             shouldResign = false
         } else {
             if let textFieldViewController = _textFieldView?.viewContainingController() {
-                
+
                 if shouldResign == false {
-                    
+
                     //If viewController is kind of enable viewController class, then assuming shouldResignOnTouchOutside is enabled.
                     for enabledClass in enabledTouchResignedClasses {
-                        
+
                         if textFieldViewController.isKind(of: enabledClass) {
                             shouldResign = true
                             break
                         }
                     }
                 }
-                
+
                 if shouldResign == true {
-                    
+
                     //If viewController is kind of disable viewController class, then assuming shouldResignOnTouchOutside is disable.
                     for disabledClass in disabledTouchResignedClasses {
-                        
+
                         if textFieldViewController.isKind(of: disabledClass) {
                             shouldResign = false
                             break
                         }
                     }
-                    
+
                     //Special Controllers
                     if shouldResign == true {
-                        
-                        let classNameString = NSStringFromClass(type(of:textFieldViewController.self))
-                        
+
+                        let classNameString = NSStringFromClass(type(of: textFieldViewController.self))
+
                         //_UIAlertControllerTextFieldViewController
                         if (classNameString.contains("UIAlertController") && classNameString.hasSuffix("TextFieldViewController")) {
                             shouldResign = false
@@ -422,34 +417,34 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                 }
             }
         }
-        
+
         return shouldResign
     }
-    
+
     /**
     Resigns currently first responder field.
     */
-    @objc @discardableResult public func resignFirstResponder()-> Bool {
-        
+    @objc @discardableResult public func resignFirstResponder() -> Bool {
+
         if let textFieldRetain = _textFieldView {
-            
+
             //Resigning first responder
             let isResignFirstResponder = textFieldRetain.resignFirstResponder()
-            
+
             //  If it refuses then becoming it as first responder again.    (Bug ID: #96)
             if isResignFirstResponder == false {
                 //If it refuses to resign then becoming it first responder again for getting notifications callback.
                 textFieldRetain.becomeFirstResponder()
-                
+
                 showLog("Refuses to resign first responder: \(String(describing: textFieldRetain._IQDescription()))")
             }
-            
+
             return isResignFirstResponder
         }
-        
+
         return false
     }
-    
+
     /**
     Returns YES if can navigate to previous responder textField/textView, otherwise NO.
     */
@@ -457,10 +452,10 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         //Getting all responder view's.
         if let textFields = responderViews() {
             if let  textFieldRetain = _textFieldView {
-                
+
                 //Getting index of current textField.
                 if let index = textFields.firstIndex(of: textFieldRetain) {
-                    
+
                     //If it is not first textField. then it's previous object canBecomeFirstResponder.
                     if index > 0 {
                         return true
@@ -470,7 +465,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         }
         return false
     }
-    
+
     /**
     Returns YES if can navigate to next responder textField/textView, otherwise NO.
     */
@@ -480,7 +475,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             if let  textFieldRetain = _textFieldView {
                 //Getting index of current textField.
                 if let index = textFields.firstIndex(of: textFieldRetain) {
-                    
+
                     //If it is not first textField. then it's previous object canBecomeFirstResponder.
                     if index < textFields.count-1 {
                         return true
@@ -490,46 +485,46 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         }
         return false
     }
-    
+
     /**
     Navigate to previous responder textField/textView.
     */
-    @objc @discardableResult public func goPrevious()-> Bool {
-        
+    @objc @discardableResult public func goPrevious() -> Bool {
+
         //Getting all responder view's.
         if let  textFieldRetain = _textFieldView {
             if let textFields = responderViews() {
                 //Getting index of current textField.
                 if let index = textFields.firstIndex(of: textFieldRetain) {
-                    
+
                     //If it is not first textField. then it's previous object becomeFirstResponder.
                     if index > 0 {
-                        
+
                         let nextTextField = textFields[index-1]
-                        
+
                         let isAcceptAsFirstResponder = nextTextField.becomeFirstResponder()
-                        
+
                         //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
                         if isAcceptAsFirstResponder == false {
                             //If next field refuses to become first responder then restoring old textField as first responder.
                             textFieldRetain.becomeFirstResponder()
-                            
+
                             showLog("Refuses to become first responder: \(nextTextField._IQDescription())")
                         }
-                        
+
                         return isAcceptAsFirstResponder
                     }
                 }
             }
         }
-        
+
         return false
     }
-    
+
     /**
     Navigate to next responder textField/textView.
     */
-    @objc @discardableResult public func goNext()-> Bool {
+    @objc @discardableResult public func goNext() -> Bool {
 
         //Getting all responder view's.
         if let  textFieldRetain = _textFieldView {
@@ -538,19 +533,19 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                 if let index = textFields.firstIndex(of: textFieldRetain) {
                     //If it is not last textField. then it's next object becomeFirstResponder.
                     if index < textFields.count-1 {
-                        
+
                         let nextTextField = textFields[index+1]
-                        
+
                         let isAcceptAsFirstResponder = nextTextField.becomeFirstResponder()
-                        
+
                         //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
                         if isAcceptAsFirstResponder == false {
                             //If next field refuses to become first responder then restoring old textField as first responder.
                             textFieldRetain.becomeFirstResponder()
-                            
+
                             showLog("Refuses to become first responder: \(nextTextField._IQDescription())")
                         }
-                        
+
                         return isAcceptAsFirstResponder
                     }
                 }
@@ -559,21 +554,21 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 
         return false
     }
-    
+
     /**	previousAction. */
-    @objc internal func previousAction (_ barButton : IQBarButtonItem) {
-        
+    @objc internal func previousAction (_ barButton: IQBarButtonItem) {
+
         //If user wants to play input Click sound.
         if shouldPlayInputClicks == true {
             //Play Input Click Sound.
             UIDevice.current.playInputClick()
         }
-        
+
         if canGoPrevious == true {
-            
+
             if let textFieldRetain = _textFieldView {
                 let isAcceptAsFirstResponder = goPrevious()
-                
+
                 var invocation = barButton.invocation
                 var sender = textFieldRetain
 
@@ -591,21 +586,21 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             }
         }
     }
-    
+
     /**	nextAction. */
-    @objc internal func nextAction (_ barButton : IQBarButtonItem) {
-        
+    @objc internal func nextAction (_ barButton: IQBarButtonItem) {
+
         //If user wants to play input Click sound.
         if shouldPlayInputClicks == true {
             //Play Input Click Sound.
             UIDevice.current.playInputClick()
         }
-        
+
         if canGoNext == true {
-            
+
             if let textFieldRetain = _textFieldView {
                 let isAcceptAsFirstResponder = goNext()
-                
+
                 var invocation = barButton.invocation
                 var sender = textFieldRetain
 
@@ -623,20 +618,20 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             }
         }
     }
-    
+
     /**	doneAction. Resigning current textField. */
-    @objc internal func doneAction (_ barButton : IQBarButtonItem) {
-        
+    @objc internal func doneAction (_ barButton: IQBarButtonItem) {
+
         //If user wants to play input Click sound.
         if shouldPlayInputClicks == true {
             //Play Input Click Sound.
             UIDevice.current.playInputClick()
         }
-        
+
         if let textFieldRetain = _textFieldView {
             //Resign textFieldView.
             let isResignedFirstResponder = resignFirstResponder()
-            
+
             var invocation = barButton.invocation
             var sender = textFieldRetain
 
@@ -653,28 +648,28 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             }
         }
     }
-    
+
     /** Resigning on tap gesture.   (Enhancement ID: #14)*/
     @objc internal func tapRecognized(_ gesture: UITapGestureRecognizer) {
-        
+
         if gesture.state == .ended {
 
             //Resigning currently responder textField.
             resignFirstResponder()
         }
     }
-    
+
     /** Note: returning YES is guaranteed to allow simultaneous recognition. returning NO is not guaranteed to prevent simultaneous recognition, as the other gesture's delegate may return YES. */
     @objc public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return false
     }
-    
+
     /** To not detect touch events in a subclass of UIControl, these may have added their own selector for specific work */
     @objc public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         //  Should not recognize gesture if the clicked view is either UIControl or UINavigationBar(<Back button etc...)    (Bug ID: #145)
-        
+
         for ignoreClass in touchResignedGestureIgnoreClasses {
-            
+
             if touch.view?.isKind(of: ignoreClass) == true {
                 return false
             }
@@ -682,7 +677,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 
         return true
     }
-    
+
     ///-----------------------
     /// MARK: UISound handling
     ///-----------------------
@@ -691,8 +686,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     If YES, then it plays inputClick sound on next/previous/done click.
     */
     @objc public var shouldPlayInputClicks = true
-    
-    
+
     ///---------------------------
     /// MARK: UIAnimation handling
     ///---------------------------
@@ -705,22 +699,22 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     ///------------------------------------
     /// MARK: Class Level disabling methods
     ///------------------------------------
-    
+
     /**
      Disable distance handling within the scope of disabled distance handling viewControllers classes. Within this scope, 'enabled' property is ignored. Class should be kind of UIViewController.
      */
     @objc public var disabledDistanceHandlingClasses  = [UIViewController.Type]()
-    
+
     /**
      Enable distance handling within the scope of enabled distance handling viewControllers classes. Within this scope, 'enabled' property is ignored. Class should be kind of UIViewController. If same Class is added in disabledDistanceHandlingClasses list, then enabledDistanceHandlingClasses will be ignored.
      */
     @objc public var enabledDistanceHandlingClasses  = [UIViewController.Type]()
-    
+
     /**
      Disable automatic toolbar creation within the scope of disabled toolbar viewControllers classes. Within this scope, 'enableAutoToolbar' property is ignored. Class should be kind of UIViewController.
      */
     @objc public var disabledToolbarClasses  = [UIViewController.Type]()
-    
+
     /**
      Enable automatic toolbar creation within the scope of enabled toolbar viewControllers classes. Within this scope, 'enableAutoToolbar' property is ignored. Class should be kind of UIViewController. If same Class is added in disabledToolbarClasses list, then enabledToolbarClasses will be ignore.
      */
@@ -730,17 +724,17 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
      Allowed subclasses of UIView to add all inner textField, this will allow to navigate between textField contains in different superview. Class should be kind of UIView.
      */
     @objc public var toolbarPreviousNextAllowedClasses  = [UIView.Type]()
-    
+
     /**
      Disabled classes to ignore 'shouldResignOnTouchOutside' property, Class should be kind of UIViewController.
      */
     @objc public var disabledTouchResignedClasses  = [UIViewController.Type]()
-    
+
     /**
      Enabled classes to forcefully enable 'shouldResignOnTouchOutsite' property. Class should be kind of UIViewController. If same Class is added in disabledTouchResignedClasses list, then enabledTouchResignedClasses will be ignored.
      */
     @objc public var enabledTouchResignedClasses  = [UIViewController.Type]()
-    
+
     /**
      if shouldResignOnTouchOutside is enabled then you can customise the behaviour to not recognise gesture touches on some specific view subclasses. Class should be kind of UIView. Default is [UIControl, UINavigationBar]
      */
@@ -750,23 +744,23 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     /// MARK: Third Party Library support
     /// Add TextField/TextView Notifications customised Notifications. For example while using YYTextView https://github.com/ibireme/YYText
     ///----------------------------------
-    
+
     /**
     Add/Remove customised Notification for third party customised TextField/TextView. Please be aware that the Notification object must be idential to UITextField/UITextView Notification objects and customised TextField/TextView support must be idential to UITextField/UITextView.
     @param didBeginEditingNotificationName This should be identical to UITextViewTextDidBeginEditingNotification
     @param didEndEditingNotificationName This should be identical to UITextViewTextDidEndEditingNotification
     */
-    
-    @objc public func registerTextFieldViewClass(_ aClass: UIView.Type, didBeginEditingNotificationName : String, didEndEditingNotificationName : String) {
-        
+
+    @objc public func registerTextFieldViewClass(_ aClass: UIView.Type, didBeginEditingNotificationName: String, didEndEditingNotificationName: String) {
+
         registeredClasses.append(aClass)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(self.textFieldViewDidBeginEditing(_:)),    name: Notification.Name(rawValue: didBeginEditingNotificationName), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.textFieldViewDidEndEditing(_:)),      name: Notification.Name(rawValue: didEndEditingNotificationName), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.textFieldViewDidBeginEditing(_:)), name: Notification.Name(rawValue: didBeginEditingNotificationName), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.textFieldViewDidEndEditing(_:)), name: Notification.Name(rawValue: didEndEditingNotificationName), object: nil)
     }
-    
-    @objc public func unregisterTextFieldViewClass(_ aClass: UIView.Type, didBeginEditingNotificationName : String, didEndEditingNotificationName : String) {
-        
+
+    @objc public func unregisterTextFieldViewClass(_ aClass: UIView.Type, didBeginEditingNotificationName: String, didEndEditingNotificationName: String) {
+
         if let index = registeredClasses.firstIndex(where: { element in
             return element == aClass.self
         }) {
@@ -776,7 +770,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: didBeginEditingNotificationName), object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: didEndEditingNotificationName), object: nil)
     }
-    
+
     /**************************************************************************************/
     ///------------------------
     /// MARK: Private variables
@@ -786,7 +780,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 
     /** To save UITextField/UITextView object voa textField/textView notifications. */
     private weak var    _textFieldView: UIView?
-    
+
     /** To save rootViewController.view.frame.origin. */
     private var         _topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
 
@@ -796,37 +790,37 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 
     /** To save rootViewController */
     private weak var    _rootViewController: UIViewController?
-    
+
     /*******************************************/
 
     /** Variable to save lastScrollView that was scrolled. */
     private weak var    _lastScrollView: UIScrollView?
-    
+
     /** LastScrollView's initial contentOffset. */
     private var         _startingContentOffset = CGPoint.zero
-    
+
     /** LastScrollView's initial scrollIndicatorInsets. */
     private var         _startingScrollIndicatorInsets = UIEdgeInsets()
-    
+
     /** LastScrollView's initial contentInsets. */
     private var         _startingContentInsets = UIEdgeInsets()
-    
+
     /*******************************************/
 
     /** To save keyboardWillShowNotification. Needed for enable keyboard functionality. */
     private var         _kbShowNotification: Notification?
-    
+
     /** To save keyboard size. */
     private var         _kbSize = CGSize.zero
-    
+
     /** To save keyboard animation duration. */
-    private var         _animationDuration : TimeInterval = 0.25
-    
+    private var         _animationDuration: TimeInterval = 0.25
+
     /** To mimic the keyboard animation */
     #if swift(>=4.2)
-    private var         _animationCurve : UIView.AnimationOptions = .curveEaseOut
+    private var         _animationCurve: UIView.AnimationOptions = .curveEaseOut
     #else
-    private var         _animationCurve : UIViewAnimationOptions = .curveEaseOut
+    private var         _animationCurve: UIViewAnimationOptions = .curveEaseOut
     #endif
 
     /*******************************************/
@@ -834,36 +828,36 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     /** Boolean to maintain keyboard is showing or it is hide. To solve rootViewController.view.frame calculations. */
     private var         _privateIsKeyboardShowing = false
 
-    private var         _privateMovedDistance : CGFloat = 0.0
-    
+    private var         _privateMovedDistance: CGFloat = 0.0
+
     /** To use with keyboardDistanceFromTextField. */
     private var         _privateKeyboardDistanceFromTextField: CGFloat = 10.0
-    
+
     /** To know if we have any pending request to adjust view position. */
     private var         _privateHasPendingAdjustRequest = false
 
     /**************************************************************************************/
-    
+
     ///--------------------------------------
     /// MARK: Initialization/Deinitialization
     ///--------------------------------------
-    
+
     /*  Singleton Object Initialization. */
     override init() {
-        
+
         super.init()
 
         self.registerAllNotifications()
 
         //Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
         resignFirstResponderGesture.isEnabled = shouldResignOnTouchOutside
-        
+
         //Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay (Bug ID: #550)
         //If you experience exception breakpoint issue at below line then try these solutions https://stackoverflow.com/questions/27375640/all-exception-break-point-is-stopping-for-no-reason-on-simulator
         let textField = UITextField()
         textField.addDoneOnKeyboardWithTarget(nil, action: #selector(self.doneAction(_:)))
         textField.addPreviousNextDoneOnKeyboardWithTarget(nil, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)))
-        
+
         disabledDistanceHandlingClasses.append(UITableViewController.self)
         disabledDistanceHandlingClasses.append(UIAlertController.self)
         disabledToolbarClasses.append(UIAlertController.self)
@@ -874,7 +868,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         touchResignedGestureIgnoreClasses.append(UIControl.self)
         touchResignedGestureIgnoreClasses.append(UINavigationBar.self)
     }
-    
+
     /** Override +load method to enable KeyboardManager when class loader load IQKeyboardManager. Enabling when app starts (No need to write any code) */
     /** It doesn't work from Swift 1.2 */
 //    override public class func load() {
@@ -883,7 +877,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 //        //Enabling IQKeyboardManager.
 //        IQKeyboardManager.shared.enable = true
 //    }
-    
+
     deinit {
         //  Disable the keyboard manager.
         enable = false
@@ -891,18 +885,18 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         //Removing notification observers on dealloc.
         NotificationCenter.default.removeObserver(self)
     }
-    
+
     /** Getting keyWindow. */
     private func keyWindow() -> UIWindow? {
-        
+
         if let keyWindow = _textFieldView?.window {
             return keyWindow
         } else {
-            
+
             struct Static {
                 /** @abstract   Save keyWindow object for reuse.
                 @discussion Sometimes [[UIApplication sharedApplication] keyWindow] is returning nil between the app.   */
-                static weak var keyWindow : UIWindow?
+                static weak var keyWindow: UIWindow?
             }
 
             //If original key window is not nil and the cached keywindow is also not original keywindow then changing keywindow.
@@ -919,7 +913,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     ///-----------------------
     /// MARK: Helper Functions
     ///-----------------------
-    
+
     private func optimizedAdjustPosition() {
         if _privateHasPendingAdjustRequest == false {
             _privateHasPendingAdjustRequest = true
@@ -932,104 +926,102 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 
     /* Adjusting RootViewController's frame according to interface orientation. */
     private func adjustPosition() {
-        
+
         //  We are unable to get textField object while keyboard showing on UIWebView's textField.  (Bug ID: #11)
         if _privateHasPendingAdjustRequest == true,
             let textFieldView = _textFieldView,
             let rootController = textFieldView.parentContainerViewController(),
             let window = keyWindow(),
             let textFieldViewRectInWindow = textFieldView.superview?.convert(textFieldView.frame, to: window),
-            let textFieldViewRectInRootSuperview = textFieldView.superview?.convert(textFieldView.frame, to: rootController.view?.superview)
-        {
+            let textFieldViewRectInRootSuperview = textFieldView.superview?.convert(textFieldView.frame, to: rootController.view?.superview) {
             let startTime = CACurrentMediaTime()
             showLog("****** \(#function) started ******")
-            
+
             //  Getting RootViewOrigin.
             var rootViewOrigin = rootController.view.frame.origin
-            
+
             //Maintain keyboardDistanceFromTextField
             var specialKeyboardDistanceFromTextField = textFieldView.keyboardDistanceFromTextField
-            
+
             if let searchBar = textFieldView.textFieldSearchBar() {
-                
+
                 specialKeyboardDistanceFromTextField = searchBar.keyboardDistanceFromTextField
             }
-            
+
             let newKeyboardDistanceFromTextField = (specialKeyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance) ? keyboardDistanceFromTextField : specialKeyboardDistanceFromTextField
             var kbSize = _kbSize
             kbSize.height += newKeyboardDistanceFromTextField
 
-            let navigationBarAreaHeight : CGFloat = UIApplication.shared.statusBarFrame.height + ( rootController.navigationController?.navigationBar.frame.height ?? 0)
-            let layoutAreaHeight : CGFloat = rootController.view.layoutMargins.bottom
+            let navigationBarAreaHeight: CGFloat = UIApplication.shared.statusBarFrame.height + ( rootController.navigationController?.navigationBar.frame.height ?? 0)
+            let layoutAreaHeight: CGFloat = rootController.view.layoutMargins.bottom
 
-            let topLayoutGuide : CGFloat = max(navigationBarAreaHeight, layoutAreaHeight) + 5
-            let bottomLayoutGuide : CGFloat = (textFieldView is UITextView) ? 0 : rootController.view.layoutMargins.bottom  //Validation of textView for case where there is a tab bar at the bottom or running on iPhone X and textView is at the bottom.
+            let topLayoutGuide: CGFloat = max(navigationBarAreaHeight, layoutAreaHeight) + 5
+            let bottomLayoutGuide: CGFloat = (textFieldView is UITextView) ? 0 : rootController.view.layoutMargins.bottom  //Validation of textView for case where there is a tab bar at the bottom or running on iPhone X and textView is at the bottom.
 
             //  Move positive = textField is hidden.
             //  Move negative = textField is showing.
             //  Calculating move position.
-            var move : CGFloat = min(textFieldViewRectInRootSuperview.minY-(topLayoutGuide), textFieldViewRectInWindow.maxY-(window.frame.height-kbSize.height)+bottomLayoutGuide)
-            
+            var move: CGFloat = min(textFieldViewRectInRootSuperview.minY-(topLayoutGuide), textFieldViewRectInWindow.maxY-(window.frame.height-kbSize.height)+bottomLayoutGuide)
+
             showLog("Need to move: \(move)")
-            
-            var superScrollView : UIScrollView? = nil
+
+            var superScrollView: UIScrollView?
             var superView = textFieldView.superviewOfClassType(UIScrollView.self) as? UIScrollView
-            
+
             //Getting UIScrollView whose scrolling is enabled.    //  (Bug ID: #285)
             while let view = superView {
-                
+
                 if (view.isScrollEnabled && view.shouldIgnoreScrollingAdjustment == false) {
                     superScrollView = view
                     break
-                }
-                else {
+                } else {
                     //  Getting it's superScrollView.   //  (Enhancement ID: #21, #24)
                     superView = view.superviewOfClassType(UIScrollView.self) as? UIScrollView
                 }
             }
-            
+
             //If there was a lastScrollView.    //  (Bug ID: #34)
             if let lastScrollView = _lastScrollView {
                 //If we can't find current superScrollView, then setting lastScrollView to it's original form.
                 if superScrollView == nil {
-                    
+
                     showLog("Restoring \(lastScrollView._IQDescription()) contentInset to : \(_startingContentInsets) and contentOffset to : \(_startingContentOffset)")
-                    
+
                     UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
-                        
+
                         lastScrollView.contentInset = self._startingContentInsets
                         lastScrollView.scrollIndicatorInsets = self._startingScrollIndicatorInsets
-                    }) { (animated:Bool) -> Void in }
-                    
+                    }) { (_: Bool) -> Void in }
+
                     if lastScrollView.shouldRestoreScrollViewContentOffset == true {
                         lastScrollView.setContentOffset(_startingContentOffset, animated: UIView.areAnimationsEnabled)
                     }
-                    
+
                     _startingContentInsets = UIEdgeInsets()
                     _startingScrollIndicatorInsets = UIEdgeInsets()
                     _startingContentOffset = CGPoint.zero
                     _lastScrollView = nil
                 } else if superScrollView != lastScrollView {     //If both scrollView's are different, then reset lastScrollView to it's original frame and setting current scrollView as last scrollView.
-                    
+
                     showLog("Restoring \(lastScrollView._IQDescription()) contentInset to : \(_startingContentInsets) and contentOffset to : \(_startingContentOffset)")
-                    
+
                     UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
-                        
+
                         lastScrollView.contentInset = self._startingContentInsets
                         lastScrollView.scrollIndicatorInsets = self._startingScrollIndicatorInsets
-                    }) { (animated:Bool) -> Void in }
-                    
+                    }) { (_: Bool) -> Void in }
+
                     if lastScrollView.shouldRestoreScrollViewContentOffset == true {
                         lastScrollView.setContentOffset(_startingContentOffset, animated: UIView.areAnimationsEnabled)
                     }
-                    
+
                     _lastScrollView = superScrollView
                     if let scrollView = superScrollView {
                         _startingContentInsets = scrollView.contentInset
                         _startingScrollIndicatorInsets = scrollView.scrollIndicatorInsets
                         _startingContentOffset = scrollView.contentOffset
                     }
-                    
+
                     showLog("Saving New \(lastScrollView._IQDescription()) contentInset : \(_startingContentInsets) and contentOffset : \(_startingContentOffset)")
                 }
                 //Else the case where superScrollView == lastScrollView means we are on same scrollView after switching to different textField. So doing nothing, going ahead
@@ -1038,26 +1030,26 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                 _startingContentInsets = unwrappedSuperScrollView.contentInset
                 _startingScrollIndicatorInsets = unwrappedSuperScrollView.scrollIndicatorInsets
                 _startingContentOffset = unwrappedSuperScrollView.contentOffset
-                
+
                 showLog("Saving \(unwrappedSuperScrollView._IQDescription()) contentInset : \(_startingContentInsets) and contentOffset : \(_startingContentOffset)")
             }
-            
+
             //  Special case for ScrollView.
             //  If we found lastScrollView then setting it's contentOffset to show textField.
             if let lastScrollView = _lastScrollView {
                 //Saving
                 var lastView = textFieldView
                 var superScrollView = _lastScrollView
-                
+
                 while let scrollView = superScrollView {
-                    
+
                     //Looping in upper hierarchy until we don't found any scrollView in it's upper hirarchy till UIWindow object.
                     if move > 0 ? (move > (-scrollView.contentOffset.y - scrollView.contentInset.top)) : scrollView.contentOffset.y>0 {
-                        
+
                         var tempScrollView = scrollView.superviewOfClassType(UIScrollView.self) as? UIScrollView
-                        var nextScrollView : UIScrollView? = nil
+                        var nextScrollView: UIScrollView?
                         while let view = tempScrollView {
-                            
+
                             if (view.isScrollEnabled  && view.shouldIgnoreScrollingAdjustment == false) {
                                 nextScrollView = view
                                 break
@@ -1065,16 +1057,16 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                                 tempScrollView = view.superviewOfClassType(UIScrollView.self) as? UIScrollView
                             }
                         }
-                        
+
                         //Getting lastViewRect.
                         if let lastViewRect = lastView.superview?.convert(lastView.frame, to: scrollView) {
-                            
+
                             //Calculating the expected Y offset from move and scrollView's contentOffset.
-                            var shouldOffsetY = scrollView.contentOffset.y - min(scrollView.contentOffset.y,-move)
-                            
+                            var shouldOffsetY = scrollView.contentOffset.y - min(scrollView.contentOffset.y, -move)
+
                             //Rearranging the expected Y offset according to the view.
                             shouldOffsetY = min(shouldOffsetY, lastViewRect.origin.y)
-                            
+
                             //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
                             //nextScrollView == nil    If processing scrollView is last scrollView in upper hierarchy (there is no other scrollView upper hierrchy.)
                             //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
@@ -1082,41 +1074,38 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                             if textFieldView is UITextView == true &&
                                 nextScrollView == nil &&
                                 shouldOffsetY >= 0 {
-                                
+
                                 //  Converting Rectangle according to window bounds.
                                 if let currentTextFieldViewRect = textFieldView.superview?.convert(textFieldView.frame, to: window) {
-                                    
+
                                     //Calculating expected fix distance which needs to be managed from navigation bar
                                     let expectedFixDistance = currentTextFieldViewRect.minY - topLayoutGuide
-                                    
+
                                     //Now if expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance) is lower than current shouldOffsetY, which means we're in a position where navigationBar up and hide, then reducing shouldOffsetY with expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance)
                                     shouldOffsetY = min(shouldOffsetY, scrollView.contentOffset.y + expectedFixDistance)
-                                    
+
                                     //Setting move to 0 because now we don't want to move any view anymore (All will be managed by our contentInset logic.
                                     move = 0
-                                }
-                                else {
+                                } else {
                                     //Subtracting the Y offset from the move variable, because we are going to change scrollView's contentOffset.y to shouldOffsetY.
                                     move -= (shouldOffsetY-scrollView.contentOffset.y)
                                 }
-                            }
-                            else
-                            {
+                            } else {
                                 //Subtracting the Y offset from the move variable, because we are going to change scrollView's contentOffset.y to shouldOffsetY.
                                 move -= (shouldOffsetY-scrollView.contentOffset.y)
                             }
-                            
+
                             //Getting problem while using `setContentOffset:animated:`, So I used animation API.
                             UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
-                                
+
                                 self.showLog("Adjusting \(scrollView.contentOffset.y-shouldOffsetY) to \(scrollView._IQDescription()) ContentOffset")
-                                
+
                                 self.showLog("Remaining Move: \(move)")
-                                
+
                                 scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x, y: shouldOffsetY)
-                            }) { (animated:Bool) -> Void in }
+                            }) { (_: Bool) -> Void in }
                         }
-                        
+
                         //  Getting next lastView & superScrollView.
                         lastView = scrollView
                         superScrollView = nextScrollView
@@ -1124,39 +1113,39 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                         break
                     }
                 }
-                
+
                 //Updating contentInset
                 if let lastScrollViewRect = lastScrollView.superview?.convert(lastScrollView.frame, to: window) {
-                    
-                    let bottom : CGFloat = (kbSize.height-newKeyboardDistanceFromTextField)-(window.frame.height-lastScrollViewRect.maxY)
-                    
+
+                    let bottom: CGFloat = (kbSize.height-newKeyboardDistanceFromTextField)-(window.frame.height-lastScrollViewRect.maxY)
+
                     // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
                     var movedInsets = lastScrollView.contentInset
-                    
+
                     movedInsets.bottom = max(_startingContentInsets.bottom, bottom)
-                    
+
                     showLog("\(lastScrollView._IQDescription()) old ContentInset : \(lastScrollView.contentInset)")
-                    
+
                     //Getting problem while using `setContentOffset:animated:`, So I used animation API.
                     UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
                         lastScrollView.contentInset = movedInsets
-                        
+
                         var newInset = lastScrollView.scrollIndicatorInsets
                         newInset.bottom = movedInsets.bottom
                         lastScrollView.scrollIndicatorInsets = newInset
-                        
-                    }) { (animated:Bool) -> Void in }
-                    
+
+                    }) { (_: Bool) -> Void in }
+
                     showLog("\(lastScrollView._IQDescription()) new ContentInset : \(lastScrollView.contentInset)")
                 }
             }
             //Going ahead. No else if.
-            
+
             //Special case for UITextView(Readjusting textView.contentInset when textView hight is too big to fit on screen)
             //_lastScrollView       If not having inside any scrollView, (now contentInset manages the full screen textView.
             //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
             if let textView = textFieldView as? UITextView {
-                
+
 //                CGRect rootSuperViewFrameInWindow = [_rootViewController.view.superview convertRect:_rootViewController.view.superview.bounds toView:keyWindow];
 //
 //                CGFloat keyboardOverlapping = CGRectGetMaxY(rootSuperViewFrameInWindow) - keyboardYPosition;
@@ -1168,138 +1157,135 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                 if let rootSuperview = rootController.view.superview {
                     rootSuperViewFrameInWindow = rootSuperview.convert(rootSuperview.bounds, to: window)
                 }
-                
+
                 let keyboardOverlapping = rootSuperViewFrameInWindow.maxY - keyboardYPosition
-                
+
                 let textViewHeight = min(textView.frame.height, rootSuperViewFrameInWindow.height-topLayoutGuide-keyboardOverlapping)
-                
-                if (textView.frame.size.height-textView.contentInset.bottom>textViewHeight)
-                {
+
+                if (textView.frame.size.height-textView.contentInset.bottom>textViewHeight) {
                     UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
-                        
+
                         self.showLog("\(textFieldView._IQDescription()) Old UITextView.contentInset : \(textView.contentInset)")
-                        
+
                         //_isTextViewContentInsetChanged,  If frame is not change by library in past, then saving user textView properties  (Bug ID: #92)
-                        if (self.isTextViewContentInsetChanged == false)
-                        {
+                        if (self.isTextViewContentInsetChanged == false) {
                             self.startingTextViewContentInsets = textView.contentInset
                             self.startingTextViewScrollIndicatorInsets = textView.scrollIndicatorInsets
                         }
-                        
+
                         var newContentInset = textView.contentInset
                         newContentInset.bottom = textView.frame.size.height-textViewHeight
                         textView.contentInset = newContentInset
                         textView.scrollIndicatorInsets = newContentInset
                         self.isTextViewContentInsetChanged = true
-                        
+
                         self.showLog("\(textFieldView._IQDescription()) Old UITextView.contentInset : \(textView.contentInset)")
-                        
-                        
-                    }, completion: { (finished) -> Void in })
+
+                    }, completion: { (_) -> Void in })
                 }
             }
-                
+
             //  +Positive or zero.
             if move >= 0 {
-                
+
                 rootViewOrigin.y -= move
-                
+
                 rootViewOrigin.y = max(rootViewOrigin.y, min(0, -(kbSize.height-newKeyboardDistanceFromTextField)))
 
                 showLog("Moving Upward")
                 //  Setting adjusted rootViewRect
-                
+
                 UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
-                    
+
                     var rect = rootController.view.frame
                     rect.origin = rootViewOrigin
                     rootController.view.frame = rect
-                    
+
                     //Animating content if needed (Bug ID: #204)
                     if self.layoutIfNeededOnUpdate == true {
                         //Animating content (Bug ID: #160)
                         rootController.view.setNeedsLayout()
                         rootController.view.layoutIfNeeded()
                     }
-                    
+
                     self.showLog("Set \(String(describing: rootController._IQDescription())) origin to : \(rootViewOrigin)")
-                    
-                }) { (finished) -> Void in }
-                
+
+                }) { (_) -> Void in }
+
                 _privateMovedDistance = (_topViewBeginOrigin.y-rootViewOrigin.y)
             } else {  //  -Negative
-                let disturbDistance : CGFloat = rootViewOrigin.y-_topViewBeginOrigin.y
-                
+                let disturbDistance: CGFloat = rootViewOrigin.y-_topViewBeginOrigin.y
+
                 //  disturbDistance Negative = frame disturbed.
                 //  disturbDistance positive = frame not disturbed.
                 if disturbDistance <= 0 {
-                    
+
                     rootViewOrigin.y -= max(move, disturbDistance)
-                    
+
                     showLog("Moving Downward")
                     //  Setting adjusted rootViewRect
                     //  Setting adjusted rootViewRect
-                    
+
                     UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
-                        
+
                         var rect = rootController.view.frame
                         rect.origin = rootViewOrigin
                         rootController.view.frame = rect
-                        
+
                         //Animating content if needed (Bug ID: #204)
                         if self.layoutIfNeededOnUpdate == true {
                             //Animating content (Bug ID: #160)
                             rootController.view.setNeedsLayout()
                             rootController.view.layoutIfNeeded()
                         }
-                        
+
                         self.showLog("Set \(String(describing: rootController._IQDescription())) origin to : \(rootViewOrigin)")
-                        
-                    }) { (finished) -> Void in }
-                    
+
+                    }) { (_) -> Void in }
+
                     _privateMovedDistance = (_topViewBeginOrigin.y-rootViewOrigin.y)
                 }
             }
-        
+
             let elapsedTime = CACurrentMediaTime() - startTime
             showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
         }
     }
 
     private func restorePosition() {
-        
+
         _privateHasPendingAdjustRequest = false
-        
+
         //  Setting rootViewController frame to it's original position. //  (Bug ID: #18)
         if _topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) == false {
-            
+
             if let rootViewController = _rootViewController {
-                
+
                 //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
                 UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
-                    
+
                     self.showLog("Restoring \(rootViewController._IQDescription()) origin to : \(self._topViewBeginOrigin)")
-                    
+
                     //  Setting it's new frame
                     var rect = rootViewController.view.frame
                     rect.origin = self._topViewBeginOrigin
                     rootViewController.view.frame = rect
-                    
+
                     self._privateMovedDistance = 0
 
                     if rootViewController.navigationController?.interactivePopGestureRecognizer?.state == .began {
                         self._rootViewControllerWhilePopGestureRecognizerActive = rootViewController
                         self._topViewBeginOriginWhilePopGestureRecognizerActive = self._topViewBeginOrigin
                     }
-                    
+
                     //Animating content if needed (Bug ID: #204)
                     if self.layoutIfNeededOnUpdate == true {
                         //Animating content (Bug ID: #160)
                         rootViewController.view.setNeedsLayout()
                         rootViewController.view.layoutIfNeeded()
                     }
-                }) { (finished) -> Void in }
-                
+                }) { (_) -> Void in }
+
                 _rootViewController = nil
             }
         }
@@ -1308,9 +1294,9 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     ///---------------------
     /// MARK: Public Methods
     ///---------------------
-    
+
     /*  Refreshes textField/textView position if any external changes is explicitly made by user.   */
-    @objc public func reloadLayoutIfNeeded() -> Void {
+    @objc public func reloadLayoutIfNeeded() {
 
         if privateIsEnabled() == true {
             if _privateIsKeyboardShowing == true,
@@ -1327,17 +1313,17 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     ///-------------------------------
 
     /*  UIKeyboardWillShowNotification. */
-    @objc internal func keyboardWillShow(_ notification : Notification?) -> Void {
-        
+    @objc internal func keyboardWillShow(_ notification: Notification?) {
+
         _kbShowNotification = notification
 
         //  Boolean to know keyboard is showing/hiding
         _privateIsKeyboardShowing = true
-        
+
         let oldKBSize = _kbSize
 
         if let info = notification?.userInfo {
-            
+
             #if swift(>=4.2)
             let curveUserInfoKey    = UIResponder.keyboardAnimationCurveUserInfoKey
             let durationUserInfoKey = UIResponder.keyboardAnimationDurationUserInfoKey
@@ -1354,10 +1340,10 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             } else {
                 _animationCurve = .curveEaseOut
             }
-            
+
             //  Getting keyboard animation duration
             if let duration = info[durationUserInfoKey] as? TimeInterval {
-                
+
                 //Saving animation duration
                 if duration != 0.0 {
                     _animationDuration = duration
@@ -1365,15 +1351,15 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             } else {
                 _animationDuration = 0.25
             }
-            
+
             //  Getting UIKeyboardSize.
             if let kbFrame = info[frameEndUserInfoKey] as? CGRect {
-                
+
                 let screenSize = UIScreen.main.bounds
-                
+
                 //Calculating actual keyboard displayed size, keyboard frame may be different when hardware keyboard is attached (Bug ID: #469) (Bug ID: #381)
                 let intersectRect = kbFrame.intersection(screenSize)
-                
+
                 if intersectRect.isNull {
                     _kbSize = CGSize(width: screenSize.size.width, height: 0)
                 } else {
@@ -1387,17 +1373,17 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         if privateIsEnabled() == false {
             return
         }
-        
+
         let startTime = CACurrentMediaTime()
         showLog("****** \(#function) started ******")
 
         //  (Bug ID: #5)
         if let textFieldView = _textFieldView, _topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) == true {
-            
+
             //  keyboard is not showing(At the beginning only). We should save rootViewRect.
             _rootViewController = textFieldView.parentContainerViewController()
             if let controller = _rootViewController {
-                
+
                 if _rootViewControllerWhilePopGestureRecognizerActive == controller {
                     _topViewBeginOrigin = _topViewBeginOriginWhilePopGestureRecognizerActive
                 } else {
@@ -1406,63 +1392,63 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 
                 _rootViewControllerWhilePopGestureRecognizerActive = nil
                 _topViewBeginOriginWhilePopGestureRecognizerActive = IQKeyboardManager.kIQCGPointInvalid
-                
+
                 self.showLog("Saving \(controller._IQDescription()) beginning origin : \(self._topViewBeginOrigin)")
             }
         }
 
         //If last restored keyboard size is different(any orientation accure), then refresh. otherwise not.
         if _kbSize.equalTo(oldKBSize) == false {
-            
+
             //If _textFieldView is inside UITableViewController then let UITableViewController to handle it (Bug ID: #37) (Bug ID: #76) See note:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
-            
+
             if _privateIsKeyboardShowing == true,
                 let textFieldView = _textFieldView,
                 textFieldView.isAlertViewTextField() == false {
-                
+
                 //  keyboard is already showing. adjust position.
                 optimizedAdjustPosition()
             }
         }
-        
+
         let elapsedTime = CACurrentMediaTime() - startTime
         showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
     }
 
     /*  UIKeyboardDidShowNotification. */
-    @objc internal func keyboardDidShow(_ notification : Notification?) -> Void {
-        
+    @objc internal func keyboardDidShow(_ notification: Notification?) {
+
         if privateIsEnabled() == false {
             return
         }
-        
+
         let startTime = CACurrentMediaTime()
         showLog("****** \(#function) started ******")
-        
+
         if let textFieldView = _textFieldView,
             let parentController = textFieldView.parentContainerViewController(), (parentController.modalPresentationStyle == UIModalPresentationStyle.formSheet || parentController.modalPresentationStyle == UIModalPresentationStyle.pageSheet),
             textFieldView.isAlertViewTextField() == false {
-            
+
             self.optimizedAdjustPosition()
         }
-        
+
         let elapsedTime = CACurrentMediaTime() - startTime
         showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
     }
 
     /*  UIKeyboardWillHideNotification. So setting rootViewController to it's default frame. */
-    @objc internal func keyboardWillHide(_ notification : Notification?) -> Void {
-        
+    @objc internal func keyboardWillHide(_ notification: Notification?) {
+
         //If it's not a fake notification generated by [self setEnable:NO].
         if notification != nil {
             _kbShowNotification = nil
         }
-        
+
         //  Boolean to know keyboard is showing/hiding
         _privateIsKeyboardShowing = false
-        
+
         if let info = notification?.userInfo {
-            
+
             #if swift(>=4.2)
             let durationUserInfoKey = UIResponder.keyboardAnimationDurationUserInfoKey
             #else
@@ -1477,12 +1463,12 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                 }
             }
         }
-        
+
         //If not enabled then do nothing.
         if privateIsEnabled() == false {
             return
         }
-        
+
         let startTime = CACurrentMediaTime()
         showLog("****** \(#function) started ******")
 
@@ -1492,41 +1478,41 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 
         //Restoring the contentOffset of the lastScrollView
         if let lastScrollView = _lastScrollView {
-            
+
             UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
-                
+
                 lastScrollView.contentInset = self._startingContentInsets
                 lastScrollView.scrollIndicatorInsets = self._startingScrollIndicatorInsets
-                
+
                 if lastScrollView.shouldRestoreScrollViewContentOffset == true {
                     lastScrollView.contentOffset = self._startingContentOffset
                 }
-                
+
                 self.showLog("Restoring \(lastScrollView._IQDescription()) contentInset to : \(self._startingContentInsets) and contentOffset to : \(self._startingContentOffset)")
 
                 // TODO: restore scrollView state
                 // This is temporary solution. Have to implement the save and restore scrollView state
-                var superScrollView : UIScrollView? = lastScrollView
+                var superScrollView: UIScrollView? = lastScrollView
 
                 while let scrollView = superScrollView {
 
                     let contentSize = CGSize(width: max(scrollView.contentSize.width, scrollView.frame.width), height: max(scrollView.contentSize.height, scrollView.frame.height))
-                    
+
                     let minimumY = contentSize.height - scrollView.frame.height
-                    
+
                     if minimumY < scrollView.contentOffset.y {
                         scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x, y: minimumY)
-                        
+
                         self.showLog("Restoring \(scrollView._IQDescription()) contentOffset to : \(self._startingContentOffset)")
                     }
-                    
+
                     superScrollView = scrollView.superviewOfClassType(UIScrollView.self) as? UIScrollView
                 }
-                }) { (finished) -> Void in }
+                }) { (_) -> Void in }
         }
-        
+
         restorePosition()
-        
+
         //Reset all values
         _lastScrollView = nil
         _kbSize = CGSize.zero
@@ -1539,34 +1525,34 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
     }
 
-    @objc internal func keyboardDidHide(_ notification:Notification) {
+    @objc internal func keyboardDidHide(_ notification: Notification) {
 
         let startTime = CACurrentMediaTime()
         showLog("****** \(#function) started ******")
-        
+
         _topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
-        
+
         _kbSize = CGSize.zero
 
         let elapsedTime = CACurrentMediaTime() - startTime
         showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
     }
-    
+
     ///-------------------------------------------
     /// MARK: UITextField/UITextView Notifications
     ///-------------------------------------------
 
     /**  UITextFieldTextDidBeginEditingNotification, UITextViewTextDidBeginEditingNotification. Fetching UITextFieldView object. */
-    @objc internal func textFieldViewDidBeginEditing(_ notification:Notification) {
+    @objc internal func textFieldViewDidBeginEditing(_ notification: Notification) {
 
         let startTime = CACurrentMediaTime()
         showLog("****** \(#function) started ******")
 
         //  Getting object
         _textFieldView = notification.object as? UIView
-        
+
         if overrideKeyboardAppearance == true {
-            
+
             if let textFieldView = _textFieldView as? UITextField {
                 //If keyboard appearance is not like the provided appearance
                 if textFieldView.keyboardAppearance != keyboardAppearance {
@@ -1583,19 +1569,19 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                 }
             }
         }
-        
+
         //If autoToolbar enable, then add toolbar on all the UITextField/UITextView's if required.
         if privateIsEnableAutoToolbar() == true {
 
             //UITextView special case. Keyboard Notification is firing before textView notification so we need to resign it first and then again set it as first responder to add toolbar on it.
             if let textView = _textFieldView as? UITextView,
                 textView.inputAccessoryView == nil {
-                
+
                 UIView.animate(withDuration: 0.00001, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
 
                     self.addToolbarIfRequired()
-                    
-                    }, completion: { (finished) -> Void in
+
+                    }, completion: { (_) -> Void in
 
                         //On textView toolbar didn't appear on first time, so forcing textView to reload it's inputViews.
                         textView.reloadInputViews()
@@ -1613,30 +1599,30 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 
         if privateIsEnabled() == true {
             if _topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) == true {    //  (Bug ID: #5)
-                
+
                 _rootViewController = _textFieldView?.parentContainerViewController()
 
                 if let controller = _rootViewController {
-                    
+
                     if _rootViewControllerWhilePopGestureRecognizerActive == controller {
                         _topViewBeginOrigin = _topViewBeginOriginWhilePopGestureRecognizerActive
                     } else {
                         _topViewBeginOrigin = controller.view.frame.origin
                     }
-                    
+
                     _rootViewControllerWhilePopGestureRecognizerActive = nil
                     _topViewBeginOriginWhilePopGestureRecognizerActive = IQKeyboardManager.kIQCGPointInvalid
 
                     self.showLog("Saving \(controller._IQDescription()) beginning origin : \(self._topViewBeginOrigin)")
                 }
             }
-            
+
             //If _textFieldView is inside ignored responder then do nothing. (Bug ID: #37, #74, #76)
             //See notes:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
             if _privateIsKeyboardShowing == true,
                 let textFieldView = _textFieldView,
                 textFieldView.isAlertViewTextField() == false {
-                
+
                 //  keyboard is already showing. adjust position.
                 optimizedAdjustPosition()
             }
@@ -1645,36 +1631,36 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         let elapsedTime = CACurrentMediaTime() - startTime
         showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
     }
-    
+
     /**  UITextFieldTextDidEndEditingNotification, UITextViewTextDidEndEditingNotification. Removing fetched object. */
-    @objc internal func textFieldViewDidEndEditing(_ notification:Notification) {
-        
+    @objc internal func textFieldViewDidEndEditing(_ notification: Notification) {
+
         let startTime = CACurrentMediaTime()
         showLog("****** \(#function) started ******")
 
         //Removing gesture recognizer   (Enhancement ID: #14)
         _textFieldView?.window?.removeGestureRecognizer(resignFirstResponderGesture)
-        
+
         // We check if there's a change in original frame or not.
-        
+
         if let textView = _textFieldView as? UITextView {
 
             if isTextViewContentInsetChanged == true {
-                
+
                 UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
-                    
+
                     self.isTextViewContentInsetChanged = false
-                    
+
                     self.showLog("Restoring \(textView._IQDescription()) textView.contentInset to : \(self.startingTextViewContentInsets)")
-                    
+
                     //Setting textField to it's initial contentInset
                     textView.contentInset = self.startingTextViewContentInsets
                     textView.scrollIndicatorInsets = self.startingTextViewScrollIndicatorInsets
 
-                    }, completion: { (finished) -> Void in })
+                    }, completion: { (_) -> Void in })
             }
         }
-        
+
         //Setting object to nil
         _textFieldView = nil
 
@@ -1685,29 +1671,29 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     ///---------------------------------------
     /// MARK: UIStatusBar Notification methods
     ///---------------------------------------
-    
+
     /**  UIApplicationWillChangeStatusBarOrientationNotification. Need to set the textView to it's original position. If any frame changes made. (Bug ID: #92)*/
-    @objc internal func willChangeStatusBarOrientation(_ notification:Notification) {
-        
+    @objc internal func willChangeStatusBarOrientation(_ notification: Notification) {
+
         let startTime = CACurrentMediaTime()
         showLog("****** \(#function) started ******")
-        
+
         //If textViewContentInsetChanged is saved then restore it.
         if let textView = _textFieldView as? UITextView {
-            
+
             if isTextViewContentInsetChanged == true {
-                
+
                 UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
-                    
+
                     self.isTextViewContentInsetChanged = false
-                    
+
                     self.showLog("Restoring \(textView._IQDescription()) textView.contentInset to : \(self.startingTextViewContentInsets)")
-                    
+
                     //Setting textField to it's initial contentInset
                     textView.contentInset = self.startingTextViewContentInsets
                     textView.scrollIndicatorInsets = self.startingTextViewScrollIndicatorInsets
-                    
-                    }, completion: { (finished) -> Void in })
+
+                    }, completion: { (_) -> Void in })
             }
         }
 
@@ -1716,41 +1702,41 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         let elapsedTime = CACurrentMediaTime() - startTime
         showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
     }
-    
+
     ///------------------
     /// MARK: AutoToolbar
     ///------------------
-    
+
     /**	Get all UITextField/UITextView siblings of textFieldView. */
-    private func responderViews()-> [UIView]? {
-        
-        var superConsideredView : UIView?
+    private func responderViews() -> [UIView]? {
+
+        var superConsideredView: UIView?
 
         //If find any consider responderView in it's upper hierarchy then will get deepResponderView.
         for disabledClass in toolbarPreviousNextAllowedClasses {
-            
+
             superConsideredView = _textFieldView?.superviewOfClassType(disabledClass)
-            
+
             if superConsideredView != nil {
                 break
             }
         }
-    
+
     //If there is a superConsideredView in view's hierarchy, then fetching all it's subview that responds. No sorting for superConsideredView, it's by subView position.    (Enhancement ID: #22)
         if let view = superConsideredView {
             return view.deepResponderViews()
         } else {  //Otherwise fetching all the siblings
-            
+
             if let textFields = _textFieldView?.responderSiblings() {
-                
+
                 //Sorting textFields according to behaviour
                 switch toolbarManageBehaviour {
                     //If autoToolbar behaviour is bySubviews, then returning it.
                 case IQAutoToolbarManageBehaviour.bySubviews:   return textFields
-                    
+
                     //If autoToolbar behaviour is by tag, then sorting it according to tag property.
                 case IQAutoToolbarManageBehaviour.byTag:    return textFields.sortedArrayByTag()
-                    
+
                     //If autoToolbar behaviour is by tag, then sorting it according to tag property.
                 case IQAutoToolbarManageBehaviour.byPosition:    return textFields.sortedArrayByPosition()
                 }
@@ -1759,29 +1745,29 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             }
         }
     }
-    
+
     /** Add toolbar if it is required to add on textFields and it's siblings. */
     private func addToolbarIfRequired() {
-        
+
         let startTime = CACurrentMediaTime()
         showLog("****** \(#function) started ******")
 
         //	Getting all the sibling textFields.
         if let siblings = responderViews(), !siblings.isEmpty {
-            
+
             showLog("Found \(siblings.count) responder sibling(s)")
-            
+
             if let textField = _textFieldView {
                 //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
                 //setInputAccessoryView: check   (Bug ID: #307)
                 if textField.responds(to: #selector(setter: UITextField.inputAccessoryView)) {
-                    
+
                     if textField.inputAccessoryView == nil ||
                         textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag ||
                         textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag {
-                        
-                        let rightConfiguration : IQBarButtonItemConfiguration
-                        
+
+                        let rightConfiguration: IQBarButtonItemConfiguration
+
                         if let doneBarButtonItemImage = toolbarDoneBarButtonItemImage {
                             rightConfiguration = IQBarButtonItemConfiguration(image: doneBarButtonItemImage, action: #selector(self.doneAction(_:)))
                         } else if let doneBarButtonItemText = toolbarDoneBarButtonItemText {
@@ -1789,18 +1775,18 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                         } else {
                             rightConfiguration = IQBarButtonItemConfiguration(barButtonSystemItem: .done, action: #selector(self.doneAction(_:)))
                         }
-                        
+
                         //	If only one object is found, then adding only Done button.
                         if (siblings.count == 1 && previousNextDisplayMode == .Default) || previousNextDisplayMode == .alwaysHide {
-                            
+
                             textField.addKeyboardToolbarWithTarget(target: self, titleText: (shouldShowToolbarPlaceholder ? textField.drawingToolbarPlaceholder : nil), rightBarButtonConfiguration: rightConfiguration, previousBarButtonConfiguration: nil, nextBarButtonConfiguration: nil)
 
                             textField.inputAccessoryView?.tag = IQKeyboardManager.kIQDoneButtonToolbarTag //  (Bug ID: #78)
-                            
+
                         } else if (siblings.count > 1 && previousNextDisplayMode == .Default) || previousNextDisplayMode == .alwaysShow {
-                            
-                            let prevConfiguration : IQBarButtonItemConfiguration
-                            
+
+                            let prevConfiguration: IQBarButtonItemConfiguration
+
                             if let doneBarButtonItemImage = toolbarPreviousBarButtonItemImage {
                                 prevConfiguration = IQBarButtonItemConfiguration(image: doneBarButtonItemImage, action: #selector(self.previousAction(_:)))
                             } else if let doneBarButtonItemText = toolbarPreviousBarButtonItemText {
@@ -1809,8 +1795,8 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                                 prevConfiguration = IQBarButtonItemConfiguration(image: (UIImage.keyboardPreviousImage() ?? UIImage()), action: #selector(self.previousAction(_:)))
                             }
 
-                            let nextConfiguration : IQBarButtonItemConfiguration
-                            
+                            let nextConfiguration: IQBarButtonItemConfiguration
+
                             if let doneBarButtonItemImage = toolbarNextBarButtonItemImage {
                                 nextConfiguration = IQBarButtonItemConfiguration(image: doneBarButtonItemImage, action: #selector(self.nextAction(_:)))
                             } else if let doneBarButtonItemText = toolbarNextBarButtonItemText {
@@ -1828,10 +1814,10 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 
                         //  Setting toolbar to keyboard.
                         if let _textField = textField as? UITextField {
-                            
+
                             //Bar style according to keyboard appearance
                             switch _textField.keyboardAppearance {
-                                
+
                             case .dark:
                                 toolbar.barStyle = UIBarStyle.black
                                 toolbar.tintColor = UIColor.white
@@ -1839,7 +1825,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                             default:
                                 toolbar.barStyle = UIBarStyle.default
                                 toolbar.barTintColor = toolbarBarTintColor
-                                
+
                                 //Setting toolbar tintColor //  (Enhancement ID: #30)
                                 if shouldToolbarUsesTextFieldTintColor {
                                     toolbar.tintColor = _textField.tintColor
@@ -1850,10 +1836,10 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                                 }
                             }
                         } else if let _textView = textField as? UITextView {
-                            
+
                             //Bar style according to keyboard appearance
                             switch _textView.keyboardAppearance {
-                                
+
                             case .dark:
                                 toolbar.barStyle = UIBarStyle.black
                                 toolbar.tintColor = UIColor.white
@@ -1875,13 +1861,13 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                         //Setting toolbar title font.   //  (Enhancement ID: #30)
                         if shouldShowToolbarPlaceholder == true &&
                             textField.shouldHideToolbarPlaceholder == false {
-                            
+
                             //Updating placeholder font to toolbar.     //(Bug ID: #148, #272)
                             if toolbar.titleBarButton.title == nil ||
                                 toolbar.titleBarButton.title != textField.drawingToolbarPlaceholder {
                                 toolbar.titleBarButton.title = textField.drawingToolbarPlaceholder
                             }
-                            
+
                             //Setting toolbar title font.   //  (Enhancement ID: #30)
                             if let font = placeholderFont {
                                 toolbar.titleBarButton.titleFont = font
@@ -1891,17 +1877,17 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                             if let color = placeholderColor {
                                 toolbar.titleBarButton.titleColor = color
                             }
-                            
+
                             //Setting toolbar button title color.   //  (Enhancement ID: #880)
                             if let color = placeholderButtonColor {
                                 toolbar.titleBarButton.selectableTitleColor = color
                             }
 
                         } else {
-                            
+
                             toolbar.titleBarButton.title = nil
                         }
-                        
+
                         //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
                         //	If firstTextField, then previous should not be enabled.
                         if siblings.first == textField {
@@ -1927,26 +1913,26 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         let elapsedTime = CACurrentMediaTime() - startTime
         showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
     }
-    
+
     /** Remove any toolbar if it is IQToolbar. */
     private func removeToolbarIfRequired() {    //  (Bug ID: #18)
-        
+
         let startTime = CACurrentMediaTime()
         showLog("****** \(#function) started ******")
 
         //	Getting all the sibling textFields.
         if let siblings = responderViews() {
-            
+
             showLog("Found \(siblings.count) responder sibling(s)")
 
             for view in siblings {
-                
+
                 if let toolbar = view.inputAccessoryView as? IQToolbar {
 
                     //setInputAccessoryView: check   (Bug ID: #307)
                     if view.responds(to: #selector(setter: UITextField.inputAccessoryView)) &&
                         (toolbar.tag == IQKeyboardManager.kIQDoneButtonToolbarTag || toolbar.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag) {
-                        
+
                         if let textField = view as? UITextField {
                             textField.inputAccessoryView = nil
                             textField.reloadInputViews()
@@ -1962,10 +1948,10 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         let elapsedTime = CACurrentMediaTime() - startTime
         showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
     }
-    
+
     /**	reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */
     @objc public func reloadInputViews() {
-        
+
         //If enabled then adding toolbar.
         if privateIsEnableAutoToolbar() == true {
             self.addToolbarIfRequired()
@@ -1973,11 +1959,11 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             self.removeToolbarIfRequired()
         }
     }
-    
+
     ///------------------------------------
     /// MARK: Debugging & Developer options
     ///------------------------------------
-    
+
     @objc public var enableDebugging = false
 
     /**
@@ -1990,26 +1976,26 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         let UIKeyboardDidShow   = UIResponder.keyboardDidShowNotification
         let UIKeyboardWillHide  = UIResponder.keyboardWillHideNotification
         let UIKeyboardDidHide   = UIResponder.keyboardDidHideNotification
-        
+
         let UITextFieldTextDidBeginEditing  = UITextField.textDidBeginEditingNotification
         let UITextFieldTextDidEndEditing    = UITextField.textDidEndEditingNotification
-        
+
         let UITextViewTextDidBeginEditing   = UITextView.textDidBeginEditingNotification
         let UITextViewTextDidEndEditing     = UITextView.textDidEndEditingNotification
-        
+
         let UIApplicationWillChangeStatusBarOrientation = UIApplication.willChangeStatusBarOrientationNotification
         #else
         let UIKeyboardWillShow  = Notification.Name.UIKeyboardWillShow
         let UIKeyboardDidShow   = Notification.Name.UIKeyboardDidShow
         let UIKeyboardWillHide  = Notification.Name.UIKeyboardWillHide
         let UIKeyboardDidHide   = Notification.Name.UIKeyboardDidHide
-        
+
         let UITextFieldTextDidBeginEditing  = Notification.Name.UITextFieldTextDidBeginEditing
         let UITextFieldTextDidEndEditing    = Notification.Name.UITextFieldTextDidEndEditing
-        
+
         let UITextViewTextDidBeginEditing   = Notification.Name.UITextViewTextDidBeginEditing
         let UITextViewTextDidEndEditing     = Notification.Name.UITextViewTextDidEndEditing
-        
+
         let UIApplicationWillChangeStatusBarOrientation = Notification.Name.UIApplicationWillChangeStatusBarOrientation
         #endif
 
@@ -2018,44 +2004,44 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidShow(_:)), name: UIKeyboardDidShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidHide(_:)), name: UIKeyboardDidHide, object: nil)
-        
+
         //  Registering for UITextField notification.
         registerTextFieldViewClass(UITextField.self, didBeginEditingNotificationName: UITextFieldTextDidBeginEditing.rawValue, didEndEditingNotificationName: UITextFieldTextDidEndEditing.rawValue)
-        
+
         //  Registering for UITextView notification.
         registerTextFieldViewClass(UITextView.self, didBeginEditingNotificationName: UITextViewTextDidBeginEditing.rawValue, didEndEditingNotificationName: UITextViewTextDidEndEditing.rawValue)
-        
+
         //  Registering for orientation changes notification
         NotificationCenter.default.addObserver(self, selector: #selector(self.willChangeStatusBarOrientation(_:)), name: UIApplicationWillChangeStatusBarOrientation, object: UIApplication.shared)
     }
 
     @objc public func unregisterAllNotifications() {
-        
+
         #if swift(>=4.2)
         let UIKeyboardWillShow  = UIResponder.keyboardWillShowNotification
         let UIKeyboardDidShow   = UIResponder.keyboardDidShowNotification
         let UIKeyboardWillHide  = UIResponder.keyboardWillHideNotification
         let UIKeyboardDidHide   = UIResponder.keyboardDidHideNotification
-        
+
         let UITextFieldTextDidBeginEditing  = UITextField.textDidBeginEditingNotification
         let UITextFieldTextDidEndEditing    = UITextField.textDidEndEditingNotification
-        
+
         let UITextViewTextDidBeginEditing   = UITextView.textDidBeginEditingNotification
         let UITextViewTextDidEndEditing     = UITextView.textDidEndEditingNotification
-        
+
         let UIApplicationWillChangeStatusBarOrientation = UIApplication.willChangeStatusBarOrientationNotification
         #else
         let UIKeyboardWillShow  = Notification.Name.UIKeyboardWillShow
         let UIKeyboardDidShow   = Notification.Name.UIKeyboardDidShow
         let UIKeyboardWillHide  = Notification.Name.UIKeyboardWillHide
         let UIKeyboardDidHide   = Notification.Name.UIKeyboardDidHide
-        
+
         let UITextFieldTextDidBeginEditing  = Notification.Name.UITextFieldTextDidBeginEditing
         let UITextFieldTextDidEndEditing    = Notification.Name.UITextFieldTextDidEndEditing
-        
+
         let UITextViewTextDidBeginEditing   = Notification.Name.UITextViewTextDidBeginEditing
         let UITextViewTextDidEndEditing     = Notification.Name.UITextViewTextDidEndEditing
-        
+
         let UIApplicationWillChangeStatusBarOrientation = Notification.Name.UIApplicationWillChangeStatusBarOrientation
         #endif
 
@@ -2067,19 +2053,18 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 
         //  Unregistering for UITextField notification.
         unregisterTextFieldViewClass(UITextField.self, didBeginEditingNotificationName: UITextFieldTextDidBeginEditing.rawValue, didEndEditingNotificationName: UITextFieldTextDidEndEditing.rawValue)
-        
+
         //  Unregistering for UITextView notification.
         unregisterTextFieldViewClass(UITextView.self, didBeginEditingNotificationName: UITextViewTextDidBeginEditing.rawValue, didEndEditingNotificationName: UITextViewTextDidEndEditing.rawValue)
-        
+
         //  Unregistering for orientation changes notification
         NotificationCenter.default.removeObserver(self, name: UIApplicationWillChangeStatusBarOrientation, object: UIApplication.shared)
     }
 
     private func showLog(_ logString: String) {
-        
+
         if enableDebugging {
             print("IQKeyboardManager: " + logString)
         }
     }
 }
-

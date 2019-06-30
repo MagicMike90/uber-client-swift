@@ -12,44 +12,44 @@ import QuartzCore
  The layer responsible for rendering shape objects
  */
 class ShapeRenderLayer: ShapeContainerLayer {
-  
+
   fileprivate(set) var renderer: Renderable & NodeOutput
-  
+
   let shapeLayer: CAShapeLayer = CAShapeLayer()
-  
+
   override var renderScale: CGFloat {
     didSet {
-      renderLayers.forEach( { $0.renderScale = renderScale } )
+      renderLayers.forEach({ $0.renderScale = renderScale })
       self.contentsScale = renderScale
     }
   }
-  
+
   init(renderer: Renderable & NodeOutput) {
     self.renderer = renderer
     super.init()
     self.anchorPoint = .zero
     self.actions = [
-      "position" : NSNull(),
-      "bounds" : NSNull(),
-      "anchorPoint" : NSNull(),
-      "path" : NSNull(),
-      "transform" : NSNull(),
-      "opacity" : NSNull()
+      "position": NSNull(),
+      "bounds": NSNull(),
+      "anchorPoint": NSNull(),
+      "path": NSNull(),
+      "transform": NSNull(),
+      "opacity": NSNull()
     ]
     shapeLayer.actions = [
-      "position" : NSNull(),
-      "bounds" : NSNull(),
-      "anchorPoint" : NSNull(),
-      "path" : NSNull(),
-      "fillColor" : NSNull(),
-      "strokeColor" : NSNull(),
-      "lineWidth" : NSNull(),
-      "miterLimit" : NSNull(),
-      "lineDashPhase" : NSNull(),
+      "position": NSNull(),
+      "bounds": NSNull(),
+      "anchorPoint": NSNull(),
+      "path": NSNull(),
+      "fillColor": NSNull(),
+      "strokeColor": NSNull(),
+      "lineWidth": NSNull(),
+      "miterLimit": NSNull(),
+      "lineDashPhase": NSNull()
     ]
     addSublayer(shapeLayer)
   }
-  
+
   override init(layer: Any) {
     guard let layer = layer as? ShapeRenderLayer else {
       fatalError("init(layer:) wrong class.")
@@ -57,17 +57,17 @@ class ShapeRenderLayer: ShapeContainerLayer {
     self.renderer = layer.renderer
     super.init(layer: layer)
   }
-  
+
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   override func hasRenderUpdate(forFrame: CGFloat) -> Bool {
     return renderer.hasRenderUpdates(forFrame)
   }
-  
+
   override func rebuildContents(forFrame: CGFloat) {
-    
+
     if renderer.shouldRenderInContext {
       if let newPath = renderer.outputPath {
         self.bounds = renderer.renderBoundsFor(newPath.boundingBox)
@@ -81,7 +81,7 @@ class ShapeRenderLayer: ShapeContainerLayer {
       renderer.updateShapeLayer(layer: shapeLayer)
     }
   }
-  
+
   override func draw(in ctx: CGContext) {
     if let path = renderer.outputPath {
       if !path.isEmpty {
@@ -90,5 +90,5 @@ class ShapeRenderLayer: ShapeContainerLayer {
     }
     renderer.render(ctx)
   }
-  
+
 }

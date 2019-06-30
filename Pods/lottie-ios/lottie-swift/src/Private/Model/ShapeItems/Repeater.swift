@@ -9,38 +9,38 @@ import Foundation
 
 /// An item that define an ellipse shape
 class Repeater: ShapeItem {
-  
+
   /// The number of copies to repeat
   let copies: KeyframeGroup<Vector1D>
-  
+
   /// The offset of each copy
   let offset: KeyframeGroup<Vector1D>
-  
+
   /// Start Opacity
   let startOpacity: KeyframeGroup<Vector1D>
-  
+
   /// End opacity
   let endOpacity: KeyframeGroup<Vector1D>
-  
+
   /// The rotation
   let rotation: KeyframeGroup<Vector1D>
-  
+
   /// Anchor Point
   let anchorPoint: KeyframeGroup<Vector3D>
-  
+
   /// Position
   let position: KeyframeGroup<Vector3D>
-  
+
   /// Scale
   let scale: KeyframeGroup<Vector3D>
-  
-  private enum CodingKeys : String, CodingKey {
+
+  private enum CodingKeys: String, CodingKey {
     case copies = "c"
     case offset = "o"
     case transform = "tr"
   }
-  
-  private enum TransformKeys : String, CodingKey {
+
+  private enum TransformKeys: String, CodingKey {
     case rotation = "r"
     case startOpacity = "so"
     case endOpacity = "eo"
@@ -48,7 +48,7 @@ class Repeater: ShapeItem {
     case position = "p"
     case scale = "s"
   }
-  
+
   required init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: Repeater.CodingKeys.self)
     self.copies = try container.decodeIfPresent(KeyframeGroup<Vector1D>.self, forKey: .copies) ?? KeyframeGroup(Vector1D(0))
@@ -62,7 +62,7 @@ class Repeater: ShapeItem {
     self.scale = try transformContainer.decodeIfPresent(KeyframeGroup<Vector3D>.self, forKey: .scale) ?? KeyframeGroup(Vector3D(x: Double(100), y: 100, z: 100))
     try super.init(from: decoder)
   }
-  
+
   override func encode(to encoder: Encoder) throws {
     try super.encode(to: encoder)
     var container = encoder.container(keyedBy: CodingKeys.self)
@@ -76,5 +76,5 @@ class Repeater: ShapeItem {
     try transformContainer.encode(anchorPoint, forKey: .anchorPoint)
     try transformContainer.encode(scale, forKey: .scale)
   }
-  
+
 }

@@ -30,17 +30,17 @@ import Foundation
  Represents the color node for every Stroke named "Stroke 1" in the animation.
  */
 public struct AnimationKeypath {
-  
+
   /// Creates a keypath from a dot separated string. The string is separated by "."
   public init(keypath: String) {
     self.keys = keypath.components(separatedBy: ".")
   }
-  
+
   /// Creates a keypath from a list of strings.
   public init(keys: [String]) {
     self.keys = keys
   }
-  
+
   let keys: [String]
-  
+
 }

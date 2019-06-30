@@ -12,9 +12,9 @@ protocol PathNode {
 }
 
 extension PathNode where Self: AnimatorNode {
-  
+
   var outputNode: NodeOutput {
     return pathOutput
   }
-  
+
 }

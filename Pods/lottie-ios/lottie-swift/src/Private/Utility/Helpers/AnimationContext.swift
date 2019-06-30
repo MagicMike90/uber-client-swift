@@ -29,17 +29,17 @@ struct AnimationContext {
 }
 
 class AnimationCompletionDelegate: NSObject, CAAnimationDelegate {
-  
+
   init(completionBlock: LottieCompletionBlock?) {
     self.completionBlock = completionBlock
     super.init()
   }
-  
+
   var animationLayer: AnimationContainer?
   var animationKey: String?
   var ignoreDelegate: Bool = false
   let completionBlock: LottieCompletionBlock?
-  
+
   public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
     guard ignoreDelegate == false else { return }
     if let animationLayer = animationLayer, let key = animationKey {
@@ -52,5 +52,5 @@ class AnimationCompletionDelegate: NSObject, CAAnimationDelegate {
       completionBlock(flag)
     }
   }
-  
+
 }

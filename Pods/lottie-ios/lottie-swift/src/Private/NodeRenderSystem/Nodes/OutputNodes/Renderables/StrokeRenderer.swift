@@ -21,7 +21,7 @@ extension LineJoin {
       return .round
     }
   }
-  
+
   var caLineJoin: CAShapeLayerLineJoin {
     switch self {
     case .none:
@@ -49,7 +49,7 @@ extension LineCap {
       return .square
     }
   }
-  
+
   var caLineCap: CAShapeLayerLineCap {
     switch self {
     case .none:
@@ -68,61 +68,61 @@ extension LineCap {
 
 /// A rendered that renders a stroke on a path.
 class StrokeRenderer: PassThroughOutputNode, Renderable {
-  
+
   var shouldRenderInContext: Bool = false
-  
+
   var color: CGColor? {
     didSet {
       hasUpdate = true
     }
   }
-  
+
   var opacity: CGFloat = 0 {
     didSet {
       hasUpdate = true
     }
   }
-  
+
   var width: CGFloat = 0 {
     didSet {
       hasUpdate = true
     }
   }
-  
+
   var miterLimit: CGFloat = 0 {
     didSet {
       hasUpdate = true
     }
   }
-  
+
   var lineCap: LineCap = .none {
     didSet {
       hasUpdate = true
     }
   }
-  
+
   var lineJoin: LineJoin = .none {
     didSet {
       hasUpdate = true
     }
   }
-  
+
   var dashPhase: CGFloat? {
     didSet {
       hasUpdate = true
     }
   }
-  
+
   var dashLengths: [CGFloat]? {
     didSet {
       hasUpdate = true
     }
   }
-  
+
   func renderBoundsFor(_ boundingBox: CGRect) -> CGRect {
     return boundingBox.insetBy(dx: -width, dy: -width)
   }
-  
+
   func setupForStroke(_ inContext: CGContext) {
     inContext.setLineWidth(width)
     inContext.setMiterLimit(miterLimit)
@@ -134,7 +134,7 @@ class StrokeRenderer: PassThroughOutputNode, Renderable {
       inContext.setLineDash(phase: 0, lengths: [])
     }
   }
-  
+
   func render(_ inContext: CGContext) {
     guard inContext.path != nil && inContext.path!.isEmpty == false else {
       return
@@ -146,7 +146,7 @@ class StrokeRenderer: PassThroughOutputNode, Renderable {
     inContext.setStrokeColor(color)
     inContext.strokePath()
   }
-  
+
   func updateShapeLayer(layer: CAShapeLayer) {
     layer.strokeColor = color
     layer.opacity = Float(opacity)

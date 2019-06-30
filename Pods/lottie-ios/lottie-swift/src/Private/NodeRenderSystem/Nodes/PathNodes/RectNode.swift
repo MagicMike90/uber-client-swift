@@ -9,7 +9,7 @@ import Foundation
 import CoreGraphics
 
 class RectNodeProperties: NodePropertyMap, KeypathSearchable {
-  
+
   var keypathName: String
 
   init(rectangle: Rectangle) {
@@ -18,32 +18,32 @@ class RectNodeProperties: NodePropertyMap, KeypathSearchable {
     self.position = NodeProperty(provider: KeyframeInterpolator(keyframes: rectangle.position.keyframes))
     self.size = NodeProperty(provider: KeyframeInterpolator(keyframes: rectangle.size.keyframes))
     self.cornerRadius = NodeProperty(provider: KeyframeInterpolator(keyframes: rectangle.cornerRadius.keyframes))
- 
+
     self.keypathProperties =  [
-      "Position" : position,
-      "Size" : size,
-      "Roundness" : cornerRadius
+      "Position": position,
+      "Size": size,
+      "Roundness": cornerRadius
     ]
-    
+
     self.properties = Array(keypathProperties.values)
   }
-  
-  let keypathProperties: [String : AnyNodeProperty]
+
+  let keypathProperties: [String: AnyNodeProperty]
   let properties: [AnyNodeProperty]
-  
+
   let direction: PathDirection
   let position: NodeProperty<Vector3D>
   let size: NodeProperty<Vector3D>
   let cornerRadius: NodeProperty<Vector1D>
-  
+
 }
 
 class RectangleNode: AnimatorNode, PathNode {
-  
+
   let properties: RectNodeProperties
-  
+
   let pathOutput: PathOutputNode
-  
+
   init(parentNode: AnimatorNode?, rectangle: Rectangle) {
     self.properties = RectNodeProperties(rectangle: rectangle)
     self.pathOutput = PathOutputNode(parent: parentNode?.outputNode)
@@ -51,7 +51,7 @@ class RectangleNode: AnimatorNode, PathNode {
   }
 
   // MARK: Animator Node
-  
+
   var propertyMap: NodePropertyMap & KeypathSearchable {
     return properties
   }
@@ -59,16 +59,16 @@ class RectangleNode: AnimatorNode, PathNode {
   let parentNode: AnimatorNode?
   var hasLocalUpdates: Bool = false
   var hasUpstreamUpdates: Bool = false
-  var lastUpdateFrame: CGFloat? = nil
-  
+  var lastUpdateFrame: CGFloat?
+
   func rebuildOutputs(frame: CGFloat) {
-    
+
     let size = properties.size.value.sizeValue * 0.5
-    let radius = min(min(properties.cornerRadius.value.cgFloatValue, size.width) , size.height)
+    let radius = min(min(properties.cornerRadius.value.cgFloatValue, size.width), size.height)
     let position = properties.position.value.pointValue
     var bezierPath = BezierPath()
     let points: [CurveVertex]
-    
+
     if radius <= 0 {
       /// No Corners
       points = [
@@ -96,7 +96,7 @@ class RectangleNode: AnimatorNode, PathNode {
         CurveVertex(point: CGPoint(x: size.width, y: -size.height),
                     inTangentRelative: .zero,
                     outTangentRelative: .zero)
-          .translated(position),
+          .translated(position)
       ]
     } else {
       let controlPoint = radius * EllipseNode.ControlPointConstant
@@ -168,7 +168,7 @@ class RectangleNode: AnimatorNode, PathNode {
           CGPoint(x: radius, y: 0)) // Out tangent
           .translated(CGPoint(x: -radius, y: radius))
           .translated(CGPoint(x: size.width, y: -size.height))
-          .translated(position),
+          .translated(position)
       ]
     }
     let reversed = properties.direction == .counterClockwise
@@ -179,5 +179,5 @@ class RectangleNode: AnimatorNode, PathNode {
     bezierPath.close()
     pathOutput.setPath(bezierPath, updateFrame: frame)
   }
-  
+
 }

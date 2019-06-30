@@ -14,7 +14,7 @@ import UIKit
  Both the 'On' and 'Off' have an animation play range associated with their state.
  */
 final public class AnimatedSwitch: AnimatedControl {
-  
+
   /// The current state of the switch.
   public var isOn: Bool {
     set {
@@ -44,10 +44,10 @@ final public class AnimatedSwitch: AnimatedControl {
       offStartProgress = fromProgress
       offEndProgress = toProgress
     }
-    
+
     updateOnState(isOn: _isOn, animated: false, shouldFireHaptics: false)
   }
-  
+
   public override init(animation: Animation) {
     /// Generate a haptic generator if available.
     #if os(iOS)
@@ -63,7 +63,7 @@ final public class AnimatedSwitch: AnimatedControl {
     updateOnState(isOn: _isOn, animated: false, shouldFireHaptics: false)
     self.accessibilityTraits = UIAccessibilityTraits.button
   }
-  
+
   public override init() {
     /// Generate a haptic generator if available.
     #if os(iOS)
@@ -79,7 +79,7 @@ final public class AnimatedSwitch: AnimatedControl {
     updateOnState(isOn: _isOn, animated: false, shouldFireHaptics: false)
     self.accessibilityTraits = UIAccessibilityTraits.button
   }
-  
+
   required public init?(coder aDecoder: NSCoder) {
     /// Generate a haptic generator if available.
     #if os(iOS)
@@ -94,14 +94,14 @@ final public class AnimatedSwitch: AnimatedControl {
     super.init(coder: aDecoder)
     self.accessibilityTraits = UIAccessibilityTraits.button
   }
-  
+
   fileprivate var onStartProgress: CGFloat = 0
   fileprivate var onEndProgress: CGFloat = 1
   fileprivate var offStartProgress: CGFloat = 1
   fileprivate var offEndProgress: CGFloat = 0
   fileprivate var _isOn: Bool = false
   fileprivate var hapticGenerator: ImpactGenerator
-  
+
   // MARK: Animation State
 
   func updateOnState(isOn: Bool, animated: Bool, shouldFireHaptics: Bool) {
@@ -109,9 +109,9 @@ final public class AnimatedSwitch: AnimatedControl {
     var startProgress = isOn ? onStartProgress : offStartProgress
     var endProgress = isOn ? onEndProgress : offEndProgress
     let finalProgress = endProgress
-    
+
     let realtimeProgress = animationView.realtimeAnimationProgress
-    
+
     let previousStateStart = isOn ? offStartProgress : onStartProgress
     let previousStateEnd = isOn ? offEndProgress : onEndProgress
     if realtimeProgress.isInRange(min(previousStateStart, previousStateEnd),
@@ -120,7 +120,7 @@ final public class AnimatedSwitch: AnimatedControl {
       startProgress = previousStateEnd
       endProgress = previousStateStart
     }
-    
+
     guard animated == true else {
       animationView.currentProgress = finalProgress
       return
@@ -138,13 +138,13 @@ final public class AnimatedSwitch: AnimatedControl {
 
     updateAccessibilityLabel()
   }
-  
+
   public override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
     super.endTracking(touch, with: event)
     updateOnState(isOn: !_isOn, animated: true, shouldFireHaptics: true)
     sendActions(for: .valueChanged)
   }
-  
+
   public override func animationDidSet() {
     updateOnState(isOn: _isOn, animated: true, shouldFireHaptics: false)
   }
@@ -154,7 +154,7 @@ final public class AnimatedSwitch: AnimatedControl {
   private func updateAccessibilityLabel() {
     accessibilityValue = _isOn ? NSLocalizedString("On", comment: "On") : NSLocalizedString("Off", comment: "Off")
   }
-  
+
 }
 
 protocol ImpactGenerator {
@@ -163,7 +163,7 @@ protocol ImpactGenerator {
 
 class NullHapticGenerator: ImpactGenerator {
   func generateImpact() {
-    
+
   }
 }
 
@@ -173,7 +173,7 @@ class HapticGenerator: ImpactGenerator {
   func generateImpact() {
     impact.impactOccurred()
   }
-  
+
   fileprivate let impact = UIImpactFeedbackGenerator(style: .light)
 }
 #endif

@@ -14,5 +14,5 @@ protocol Interpolatable {
                      amount: CGFloat,
                      spatialOutTangent: CGPoint?,
                      spatialInTangent: CGPoint?) -> Self
-  
+
 }

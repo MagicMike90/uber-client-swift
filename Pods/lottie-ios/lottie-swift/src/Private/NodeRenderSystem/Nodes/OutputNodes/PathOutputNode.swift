@@ -10,22 +10,22 @@ import CoreGraphics
 
 /// A node that has an output of a BezierPath
 class PathOutputNode: NodeOutput {
-  
+
   init(parent: NodeOutput?) {
     self.parent = parent
   }
-  
+
   let parent: NodeOutput?
-  
-  fileprivate(set) var outputPath: CGPath? = nil
-  
-  var lastUpdateFrame: CGFloat? = nil
-  var lastPathBuildFrame: CGFloat? = nil
-  
+
+  fileprivate(set) var outputPath: CGPath?
+
+  var lastUpdateFrame: CGFloat?
+  var lastPathBuildFrame: CGFloat?
+
   func hasOutputUpdates(_ forFrame: CGFloat) -> Bool {
     /// Ask if parent was updated
     let upstreamUpdates = parent?.hasOutputUpdates(forFrame) ?? false
-    
+
     /// If parent was updated and the path hasn't been built for this frame, clear the path.
     if upstreamUpdates && lastPathBuildFrame != forFrame {
       outputPath = nil
@@ -45,16 +45,16 @@ class PathOutputNode: NodeOutput {
       }
       outputPath = newPath
     }
-    
+
     /// Return true if there were upstream updates or if this node was updated.
     return upstreamUpdates || (lastUpdateFrame == forFrame)
   }
-  
+
   // MARK: Internal
-  
+
   fileprivate(set) var totalLength: CGFloat = 0
   fileprivate(set) var pathObjects: [CompoundBezierPath] = []
-  
+
   @discardableResult func removePaths(updateFrame: CGFloat) -> [CompoundBezierPath] {
     lastUpdateFrame = updateFrame
     let returnPaths = pathObjects
@@ -63,19 +63,19 @@ class PathOutputNode: NodeOutput {
     pathObjects = []
     return returnPaths
   }
-  
+
   func setPath(_ path: BezierPath, updateFrame: CGFloat) {
     lastUpdateFrame = updateFrame
     outputPath = nil
     totalLength = path.length
     pathObjects = [CompoundBezierPath(path: path)]
   }
-  
+
   func appendPath(_ path: CompoundBezierPath, updateFrame: CGFloat) {
     lastUpdateFrame = updateFrame
     outputPath = nil
     totalLength = totalLength + path.length
     pathObjects.append(path)
   }
-  
+
 }
