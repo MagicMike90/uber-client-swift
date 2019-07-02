@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "uber-clone/AppDelegate.swift"
-            timestampString = "583499037.464694"
+            timestampString = "583801180.269953"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "47"
@@ -79,7 +79,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "182"
             endingLineNumber = "182"
-            landmarkName = "HomeVC"
+            landmarkName = "HomeViewController"
             landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
@@ -250,7 +250,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "uber-clone/AppDelegate.swift"
-            timestampString = "583499037.4677989"
+            timestampString = "583801180.270218"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "43"
@@ -271,7 +271,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "27"
             endingLineNumber = "27"
-            landmarkName = "HomeVC"
+            landmarkName = "HomeViewController"
             landmarkType = "3">
             <Locations>
                <Location

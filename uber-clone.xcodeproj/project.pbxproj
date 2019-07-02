@@ -15,11 +15,11 @@
 		342D9BBF22713D6C00C901A0 /* RoundedShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BBE22713D6C00C901A0 /* RoundedShadowView.swift */; };
 		342D9BC122713E6B00C901A0 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BC022713E6B00C901A0 /* CircleView.swift */; };
 		342D9BC32271437500C901A0 /* RoundedShadowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BC22271437500C901A0 /* RoundedShadowButton.swift */; };
-		342D9BC5227185C100C901A0 /* LeftSidePanelVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BC4227185C100C901A0 /* LeftSidePanelVC.swift */; };
-		342D9BC72271868300C901A0 /* ContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BC62271868300C901A0 /* ContainerVC.swift */; };
+		342D9BC5227185C100C901A0 /* SidePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BC4227185C100C901A0 /* SidePanelViewController.swift */; };
+		342D9BC72271868300C901A0 /* OverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BC62271868300C901A0 /* OverlayViewController.swift */; };
 		342D9BCA2271890F00C901A0 /* CenterVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BC92271890F00C901A0 /* CenterVCDelegate.swift */; };
 		342D9BCD227198E300C901A0 /* UIViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BCC227198E300C901A0 /* UIViewExt.swift */; };
-		342D9BCF2271C20700C901A0 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BCE2271C20700C901A0 /* LoginVC.swift */; };
+		342D9BCF2271C20700C901A0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BCE2271C20700C901A0 /* LoginViewController.swift */; };
 		342D9BD32271C89200C901A0 /* RoundedConnerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BD22271C89200C901A0 /* RoundedConnerTextField.swift */; };
 		342D9BD5227276FE00C901A0 /* UIViewControllerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BD4227276FE00C901A0 /* UIViewControllerExt.swift */; };
 		342D9BD722727A0100C901A0 /* CommonExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342D9BD622727A0100C901A0 /* CommonExt.swift */; };
@@ -43,10 +43,12 @@
 		344124CD22743D6400FEBE9C /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344124CC22743D6400FEBE9C /* DataService.swift */; };
 		344124D1227472D200FEBE9C /* UpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344124D0227472D200FEBE9C /* UpdateService.swift */; };
 		3446965A227C44FE008591A9 /* DriverAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34469659227C44FE008591A9 /* DriverAnnotation.swift */; };
+		3464F1AB22CC0FEB0017645F /* PickUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3464F1AA22CC0FEB0017645F /* PickUpViewController.swift */; };
+		3464F1AD22CC10DE0017645F /* RoundMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3464F1AC22CC10DE0017645F /* RoundMapView.swift */; };
 		346F8A5122C4E18B00C983DE /* PassengerAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346F8A5022C4E18B00C983DE /* PassengerAnnotation.swift */; };
 		34A3F3A122997272001F1592 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34A3F3A022997272001F1592 /* GoogleService-Info.plist */; };
 		34B54B962270807D00E6C1A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B54B952270807D00E6C1A0 /* AppDelegate.swift */; };
-		34B54B982270807D00E6C1A0 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B54B972270807D00E6C1A0 /* HomeVC.swift */; };
+		34B54B982270807D00E6C1A0 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B54B972270807D00E6C1A0 /* HomeViewController.swift */; };
 		34B54B9B2270807D00E6C1A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34B54B992270807D00E6C1A0 /* Main.storyboard */; };
 		34B54BA02270807E00E6C1A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34B54B9E2270807E00E6C1A0 /* LaunchScreen.storyboard */; };
 		34FB8C1222C0F2D30067E85F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FB8C1122C0F2D30067E85F /* Constants.swift */; };
@@ -59,11 +61,11 @@
 		342D9BBE22713D6C00C901A0 /* RoundedShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShadowView.swift; sourceTree = "<group>"; };
 		342D9BC022713E6B00C901A0 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		342D9BC22271437500C901A0 /* RoundedShadowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShadowButton.swift; sourceTree = "<group>"; };
-		342D9BC4227185C100C901A0 /* LeftSidePanelVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftSidePanelVC.swift; sourceTree = "<group>"; };
-		342D9BC62271868300C901A0 /* ContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerVC.swift; sourceTree = "<group>"; };
+		342D9BC4227185C100C901A0 /* SidePanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidePanelViewController.swift; sourceTree = "<group>"; };
+		342D9BC62271868300C901A0 /* OverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayViewController.swift; sourceTree = "<group>"; };
 		342D9BC92271890F00C901A0 /* CenterVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterVCDelegate.swift; sourceTree = "<group>"; };
 		342D9BCC227198E300C901A0 /* UIViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExt.swift; sourceTree = "<group>"; };
-		342D9BCE2271C20700C901A0 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		342D9BCE2271C20700C901A0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		342D9BD22271C89200C901A0 /* RoundedConnerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedConnerTextField.swift; sourceTree = "<group>"; };
 		342D9BD4227276FE00C901A0 /* UIViewControllerExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExt.swift; sourceTree = "<group>"; };
 		342D9BD622727A0100C901A0 /* CommonExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonExt.swift; sourceTree = "<group>"; };
@@ -87,12 +89,14 @@
 		344124CC22743D6400FEBE9C /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		344124D0227472D200FEBE9C /* UpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateService.swift; sourceTree = "<group>"; };
 		34469659227C44FE008591A9 /* DriverAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverAnnotation.swift; sourceTree = "<group>"; };
+		3464F1AA22CC0FEB0017645F /* PickUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickUpViewController.swift; sourceTree = "<group>"; };
+		3464F1AC22CC10DE0017645F /* RoundMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundMapView.swift; sourceTree = "<group>"; };
 		346F8A5022C4E18B00C983DE /* PassengerAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassengerAnnotation.swift; sourceTree = "<group>"; };
 		3483C1BA8FB8E7FE8DCA793D /* Pods-uber-clone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uber-clone.release.xcconfig"; path = "Target Support Files/Pods-uber-clone/Pods-uber-clone.release.xcconfig"; sourceTree = "<group>"; };
 		34A3F3A022997272001F1592 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		34B54B922270807D00E6C1A0 /* uber-clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "uber-clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		34B54B952270807D00E6C1A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		34B54B972270807D00E6C1A0 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		34B54B972270807D00E6C1A0 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		34B54B9A2270807D00E6C1A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		34B54B9C2270807E00E6C1A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		34B54B9F2270807E00E6C1A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -124,10 +128,11 @@
 		342D9BB42271364500C901A0 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				34B54B972270807D00E6C1A0 /* HomeVC.swift */,
-				342D9BC4227185C100C901A0 /* LeftSidePanelVC.swift */,
-				342D9BC62271868300C901A0 /* ContainerVC.swift */,
-				342D9BCE2271C20700C901A0 /* LoginVC.swift */,
+				34B54B972270807D00E6C1A0 /* HomeViewController.swift */,
+				342D9BC4227185C100C901A0 /* SidePanelViewController.swift */,
+				342D9BC62271868300C901A0 /* OverlayViewController.swift */,
+				342D9BCE2271C20700C901A0 /* LoginViewController.swift */,
+				3464F1AA22CC0FEB0017645F /* PickUpViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -144,6 +149,7 @@
 				342D9BD22271C89200C901A0 /* RoundedConnerTextField.swift */,
 				34469659227C44FE008591A9 /* DriverAnnotation.swift */,
 				346F8A5022C4E18B00C983DE /* PassengerAnnotation.swift */,
+				3464F1AC22CC10DE0017645F /* RoundMapView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -451,22 +457,24 @@
 				342D9BCA2271890F00C901A0 /* CenterVCDelegate.swift in Sources */,
 				34FB8C1222C0F2D30067E85F /* Constants.swift in Sources */,
 				342D9BC32271437500C901A0 /* RoundedShadowButton.swift in Sources */,
-				342D9BCF2271C20700C901A0 /* LoginVC.swift in Sources */,
+				342D9BCF2271C20700C901A0 /* LoginViewController.swift in Sources */,
 				3446965A227C44FE008591A9 /* DriverAnnotation.swift in Sources */,
 				342D9BC122713E6B00C901A0 /* CircleView.swift in Sources */,
-				34B54B982270807D00E6C1A0 /* HomeVC.swift in Sources */,
-				342D9BC72271868300C901A0 /* ContainerVC.swift in Sources */,
+				34B54B982270807D00E6C1A0 /* HomeViewController.swift in Sources */,
+				342D9BC72271868300C901A0 /* OverlayViewController.swift in Sources */,
 				34247A2522C234B800F8556F /* Alertable.swift in Sources */,
 				342D9BCD227198E300C901A0 /* UIViewExt.swift in Sources */,
+				3464F1AD22CC10DE0017645F /* RoundMapView.swift in Sources */,
 				342D9BBD22713C1D00C901A0 /* RoundImageView.swift in Sources */,
 				342D9BBF22713D6C00C901A0 /* RoundedShadowView.swift in Sources */,
 				344124CD22743D6400FEBE9C /* DataService.swift in Sources */,
 				344124A42273303900FEBE9C /* UIColorExt.swift in Sources */,
+				3464F1AB22CC0FEB0017645F /* PickUpViewController.swift in Sources */,
 				342D9BD5227276FE00C901A0 /* UIViewControllerExt.swift in Sources */,
 				34B54B962270807D00E6C1A0 /* AppDelegate.swift in Sources */,
 				344124D1227472D200FEBE9C /* UpdateService.swift in Sources */,
 				342D9BD32271C89200C901A0 /* RoundedConnerTextField.swift in Sources */,
-				342D9BC5227185C100C901A0 /* LeftSidePanelVC.swift in Sources */,
+				342D9BC5227185C100C901A0 /* SidePanelViewController.swift in Sources */,
 				346F8A5122C4E18B00C983DE /* PassengerAnnotation.swift in Sources */,
 				342D9BD722727A0100C901A0 /* CommonExt.swift in Sources */,
 				344124CA22743B9500FEBE9C /* NiceGradientView.swift in Sources */,

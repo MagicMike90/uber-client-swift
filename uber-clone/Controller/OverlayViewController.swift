@@ -18,10 +18,10 @@ enum ShowWhichVC {
     case homeVC
 }
 
-class ContainerVC: UIViewController {
+class OverlayViewController: UIViewController {
     var ShowVC: ShowWhichVC = .homeVC
-    var homeVC: HomeVC!
-    var leftVC: LeftSidePanelVC!
+    var homeVC: HomeViewController!
+    var leftVC: SidePanelViewController!
     var centerController: UIViewController!
     var tag: UITapGestureRecognizer!
 
@@ -78,7 +78,7 @@ class ContainerVC: UIViewController {
 
 }
 
-extension ContainerVC: CenterVCDelegate {
+extension OverlayViewController: CenterVCDelegate {
     func addLeftPanelViewController() {
         if leftVC == nil {
             leftVC = UIStoryboard.leftViewController()
@@ -86,7 +86,7 @@ extension ContainerVC: CenterVCDelegate {
         }
     }
 
-    func addChildSidePanelViewController(_ sidePanelController: LeftSidePanelVC) {
+    func addChildSidePanelViewController(_ sidePanelController: SidePanelViewController) {
         view.insertSubview(sidePanelController.view, at: 0)
         addChild(sidePanelController)
 
@@ -185,11 +185,11 @@ private extension UIStoryboard {
         return UIStoryboard(name: "Main", bundle: Bundle.main)
     }
 
-    class func leftViewController() -> LeftSidePanelVC? {
-        return mainStoryboard().instantiateViewController(withIdentifier: "LeftSidePanelVC") as? LeftSidePanelVC
+    class func leftViewController() -> SidePanelViewController? {
+        return mainStoryboard().instantiateViewController(withIdentifier: "LeftSidePanelVC") as? SidePanelViewController
     }
 
-    class func homeVC() -> HomeVC? {
-        return mainStoryboard().instantiateViewController(withIdentifier: "HomeVC") as? HomeVC
+    class func homeVC() -> HomeViewController? {
+        return mainStoryboard().instantiateViewController(withIdentifier: "HomeVC") as? HomeViewController
     }
 }

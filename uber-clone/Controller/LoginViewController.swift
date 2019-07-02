@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class LoginVC: UIViewController, UITextFieldDelegate, Alertable {
+class LoginViewController: UIViewController, UITextFieldDelegate, Alertable {
 
     @IBOutlet weak var emailField: RoundedConnerTextField!
     @IBOutlet weak var passwordField: RoundedConnerTextField!

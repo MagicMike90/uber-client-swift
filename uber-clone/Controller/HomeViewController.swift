@@ -13,7 +13,7 @@ import MapKit
 import CoreLocation
 import Firebase
 
-class HomeVC: UIViewController, Alertable {
+class HomeViewController: UIViewController, Alertable {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var actionBtn: RoundedShadowButton!
@@ -160,7 +160,7 @@ class HomeVC: UIViewController, Alertable {
     }
 }
 
-extension HomeVC: CLLocationManagerDelegate {
+extension HomeViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedAlways || status == .authorizedWhenInUse {
             checkLocationAuthStatus()
@@ -170,7 +170,7 @@ extension HomeVC: CLLocationManagerDelegate {
     }
 }
 
-extension HomeVC: MKMapViewDelegate {
+extension HomeViewController: MKMapViewDelegate {
     func mapViewDidFailLoadingMap(_ mapView: MKMapView, withError error: Error) {
         print("mapViewDidFailLoadingMap \(error)")
     }
@@ -336,7 +336,7 @@ extension HomeVC: MKMapViewDelegate {
 
 }
 
-extension HomeVC: UITextFieldDelegate {
+extension HomeViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == destinationTextField {
             tableView.frame = CGRect(x: 20, y: view.frame.height, width: view.frame.width - 40, height: view.frame.height - 170)
@@ -420,7 +420,7 @@ extension HomeVC: UITextFieldDelegate {
     }
 }
 
-extension HomeVC: UITableViewDelegate, UITableViewDataSource {
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return matchingItems.count

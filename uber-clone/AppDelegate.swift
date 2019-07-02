@@ -17,9 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    fileprivate var containerVC = ContainerVC()
+    fileprivate var containerVC = OverlayViewController()
 
-    var MenuContainerVC: ContainerVC {
+    var MenuContainerVC: OverlayViewController {
         return containerVC
     }
 
@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
 
-        containerVC = ContainerVC()
+        containerVC = OverlayViewController()
         window?.rootViewController = containerVC
         window?.makeKeyAndVisible()
 
