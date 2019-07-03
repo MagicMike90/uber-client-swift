@@ -641,7 +641,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="BPW-Ul-t01">
-                                                <rect key="frame" x="15" y="15" width="68.5" height="48.5"/>
+                                                <rect key="frame" x="15" y="15" width="194" height="48.5"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pde-Iv-dYR">
@@ -656,8 +656,8 @@
                                                             <action selector="cancelBtnWasPressed:" destination="bkM-vR-IOj" eventType="touchUpInside" id="lth-ei-CGC"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="New trip" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vma-3w-Eiw">
-                                                        <rect key="frame" x="0.0" y="25" width="68.5" height="23.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="New Trip Request Found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vma-3w-Eiw">
+                                                        <rect key="frame" x="0.0" y="25" width="194" height="23.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -674,26 +674,17 @@
                                     <view opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXW-U2-DXb" userLabel="content">
                                         <rect key="frame" x="0.0" y="100" width="414" height="652"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="WLD-vc-px3">
-                                                <rect key="frame" x="25" y="25" width="364" height="602"/>
-                                                <subviews>
-                                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="MEJ-3K-d73" customClass="RoundMapView" customModule="uber_clone" customModuleProvider="target">
-                                                        <rect key="frame" x="2" y="0.0" width="360" height="581.5"/>
-                                                    </mapView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Would you like to pick up this passenger?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdy-Ys-jbI">
-                                                        <rect key="frame" x="24.5" y="581.5" width="315.5" height="20.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                            </stackView>
+                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="MEJ-3K-d73" customClass="RoundMapView" customModule="uber_clone" customModuleProvider="target">
+                                                <rect key="frame" x="27" y="146" width="360" height="360"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="360" id="5Id-dP-AZ8"/>
+                                                    <constraint firstAttribute="width" constant="360" id="5dw-ZG-UOD"/>
+                                                </constraints>
+                                            </mapView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="WLD-vc-px3" secondAttribute="bottom" constant="25" id="BPR-jQ-7bC"/>
-                                            <constraint firstItem="WLD-vc-px3" firstAttribute="top" secondItem="SXW-U2-DXb" secondAttribute="top" constant="25" id="PY2-3Y-LxK"/>
-                                            <constraint firstAttribute="trailing" secondItem="WLD-vc-px3" secondAttribute="trailing" constant="25" id="U20-e8-rga"/>
-                                            <constraint firstItem="WLD-vc-px3" firstAttribute="leading" secondItem="SXW-U2-DXb" secondAttribute="leading" constant="25" id="agK-XK-vWR"/>
+                                            <constraint firstItem="MEJ-3K-d73" firstAttribute="centerY" secondItem="SXW-U2-DXb" secondAttribute="centerY" id="Gd0-Ou-d7c"/>
+                                            <constraint firstItem="MEJ-3K-d73" firstAttribute="centerX" secondItem="SXW-U2-DXb" secondAttribute="centerX" id="itD-EG-iNN"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0tQ-zp-cps" userLabel="footer">
