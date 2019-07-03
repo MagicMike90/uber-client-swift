@@ -58,6 +58,32 @@ class HomeViewController: UIViewController, Alertable {
         revealingSplashView.heartAttack = true
 
         currentUserId = Auth.auth().currentUser?.uid
+        
+        self.startObserveAvalibleDriver()
+    }
+    
+    func startObserveAvalibleDriver() {
+        UpdateService.instance.observeTrips { (tripDict) in
+            if let tripDict = tripDict {
+                let pickupCoordinateArray = tripDict[USER_PICKUP_COORDINATE] as! NSArray
+                let tripKey = tripDict[USER_PASSENGER_KEY] as! String
+                let acceptanceStatus = tripDict[TRIP_IS_ACCEPTED] as! Bool
+                
+                if acceptanceStatus == false {
+                    DataService.instance.driverIsAvailable(key: self.currentUserId!, handler: { (available) in
+                        if let available = available {
+                            if available == true {
+                                let storyboard = UIStoryboard(name: MAIN_STORYBOARD, bundle: Bundle.main)
+                                let pickupVC = storyboard.instantiateViewController(withIdentifier: VC_PICKUP) as? PickUpViewController
+                                pickupVC?.initData(coordinate: CLLocationCoordinate2D(latitude: pickupCoordinateArray[0] as! CLLocationDegrees, longitude: pickupCoordinateArray[1] as! CLLocationDegrees),
+                                                   passengerKey: tripKey)
+                                self.present(pickupVC!, animated: true, completion: nil)
+                            }
+                        }
+                    })
+                }
+            }
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -87,7 +113,6 @@ class HomeViewController: UIViewController, Alertable {
                                     guard let coordinateArray = driverDict["coordinate"] as? NSArray else {
                                         return;
                                     }
-//                                    let coordinateArray =  driverDict["coordinate"] as! NSArray
                                     let driverCoordinate =  CLLocationCoordinate2D(latitude: coordinateArray[0] as! CLLocationDegrees, longitude: coordinateArray[1] as! CLLocationDegrees)
 
                                     let annotation = DriverAnnotation(coordinate: driverCoordinate, withKey: driver.key)
@@ -134,7 +159,11 @@ class HomeViewController: UIViewController, Alertable {
     }
 
     @IBAction func actionButtonWasPressed(_ sender: Any) {
+        UpdateService.instance.updateTripsWithCoordinatesUponRequest()
         actionBtn.animateButton(shouldLoad: true, withMessage: nil)
+        
+        self.view.endEditing(true)
+        destinationTextField.isUserInteractionEnabled = false
     }
 
     @IBAction func menuBtnPressed(_ sender: Any) {
@@ -179,14 +208,14 @@ extension HomeViewController: MKMapViewDelegate {
         UpdateService.instance.updateUserLocation(withCoordinate: userLocation.coordinate)
         UpdateService.instance.updateDriverLocation(withCoordinate: userLocation.coordinate)
     }
+    
 
     // tell where to replace the image
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         var view: MKAnnotationView?
 
-        if let annotation =  annotation as? DriverAnnotation {
+        if let annotation = annotation as? DriverAnnotation {
             let identifier = "driver"
-
             view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             view?.image = UIImage(named: ANNO_DRIVER)
             return view
@@ -444,11 +473,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
             // draw the route line
             searchMapKitForResultsWithPolyline(forOriginMapItem: nil, withDestinationMapItem: selectedMapItem)
+        } else {
+             return self.showAlert(ERROR_MSG_NOT_LOGIN_ERROR)
         }
         
         shouldPresentLoadingView(false)
         animateTableView(shouldShow: false)
-        return self.showAlert(ERROR_MSG_NOT_LOGIN_ERROR)
     }
 
 

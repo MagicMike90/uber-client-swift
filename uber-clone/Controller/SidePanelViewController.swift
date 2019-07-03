@@ -13,7 +13,7 @@ class SidePanelViewController: UIViewController {
 
     let appDelegate = AppDelegate.getAppDelegate()
 
-    let currentUserId =  Auth.auth().currentUser?.uid
+    var currentUserId: String?
 
     @IBOutlet weak var userEmailLabel: UILabel!
     @IBOutlet weak var userAccountType: UILabel!
@@ -27,6 +27,7 @@ class SidePanelViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        currentUserId = Auth.auth().currentUser?.uid
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {

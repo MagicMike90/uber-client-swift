@@ -74,7 +74,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, Alertable {
 
         if self.segementedControl.selectedSegmentIndex == 0 {
             userData = ["provider": user.providerID] as [String: Any]
-
             DataService.instance.createFirebase(uid: user.uid, userData: userData, isDriver: false)
         } else {
             userData = ["provider": user.providerID, "userIsDriver": true, ACCOUNT_PICKUP_MODE_ENABLED: false, "drvierIsOnTrip": false] as [String: Any]
@@ -103,14 +102,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate, Alertable {
                         self?.showAlert(ERROR_MSG_UNEXPECTED_ERROR)
                         log.error("Unexpeced error")
                     }
-
-                    self?.authBtn.animateButton(shouldLoad: false, withMessage: MSG_SIGN_UP_SIGN_IN)
                 }
                 return
             }
 
             log.info("Email user authenicated successfully")
-            self?.dismiss(animated: true, completion: nil)
+            self?.dismiss(animated: true, completion: {
+                  self?.authBtn.animateButton(shouldLoad: false, withMessage: MSG_SIGN_UP_SIGN_IN)
+            })
+            
         }
     }
 
@@ -121,9 +121,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, Alertable {
         self.view.endEditing(true)
 
         self.signIn(email: email, password: password)
-//        print("Email user authenicated successfully")
-//        self.dismiss(animated: true, completion: nil)
-
     }
 }
 extension UIViewController {

@@ -51,11 +51,6 @@ import UIKit
                     spinner.startAnimating()
                     spinner.center = CGPoint(x: self.frame.width / 2, y: self.frame.width / 2)
                     spinner.fadeTo(alphaValue: 1.0, withDuration: RoundedShadowButton.ANIMATED_DURATION)
-
-                    print("after")
-                    print("originalSize \(self.originalSize!)")
-                    print("self.frame \(self.frame)")
-                    print("````````````````````")
                 }
             })
             self.isUserInteractionEnabled = false
