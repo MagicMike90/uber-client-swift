@@ -36,6 +36,43 @@ class HomeViewController: UIViewController, Alertable {
 
     var selectedItemPlacemark: MKPlacemark?
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        checkLocationAuthStatus()
+        
+        
+        if currentUserId != nil {
+            DataService.instance.userIsDriver(userKey: currentUserId!, handler: { (status) in
+                if status == true {
+                    DataService.instance.REF_TRIPS.observeSingleEvent(of: .value, with: { (tripSnapshot) in
+                        if let tripSnapshot = tripSnapshot.children.allObjects as? [DataSnapshot] {
+                            for trip in tripSnapshot {
+                                if trip.childSnapshot(forPath: DRIVER_KEY).value as? String == self.currentUserId! {
+                                    let pickupCoordinatesArray = trip.childSnapshot(forPath: USER_PICKUP_COORDINATE).value as! NSArray
+                                    let pickupCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: pickupCoordinatesArray[0] as! CLLocationDegrees, longitude: pickupCoordinatesArray[1] as! CLLocationDegrees)
+                                    let pickupPlacemark = MKPlacemark(coordinate: pickupCoordinate)
+                                    
+                                    self.dropPinFor(placemark: pickupPlacemark)
+                                    self.searchMapKitForResultsWithPolyline(forOriginMapItem: nil, withDestinationMapItem: MKMapItem(placemark: pickupPlacemark))
+                                    
+//                                    self.setCustomRegion(forAnnotationType: .pickup, withCoordinate: pickupCoordinate)
+                                    
+//                                    self.actionForButton = .getDirectionsToPassenger
+                                    self.actionBtn.setTitle(MSG_GET_DIRECTIONS, for: .normal)
+                                    
+//                                    self.buttonsForDriver(areHidden: false)
+                                }
+                            }
+                        }
+                    })
+                }
+            })
+        }
+        
+        
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -86,9 +123,6 @@ class HomeViewController: UIViewController, Alertable {
         }
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        checkLocationAuthStatus()
-    }
 
     func checkLocationAuthStatus() {
         if CLLocationManager.authorizationStatus() == .authorizedAlways || CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
@@ -121,7 +155,6 @@ class HomeViewController: UIViewController, Alertable {
                                         return self.mapView.annotations.contains(where: { (annotation) -> Bool in
                                             if let driverAnnotation = annotation as? DriverAnnotation {
                                                 if driverAnnotation.key == driver.key {
-                                                    print(driverCoordinate)
                                                     driverAnnotation.update(AnnotationPosition: driverAnnotation, withCoordinate: driverCoordinate)
                                                     return true
                                                 }

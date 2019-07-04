@@ -55,7 +55,7 @@ class SidePanelViewController: UIViewController {
         DataService.instance.REF_USERS.observeSingleEvent(of: .value) { (snapshot) in
             if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
                 for snap in snapshot {
-                    if snap.key  == Auth.auth().currentUser?.uid {
+                    if snap.key == Auth.auth().currentUser?.uid {
                         self.userAccountType.text = "PASSENGER"
                     }
                 }
@@ -65,7 +65,7 @@ class SidePanelViewController: UIViewController {
         DataService.instance.REF_DRIVERS.observeSingleEvent(of: .value) { (snapshot) in
             if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
                 for snap in snapshot {
-                    if snap.key  == Auth.auth().currentUser?.uid {
+                    if snap.key == Auth.auth().currentUser?.uid {
                         self.userAccountType.text = "DRIVER"
                         self.pickupModeSection.isHidden = false
 

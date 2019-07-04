@@ -57,21 +57,16 @@ class UpdateService {
     // update the trip coordinate
     func updateTripsWithCoordinatesUponRequest() {
         DataService.instance.REF_USERS.observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let userSnapshot = snapshot.children.allObjects  as? [DataSnapshot] else {
-                return
-            }
-            
-            for user in userSnapshot {
-                if user.key == Auth.auth().currentUser?.uid {
-                    if !user.hasChild(USER_IS_DRIVER) {
-                        if let userDict = user.value as? Dictionary<String, AnyObject> {
-                            let pickupArray = userDict[COORDINATE] as! NSArray
-                            let destinationArray = userDict[TRIP_COORDINATE] as! NSArray
-                            
-                            DataService.instance.REF_TRIPS.child(user.key).updateChildValues([USER_PICKUP_COORDINATE: [pickupArray[0], pickupArray[1]],
-                                                                                              USER_DESTINATION_COORDINATE: [destinationArray[0], destinationArray[1]],
-                                                                                              USER_PASSENGER_KEY: user.key,
-                                                                                              TRIP_IS_ACCEPTED: false])
+            if let userSnapshot = snapshot.children.allObjects as? [DataSnapshot] {
+                for user in userSnapshot {
+                    if user.key == Auth.auth().currentUser?.uid {
+                        if !user.hasChild(USER_IS_DRIVER) {
+                            if let userDict = user.value as? Dictionary<String, AnyObject> {
+                                let pickupArray = userDict[COORDINATE] as! NSArray
+                                let destinationArray = userDict[TRIP_COORDINATE] as! NSArray
+                                
+                                DataService.instance.REF_TRIPS.child(user.key).updateChildValues([USER_PICKUP_COORDINATE: [pickupArray[0], pickupArray[1]], USER_DESTINATION_COORDINATE: [destinationArray[0], destinationArray[1]], USER_PASSENGER_KEY: user.key, TRIP_IS_ACCEPTED: true])
+                            }
                         }
                     }
                 }
