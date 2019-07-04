@@ -39,6 +39,7 @@ class PickUpViewController: UIViewController {
                     self.dismiss(animated: true, completion: nil)
                 }
             } else {
+                // if the trip is no longer exist
                 self.dismiss(animated: true, completion: nil)
             }
         })
@@ -50,7 +51,7 @@ class PickUpViewController: UIViewController {
     }
     
     @IBAction func acceptTripBtnWasPressed(_ sender: Any) {
-//        UpdateService.instance.acceptTrip(withPassengerKey: passengerKey, forDriverKey: currentUserId!)
+        UpdateService.instance.acceptTrip(withPassengerKey: passengerKey, forDriverKey: currentUserId!)
         presentingViewController?.shouldPresentLoadingView(true)
     }
     
