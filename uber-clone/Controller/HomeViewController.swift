@@ -104,21 +104,24 @@ class HomeViewController: UIViewController, Alertable {
             if let tripDict = tripDict {
                 let pickupCoordinateArray = tripDict[USER_PICKUP_COORDINATE] as! NSArray
                 let tripKey = tripDict[USER_PASSENGER_KEY] as! String
-                let acceptanceStatus = tripDict[TRIP_IS_ACCEPTED] as! Bool
-                
-                if acceptanceStatus == false {
-                    DataService.instance.driverIsAvailable(key: self.currentUserId!, handler: { (available) in
-                        if let available = available {
-                            if available == true {
-                                let storyboard = UIStoryboard(name: MAIN_STORYBOARD, bundle: Bundle.main)
-                                let pickupVC = storyboard.instantiateViewController(withIdentifier: VC_PICKUP) as? PickUpViewController
-                                pickupVC?.initData(coordinate: CLLocationCoordinate2D(latitude: pickupCoordinateArray[0] as! CLLocationDegrees, longitude: pickupCoordinateArray[1] as! CLLocationDegrees),
-                                                   passengerKey: tripKey)
-                                self.present(pickupVC!, animated: true, completion: nil)
+                if let acceptanceStatus = tripDict[TRIP_IS_ACCEPTED] as? Bool {
+                    if acceptanceStatus == false {
+                        DataService.instance.driverIsAvailable(key: self.currentUserId!, handler: { (available) in
+                            if let available = available {
+                                if available == true {
+                                    let storyboard = UIStoryboard(name: MAIN_STORYBOARD, bundle: Bundle.main)
+                                    let pickupVC = storyboard.instantiateViewController(withIdentifier: VC_PICKUP) as? PickUpViewController
+                                    pickupVC?.initData(coordinate: CLLocationCoordinate2D(latitude: pickupCoordinateArray[0] as! CLLocationDegrees, longitude: pickupCoordinateArray[1] as! CLLocationDegrees),
+                                                       passengerKey: tripKey)
+                                    self.present(pickupVC!, animated: true, completion: nil)
+                                }
                             }
-                        }
-                    })
+                        })
+                    }
+                } else {
+                    print("acceptanceStatus error")
                 }
+               
             }
         }
     }
